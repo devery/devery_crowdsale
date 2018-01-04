@@ -1,0 +1,1042 @@
+MODE               = 'test'
+GETHATTACHPOINT    = 'ipc:./testchain/geth.ipc'
+PASSWORD           = 'testtest'
+SOURCEDIR          = '../contracts'
+WHITELISTSOL       = 'DeveryPresaleWhitelist.sol'
+WHITELISTJS        = 'DeveryPresaleWhitelist.js'
+PICOPSCERTIFIERSOL = 'TestPICOPSCertifier.sol'
+PICOPSCERTIFIERJS  = 'TestPICOPSCertifier.js'
+TOKENSOL           = 'DeveryPresale.sol'
+TOKENJS            = 'DeveryPresale.js'
+DEPLOYMENTDATA     = 'deploymentData.txt'
+INCLUDEJS          = './include.js'
+TEST1OUTPUT        = 'test1output.txt'
+TEST1RESULTS       = 'test1results.txt'
+CURRENTTIME        = '1513256816' 'Thu 14 Dec 2017 13:06:56 UTC'
+START_DATE         = '1513256861' 'Thu 14 Dec 2017 13:07:41 UTC'
+--- Differences ../contracts/DeveryPresaleWhitelist.sol DeveryPresaleWhitelist.sol ---
+
+--- Differences ../contracts/TestPICOPSCertifier.sol TestPICOPSCertifier.sol ---
+
+--- Differences ../contracts/DeveryPresale.sol DeveryPresale.sol ---
+192c192
+<     uint public constant START_DATE = 1513303200;
+---
+>     uint public constant START_DATE = 1513256861; // Thu 14 Dec 2017 13:07:41 UTC
+solc, the solidity compiler commandline interface
+Version: 0.4.18+commit.9cf6e910.Darwin.appleclang
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.7.3-stable-4bb3c89d/darwin-amd64/go1.9.2
+coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
+at block: 269 (Fri, 15 Dec 2017 00:06:53 AEDT)
+ datadir: /Users/bok/Projects/DeveryPresale/test/testchain
+ modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+> 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy Devery Whitelist Contract
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: whitelistAddress=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       21.028709850000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.028709850000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy Devery Whitelist Contract
+1
+> 
+RESULT: whitelistAddress=0x5b7fb35f3f70a189e940bce616b67d870f600d35 status=0x1 Success gas=6000000 gasUsed=574197 costETH=0.02870985 costUSD=13.0213524675 @ ETH/USD=453.55 gasPrice=50 gwei block=276 txIx=0 txId=0x79c0d2c18ba6b59b3fdf1a742f7fbae25d63fe637c538120d234252382fb74cc @ 1513256830 Thu, 14 Dec 2017 13:07:10 UTC
+undefined
+> 
+RESULT: whitelistContractAddress=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: whitelist.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: whitelist.newOwner=0x0000000000000000000000000000000000000000
+RESULT: whitelist.sealed=false
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Whitelist Accounts
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       27.033405400000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.033405400000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Whitelist Accounts - multiAdd([account3, account5, contractOwnerAccount], [1, 1, 1])
+1
+> 
+RESULT: whitelistAccounts_1Tx status=0x1 Success gas=100000 gasUsed=93911 costETH=0.00469555 costUSD=2.1296667025 @ ETH/USD=453.55 gasPrice=50 gwei block=278 txIx=0 txId=0xe036c9a0afe9bdddb6e1a5ed67ea02081b71bc8e6ed980d51b20ef04bce516e0 @ 1513256835 Thu, 14 Dec 2017 13:07:15 UTC
+undefined
+> 
+RESULT: whitelistContractAddress=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: whitelist.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: whitelist.newOwner=0x0000000000000000000000000000000000000000
+RESULT: whitelist.sealed=false
+RESULT: Whitelisted 0 #278 {"addr":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","max":"1"}
+RESULT: Whitelisted 1 #278 {"addr":"0xa55a151eb00fded1634d27d1127b4be4627079ea","max":"1"}
+RESULT: Whitelisted 2 #278 {"addr":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433","max":"1"}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy Test PICOPS Certifier Contract
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: picopsCertifierAddress=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       33.038968200000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.038968200000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy Test PICOPS Certifier Contract
+1
+> 
+RESULT: picopsCertifierAddress=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a status=0x1 Success gas=6000000 gasUsed=111256 costETH=0.0055628 costUSD=2.52300794 @ ETH/USD=453.55 gasPrice=50 gwei block=280 txIx=0 txId=0x12ec23705108cc7d449e46d30ef2ed929c393c50adf4c9e826026f6a9a66b00e @ 1513256847 Thu, 14 Dec 2017 13:07:27 UTC
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy Token Contract
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: tokenAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       39.120787750000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.120787750000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy Token Contract
+1
+> 
+RESULT: tokenAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df status=0x1 Success gas=6000000 gasUsed=1636391 costETH=0.08181955 costUSD=37.1092569025 @ ETH/USD=453.55 gasPrice=50 gwei block=282 txIx=0 txId=0xd8197c45e23e1baa0e2642ff5ddd4227c8c15e170de28a5199fdbeb7b3ccb714 @ 1513256854 Thu, 14 Dec 2017 13:07:34 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=0
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=20000000000000000000 20 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730000
+RESULT: token.ethCap=2.739726027397260273972e+21 2739.726027397260273972 ETH
+RESULT: token.contributedEth=0 0 ETH
+RESULT: token.contributedUsd=0
+RESULT: token.whitelist=0x0000000000000000000000000000000000000000
+RESULT: token.picopsCertifier=0x0000000000000000000000000000000000000000
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=false
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=false
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Set Token Contract Parameters
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.131109300000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.131109300000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Set Token Contract Parameters - token.setWallet(wallet)
+1
+> 
+RESULT: PASS Set Token Contract Parameters - token.setEthMinContribution(10 ETH)
+1
+> 
+RESULT: PASS Set Token Contract Parameters - token.setUsdCap(2,200,000)
+1
+> 
+RESULT: PASS Set Token Contract Parameters - token.setUsdPerKEther(444,444)
+1
+> 
+RESULT: PASS Set Token Contract Parameters - token.setWhitelist(whitelistAddress)
+1
+> 
+RESULT: PASS Set Token Contract Parameters - token.setPICOPSCertifier(picopsCertifierAddress)
+1
+> 
+RESULT: setTokenParameters_1Tx status=0x1 Success gas=100000 gasUsed=30487 costETH=0.00152435 costUSD=0.6913689425 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=0 txId=0x47c701487ce883cfac03e64b4995c7a976302b083e24880f30ac5fa783fa295e @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: setTokenParameters_2Tx status=0x1 Success gas=100000 gasUsed=28444 costETH=0.0014222 costUSD=0.64503881 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=1 txId=0x0c0e8e189d049a06dd83c0423b6f597f90448d7e94d1b7413ea79d8c3ef81f33 @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: setTokenParameters_3Tx status=0x1 Success gas=100000 gasUsed=28384 costETH=0.0014192 costUSD=0.64367816 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=2 txId=0x5f1abf98e3bce2746f3978b297cc35c73c3b9ea885eb569350186408213b2f25 @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: setTokenParameters_4Tx status=0x1 Success gas=100000 gasUsed=28934 costETH=0.0014467 costUSD=0.656150785 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=3 txId=0x3214510d695fb410d9c9099fef1ca1c045993cbcae128f56a1cf62bee4483be6 @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: setTokenParameters_5Tx status=0x1 Success gas=100000 gasUsed=45201 costETH=0.00226005 costUSD=1.0250456775 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=4 txId=0x805aee8df88d3a23252e431f55d33ecdbbedc681dec26d1d131d59b8c163d3ba @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: setTokenParameters_6Tx status=0x1 Success gas=100000 gasUsed=44981 costETH=0.00224905 costUSD=1.0200566275 @ ETH/USD=453.55 gasPrice=50 gwei block=284 txIx=5 txId=0x07e81fdc508bf5182bb9d4eaddb3ddb9753c8ef43f0e4e6605980d97a8217469 @ 1513256859 Thu, 14 Dec 2017 13:07:39 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=0
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedEth=0 0 ETH
+RESULT: token.contributedUsd=0
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: WalletUpdated 0 #284 {"newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","oldWallet":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
+RESULT: EthMinContributionUpdated 0 #284 {"newEthMinContribution":"10000000000000000000","oldEthMinContribution":"20000000000000000000"}
+RESULT: UsdCapUpdated 0 #284 {"newUsdCap":"2000000","oldUsdCap":"2000000"}
+RESULT: UsdPerKEtherUpdated 0 #284 {"newUsdPerKEther":"730111","oldUsdPerKEther":"730000"}
+RESULT: WhitelistUpdated 0 #284 {"newWhitelist":"0x5b7fb35f3f70a189e940bce616b67d870f600d35","oldWhitelist":"0x0000000000000000000000000000000000000000"}
+RESULT: PICOPSCertifierUpdated 0 #284 {"newPICOPSCertifier":"0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a","oldPICOPSCertifier":"0x0000000000000000000000000000000000000000"}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Test Contribution From Owner Account
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       51.136869650000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.146869650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.010000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.010000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Test Contribution From Owner Account - ac1 0.01 ETH
+1
+> 
+RESULT: sendContribution0_1Tx status=0x1 Success gas=400000 gasUsed=115207 costETH=0.00576035 costUSD=2.6126067425 @ ETH/USD=453.55 gasPrice=50 gwei block=286 txIx=0 txId=0x6b27916c5b8c5c91bd6d298618bf34018201aadbff54e53f36f11e60db1af4c3 @ 1513256874 Thu, 14 Dec 2017 13:07:54 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=0.01
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedEth=10000000000000000 0.01 ETH
+RESULT: token.contributedUsd=7
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: Contributed 0 #286 addr=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 ethAmount=10000000000000000 0.01 ETH ethRefund=0 0 ETH usdAmount=7 USD contributedEth=10000000000000000 0.01 ETH contributedUsd=7 USD
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+RESULT: Waiting until 'START_DATE' at 1513256861+0s =Fri, 15 Dec 2017 00:07:42 AEDT now=Fri, 15 Dec 2017 00:07:58 AEDT
+RESULT: Waited until 'START_DATE' at at 1513256861+0s =Fri, 15 Dec 2017 00:07:42 AEDT now=Fri, 15 Dec 2017 00:07:58 AEDT
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution #1
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       57.141510100000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.146869650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2000.010000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  2000.010000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution #1 - ac3 2,000 ETH
+1
+> 
+RESULT: PASS Send Contribution #1 - ac6 1,800 ETH - Expecting failure as not whitelisted
+1
+> 
+RESULT: sendContribution1_1Tx status=0x1 Success gas=400000 gasUsed=70071 costETH=0.00350355 costUSD=1.5890351025 @ ETH/USD=453.55 gasPrice=50 gwei block=288 txIx=0 txId=0x52898c777ff2e6a13dca69ff2904512f59b3e8397acc0881585079847c762af4 @ 1513256883 Thu, 14 Dec 2017 13:08:03 UTC
+undefined
+> 
+RESULT: sendContribution1_2Tx status=0x0 Failure gas=400000 gasUsed=22738 costETH=0.0011369 costUSD=0.515640995 @ ETH/USD=453.55 gasPrice=50 gwei block=288 txIx=1 txId=0x5d5d4f7fb16ec02f809747f4de731a152fd16c2ca87768330c566add8b9b7bb5 @ 1513256883 Thu, 14 Dec 2017 13:08:03 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=2000.01
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedEth=2.00001e+21 2000.01 ETH
+RESULT: token.contributedUsd=1460229
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: Contributed 0 #288 addr=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethAmount=2e+21 2000 ETH ethRefund=0 0 ETH usdAmount=1460222 USD contributedEth=2.00001e+21 2000.01 ETH contributedUsd=1460229 USD
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution #2
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       63.145406500000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.146869650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2739.309502253766892979           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -739.303398653766892979         739.299502253766892979 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  2739.309502253766892979 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution #2 - ac4 2,000 ETH - Only partial amount accepted
+1
+> 
+RESULT: sendContribution2_1Tx status=0x1 Success gas=400000 gasUsed=77928 costETH=0.0038964 costUSD=1.76721222 @ ETH/USD=453.55 gasPrice=50 gwei block=290 txIx=0 txId=0xcc85b583cdd09316e724b07e1f776fedd8db0cd86d7fd94c954ada3b2f406b05 @ 1513256901 Thu, 14 Dec 2017 13:08:21 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=2739.309502253766892979
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedEth=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedUsd=1999999
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: Contributed 0 #290 addr=0xa44a08d3f6933c69212114bb66e2df1813651844 ethAmount=739299502253766892979 739.299502253766892979 ETH ethRefund=1.260700497746233107021e+21 1260.700497746233107021 ETH usdAmount=539770 USD contributedEth=2.739309502253766892979e+21 2739.309502253766892979 ETH contributedUsd=1999999 USD
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution #3
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       72.146559150000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.146869650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2739.309502253766892979           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -739.303398653766892979         739.299502253766892979 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.001152650000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  2739.309502253766892979 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution #3 - ac5 2,000 ETH - Expecting failure
+1
+> 
+RESULT: sendContribution3_1Tx status=0x0 Failure gas=400000 gasUsed=23053 costETH=0.00115265 costUSD=0.5227844075 @ ETH/USD=453.55 gasPrice=50 gwei block=293 txIx=0 txId=0x70912ea8432322f162d88e4f9b6615eb0980408838f7df5625cce6b0f5d56dd8 @ 1513256906 Thu, 14 Dec 2017 13:08:26 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=2739.309502253766892979
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=2000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedEth=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedUsd=1999999
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Increase Cap
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       78.147975150000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.148285650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2739.309502253766892979           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -739.303398653766892979         739.299502253766892979 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.001152650000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  2739.309502253766892979 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Increase Cap
+1
+> 
+RESULT: increaseCapTx status=0x1 Success gas=100000 gasUsed=28320 costETH=0.001416 costUSD=0.6422268 @ ETH/USD=453.55 gasPrice=50 gwei block=295 txIx=0 txId=0xd586a3d1deacd6d12d29c0a5007a8166d15e0e6e2e65219fcc5aaec40904544b @ 1513256910 Thu, 14 Dec 2017 13:08:30 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=2739.309502253766892979
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=4000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: token.contributedEth=2.739309502253766892979e+21 2739.309502253766892979 ETH
+RESULT: token.contributedUsd=1999999
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: UsdCapUpdated 0 #295 {"newUsdCap":"4000000","oldUsdCap":"2000000"}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution #4
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       84.151842250000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.148285650000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     5478.619004507533785958           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -739.303398653766892979         739.299502253766892979 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea    -2739.314522003766892979        2739.309502253766892979 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  5478.619004507533785958 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution #4 - ac5 2,000 ETH - Expecting failure
+1
+> 
+RESULT: sendContribution4_1Tx status=0x1 Success gas=400000 gasUsed=77342 costETH=0.0038671 costUSD=1.753923205 @ ETH/USD=453.55 gasPrice=50 gwei block=297 txIx=0 txId=0x69cc8c7229a309f570ddab7155821c79c3bb7d984705f424880056c0cc8da8aa @ 1513256923 Thu, 14 Dec 2017 13:08:43 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=5478.619004507533785958
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=false
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=4000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: token.contributedEth=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: token.contributedUsd=3999998
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: Contributed 0 #297 addr=0xa55a151eb00fded1634d27d1127b4be4627079ea ethAmount=2.739309502253766892979e+21 2739.309502253766892979 ETH ethRefund=1.260690497746233107021e+21 1260.690497746233107021 ETH usdAmount=1999999 USD contributedEth=5.478619004507533785958e+21 5478.619004507533785958 ETH contributedUsd=3999998 USD
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Close Sale
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       99.152767100000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149210500000000000           0.010000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     5478.619004507533785958           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -2000.003503550000000000        2000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -739.303398653766892979         739.299502253766892979 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea    -2739.314522003766892979        2739.309502253766892979 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.001136900000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x5b7fb35f3f70a189e940bce616b67d870f600d35        0.000000000000000000           0.000000000000000000 Devery Whitelist
+RESULT: 13 0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a        0.000000000000000000           0.000000000000000000 Test PICOPS Certifier
+RESULT: 14 0xccb009d3bba85aa99f0b1b47bd47e489c28501df        0.000000000000000000           0.000000000000000000 Token 'PREVE' 'Presale EVE Tokens'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                  5478.619004507533785958 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Close Sale
+1
+> 
+RESULT: closeTx status=0x1 Success gas=100000 gasUsed=18497 costETH=0.00092485 costUSD=0.4194657175 @ ETH/USD=453.55 gasPrice=50 gwei block=302 txIx=0 txId=0x26bb308cf222a566e725dc750bac1e19cb19c3a9e5bba1c21bfad8563719388c @ 1513256946 Thu, 14 Dec 2017 13:09:06 UTC
+undefined
+> 
+RESULT: tokenContractAddress=0xccb009d3bba85aa99f0b1b47bd47e489c28501df
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=PREVE
+RESULT: token.name=Presale EVE Tokens
+RESULT: token.decimals=18
+RESULT: token.totalSupply=5478.619004507533785958
+RESULT: token.transferable=false
+RESULT: token.mintable=false
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.START_DATE=1513256861 Thu, 14 Dec 2017 13:07:41 UTC
+RESULT: token.closed=true
+RESULT: token.ethMinContribution=10000000000000000000 10 ETH
+RESULT: token.usdCap=4000000
+RESULT: token.usdPerKEther=730111
+RESULT: token.ethCap=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: token.contributedEth=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: token.contributedUsd=3999998
+RESULT: token.whitelist=0x5b7fb35f3f70a189e940bce616b67d870f600d35
+RESULT: token.picopsCertifier=0xccbeb19a92cf58e2a0f957013b54c1aee9681c2a
+RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
+RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
+RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
+RESULT: MintingDisabled 0 #302 {}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
