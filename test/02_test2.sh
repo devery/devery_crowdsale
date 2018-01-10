@@ -12,6 +12,11 @@ PASSWORD=`grep ^PASSWORD= settings.txt | sed "s/^.*=//"`
 
 SOURCEDIR=`grep ^SOURCEDIR= settings.txt | sed "s/^.*=//"`
 
+TOKENFACTORYSOL=`grep ^TOKENFACTORYSOL= settings.txt | sed "s/^.*=//"`
+TOKENFACTORYJS=`grep ^TOKENFACTORYJS= settings.txt | sed "s/^.*=//"`
+CROWDSALESOL=`grep ^CROWDSALESOL= settings.txt | sed "s/^.*=//"`
+CROWDSALEJS=`grep ^CROWDSALEJS= settings.txt | sed "s/^.*=//"`
+
 PRESALEWHITELISTSOL=`grep ^PRESALEWHITELISTSOL= settings.txt | sed "s/^.*=//"`
 PRESALEWHITELISTJS=`grep ^PRESALEWHITELISTJS= settings.txt | sed "s/^.*=//"`
 PICOPSCERTIFIERSOL=`grep ^PICOPSCERTIFIERSOL= settings.txt | sed "s/^.*=//"`
@@ -35,6 +40,10 @@ printf "MODE                  = '$MODE'\n" | tee $TEST1OUTPUT
 printf "GETHATTACHPOINT       = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
 printf "PASSWORD              = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
 printf "SOURCEDIR             = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
+printf "TOKENFACTORYSOL       = '$TOKENFACTORYSOL'\n" | tee -a $TEST1OUTPUT
+printf "TOKENFACTORYJS        = '$TOKENFACTORYJS'\n" | tee -a $TEST1OUTPUT
+printf "CROWDSALESOL          = '$CROWDSALESOL'\n" | tee -a $TEST1OUTPUT
+printf "CROWDSALEJS           = '$CROWDSALEJS'\n" | tee -a $TEST1OUTPUT
 printf "PRESALEWHITELISTSOL   = '$PRESALEWHITELISTSOL'\n" | tee -a $TEST1OUTPUT
 printf "PRESALEWHITELISTJS    = '$PRESALEWHITELISTJS'\n" | tee -a $TEST1OUTPUT
 printf "PICOPSCERTIFIERSOL    = '$PICOPSCERTIFIERSOL'\n" | tee -a $TEST1OUTPUT
@@ -50,37 +59,42 @@ printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1
 
 # Make copy of SOL file and modify start and end times ---
 # `cp modifiedContracts/SnipCoin.sol .`
-`cp $SOURCEDIR/$PRESALEWHITELISTSOL .`
-`cp $SOURCEDIR/$PICOPSCERTIFIERSOL .`
-`cp $SOURCEDIR/$PRESALETOKENSOL .`
+`cp $SOURCEDIR/$TOKENFACTORYSOL .`
+`cp $SOURCEDIR/$CROWDSALESOL .`
+# `cp $SOURCEDIR/$PRESALEWHITELISTSOL .`
+# `cp $SOURCEDIR/$PICOPSCERTIFIERSOL .`
+# `cp $SOURCEDIR/$PRESALETOKENSOL .`
 
 # --- Modify parameters ---
-`perl -pi -e "s/START_DATE \= 1513303200;.*$/START_DATE \= $START_DATE; \/\/ $START_DATE_S/" $PRESALETOKENSOL`
+# `perl -pi -e "s/START_DATE \= 1513303200;.*$/START_DATE \= $START_DATE; \/\/ $START_DATE_S/" $PRESALETOKENSOL`
 
-DIFFS1=`diff $SOURCEDIR/$PRESALEWHITELISTSOL $PRESALEWHITELISTSOL`
-echo "--- Differences $SOURCEDIR/$PRESALEWHITELISTSOL $PRESALEWHITELISTSOL ---" | tee -a $TEST1OUTPUT
-echo "$DIFFS1" | tee -a $TEST1OUTPUT
-
-DIFFS1=`diff $SOURCEDIR/$PICOPSCERTIFIERSOL $PICOPSCERTIFIERSOL`
-echo "--- Differences $SOURCEDIR/$PICOPSCERTIFIERSOL $PICOPSCERTIFIERSOL ---" | tee -a $TEST1OUTPUT
-echo "$DIFFS1" | tee -a $TEST1OUTPUT
-
-DIFFS1=`diff $SOURCEDIR/$PRESALETOKENSOL $PRESALETOKENSOL`
-echo "--- Differences $SOURCEDIR/$PRESALETOKENSOL $PRESALETOKENSOL ---" | tee -a $TEST1OUTPUT
+DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
+echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST1OUTPUT
 echo "$DIFFS1" | tee -a $TEST1OUTPUT
 
 solc_0.4.18 --version | tee -a $TEST1OUTPUT
 
-echo "var whitelistOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALEWHITELISTSOL`;" > $PRESALEWHITELISTJS
-echo "var picopsCertifierOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PICOPSCERTIFIERSOL`;" > $PICOPSCERTIFIERJS
-echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALETOKENSOL`;" > $PRESALETOKENJS
-
+echo "var tokenFactoryOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $TOKENFACTORYSOL`;" > $TOKENFACTORYJS
+echo "var crowdsaleOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $CROWDSALESOL`;" > $CROWDSALEJS
+# echo "var whitelistOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALEWHITELISTSOL`;" > $PRESALEWHITELISTJS
+# echo "var picopsCertifierOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PICOPSCERTIFIERSOL`;" > $PICOPSCERTIFIERJS
+# echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALETOKENSOL`;" > $PRESALETOKENJS
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
+loadScript("$TOKENFACTORYJS");
+loadScript("$CROWDSALEJS");
 loadScript("$PRESALEWHITELISTJS");
 loadScript("$PICOPSCERTIFIERJS");
 loadScript("$PRESALETOKENJS");
-loadScript("presaleFunctions.js");
+loadScript("functions.js");
+
+var tokenFactoryLibBTTSAbi = JSON.parse(tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSLib"].abi);
+var tokenFactoryLibBTTSBin = "0x" + tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSLib"].bin;
+var tokenFactoryAbi = JSON.parse(tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSTokenFactory"].abi);
+var tokenFactoryBin = "0x" + tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSTokenFactory"].bin;
+var tokenAbi = JSON.parse(tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSToken"].abi);
+var crowdsaleAbi = JSON.parse(crowdsaleOutput.contracts["$CROWDSALESOL:DeveryCrowdsale"].abi);
+var crowdsaleBin = "0x" + crowdsaleOutput.contracts["$CROWDSALESOL:DeveryCrowdsale"].bin;
 
 var whitelistAbi = JSON.parse(whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].abi);
 var whitelistBin = "0x" + whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].bin;
@@ -89,17 +103,123 @@ var picopsCertifierBin = "0x" + picopsCertifierOutput.contracts["$PICOPSCERTIFIE
 var tokenAbi = JSON.parse(tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].abi);
 var tokenBin = "0x" + tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].bin;
 
-console.log("DATA: whitelistAbi=" + JSON.stringify(whitelistAbi));
-console.log("DATA: whitelistBin=" + JSON.stringify(whitelistBin));
-console.log("DATA: picopsCertifierAbi=" + JSON.stringify(picopsCertifierAbi));
-console.log("DATA: picopsCertifierBin=" + JSON.stringify(picopsCertifierBin));
+console.log("DATA: tokenFactoryLibBTTSAbi=" + JSON.stringify(tokenFactoryLibBTTSAbi));
+console.log("DATA: tokenFactoryLibBTTSBin=" + JSON.stringify(tokenFactoryLibBTTSBin));
+console.log("DATA: tokenFactoryAbi=" + JSON.stringify(tokenFactoryAbi));
+console.log("DATA: tokenFactoryBin=" + JSON.stringify(tokenFactoryBin));
 console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
+console.log("DATA: crowdsaleAbi=" + JSON.stringify(crowdsaleAbi));
+console.log("DATA: crowdsaleBin=" + JSON.stringify(crowdsaleBin));
+
+// console.log("DATA: whitelistAbi=" + JSON.stringify(whitelistAbi));
+// console.log("DATA: whitelistBin=" + JSON.stringify(whitelistBin));
+// console.log("DATA: picopsCertifierAbi=" + JSON.stringify(picopsCertifierAbi));
+// console.log("DATA: picopsCertifierBin=" + JSON.stringify(picopsCertifierBin));
+// console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
+// console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
 
 
 unlockAccounts("$PASSWORD");
 printBalances();
 console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var deployLibBTTSMessage = "Deploy BTTS Library";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + deployLibBTTSMessage);
+var tokenFactoryLibBTTSContract = web3.eth.contract(tokenFactoryLibBTTSAbi);
+// console.log(JSON.stringify(tokenFactoryLibBTTSContract));
+var tokenFactoryLibBTTSTx = null;
+var tokenFactoryLibBTTSAddress = null;
+var tokenFactoryLibBTTS = tokenFactoryLibBTTSContract.new({from: contractOwnerAccount, data: tokenFactoryLibBTTSBin, gas: 6000000, gasPrice: defaultGasPrice},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        tokenFactoryLibBTTSTx = contract.transactionHash;
+      } else {
+        tokenFactoryLibBTTSAddress = contract.address;
+        addAccount(tokenFactoryLibBTTSAddress, "BTTS Library");
+        console.log("DATA: tokenFactoryLibBTTSAddress=" + tokenFactoryLibBTTSAddress);
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(tokenFactoryLibBTTSTx, deployLibBTTSMessage);
+printTxData("tokenFactoryLibBTTSTx", tokenFactoryLibBTTSTx);
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var deployTokenFactoryMessage = "Deploy BTTSTokenFactory";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + deployTokenFactoryMessage);
+// console.log("RESULT: tokenFactoryBin='" + tokenFactoryBin + "'");
+var newTokenFactoryBin = tokenFactoryBin.replace(/__BTTSTokenFactory\.sol\:BTTSLib__________/g, tokenFactoryLibBTTSAddress.substring(2, 42));
+// console.log("RESULT: newTokenFactoryBin='" + newTokenFactoryBin + "'");
+var tokenFactoryContract = web3.eth.contract(tokenFactoryAbi);
+// console.log(JSON.stringify(tokenFactoryAbi));
+// console.log(tokenFactoryBin);
+var tokenFactoryTx = null;
+var tokenFactoryAddress = null;
+var tokenFactory = tokenFactoryContract.new({from: contractOwnerAccount, data: newTokenFactoryBin, gas: 6000000, gasPrice: defaultGasPrice},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        tokenFactoryTx = contract.transactionHash;
+      } else {
+        tokenFactoryAddress = contract.address;
+        addAccount(tokenFactoryAddress, "BTTSTokenFactory");
+        addTokenFactoryContractAddressAndAbi(tokenFactoryAddress, tokenFactoryAbi);
+        console.log("DATA: tokenFactoryAddress=" + tokenFactoryAddress);
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(tokenFactoryTx, deployTokenFactoryMessage);
+printTxData("tokenFactoryTx", tokenFactoryTx);
+printTokenFactoryContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var tokenMessage = "Deploy Token Contract";
+var symbol = "GZE";
+var name = "GazeCoin";
+var decimals = 18;
+var initialSupply = 0;
+var mintable = true;
+var transferable = false;
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + tokenMessage);
+var tokenContract = web3.eth.contract(tokenAbi);
+// console.log(JSON.stringify(tokenContract));
+var deployTokenTx = tokenFactory.deployBTTSTokenContract(symbol, name, decimals, initialSupply, mintable, transferable, {from: contractOwnerAccount, gas: 4000000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+var bttsTokens = getBTTSFactoryTokenListing();
+console.log("RESULT: bttsTokens=#" + bttsTokens.length + " " + JSON.stringify(bttsTokens));
+// Can check, but the rest will not work anyway - if (bttsTokens.length == 1)
+var tokenAddress = bttsTokens[0];
+var token = web3.eth.contract(tokenAbi).at(tokenAddress);
+// console.log("RESULT: token=" + JSON.stringify(token));
+addAccount(tokenAddress, "Token '" + token.symbol() + "' '" + token.name() + "'");
+addTokenContractAddressAndAbi(tokenAddress, tokenAbi);
+printBalances();
+printTxData("deployTokenTx", deployTokenTx);
+printTokenFactoryContractDetails();
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+exit;
 
 
 // -----------------------------------------------------------------------------
