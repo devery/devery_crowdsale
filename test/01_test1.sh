@@ -12,14 +12,14 @@ PASSWORD=`grep ^PASSWORD= settings.txt | sed "s/^.*=//"`
 
 SOURCEDIR=`grep ^SOURCEDIR= settings.txt | sed "s/^.*=//"`
 
-WHITELISTSOL=`grep ^WHITELISTSOL= settings.txt | sed "s/^.*=//"`
-WHITELISTJS=`grep ^WHITELISTJS= settings.txt | sed "s/^.*=//"`
+PRESALEWHITELISTSOL=`grep ^PRESALEWHITELISTSOL= settings.txt | sed "s/^.*=//"`
+PRESALEWHITELISTJS=`grep ^PRESALEWHITELISTJS= settings.txt | sed "s/^.*=//"`
 PICOPSCERTIFIERSOL=`grep ^PICOPSCERTIFIERSOL= settings.txt | sed "s/^.*=//"`
 PICOPSCERTIFIERJS=`grep ^PICOPSCERTIFIERJS= settings.txt | sed "s/^.*=//"`
-TOKENSOL=`grep ^TOKENSOL= settings.txt | sed "s/^.*=//"`
-TOKENJS=`grep ^TOKENJS= settings.txt | sed "s/^.*=//"`
+PRESALETOKENSOL=`grep ^PRESALETOKENSOL= settings.txt | sed "s/^.*=//"`
+PRESALETOKENJS=`grep ^PRESALETOKENJS= settings.txt | sed "s/^.*=//"`
 
-DEPLOYMENTDATA=`grep ^DEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
+PRESALEDEPLOYMENTDATA=`grep ^PRESALEDEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
 
 INCLUDEJS=`grep ^INCLUDEJS= settings.txt | sed "s/^.*=//"`
 TEST1OUTPUT=`grep ^TEST1OUTPUT= settings.txt | sed "s/^.*=//"`
@@ -31,70 +31,70 @@ CURRENTTIMES=`date -r $CURRENTTIME -u`
 START_DATE=`echo "$CURRENTTIME+45" | bc`
 START_DATE_S=`date -r $START_DATE -u`
 
-printf "MODE               = '$MODE'\n" | tee $TEST1OUTPUT
-printf "GETHATTACHPOINT    = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
-printf "PASSWORD           = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
-printf "SOURCEDIR          = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
-printf "WHITELISTSOL       = '$WHITELISTSOL'\n" | tee -a $TEST1OUTPUT
-printf "WHITELISTJS        = '$WHITELISTJS'\n" | tee -a $TEST1OUTPUT
-printf "PICOPSCERTIFIERSOL = '$PICOPSCERTIFIERSOL'\n" | tee -a $TEST1OUTPUT
-printf "PICOPSCERTIFIERJS  = '$PICOPSCERTIFIERJS'\n" | tee -a $TEST1OUTPUT
-printf "TOKENSOL           = '$TOKENSOL'\n" | tee -a $TEST1OUTPUT
-printf "TOKENJS            = '$TOKENJS'\n" | tee -a $TEST1OUTPUT
-printf "DEPLOYMENTDATA     = '$DEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
-printf "INCLUDEJS          = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
-printf "TEST1OUTPUT        = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
-printf "TEST1RESULTS       = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
-printf "CURRENTTIME        = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
-printf "START_DATE         = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1OUTPUT
+printf "MODE                  = '$MODE'\n" | tee $TEST1OUTPUT
+printf "GETHATTACHPOINT       = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
+printf "PASSWORD              = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
+printf "SOURCEDIR             = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
+printf "PRESALEWHITELISTSOL   = '$PRESALEWHITELISTSOL'\n" | tee -a $TEST1OUTPUT
+printf "PRESALEWHITELISTJS    = '$PRESALEWHITELISTJS'\n" | tee -a $TEST1OUTPUT
+printf "PICOPSCERTIFIERSOL    = '$PICOPSCERTIFIERSOL'\n" | tee -a $TEST1OUTPUT
+printf "PICOPSCERTIFIERJS     = '$PICOPSCERTIFIERJS'\n" | tee -a $TEST1OUTPUT
+printf "PRESALETOKENSOL       = '$PRESALETOKENSOL'\n" | tee -a $TEST1OUTPUT
+printf "PRESALETOKENJS        = '$PRESALETOKENJS'\n" | tee -a $TEST1OUTPUT
+printf "PRESALEDEPLOYMENTDATA = '$PRESALEDEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
+printf "INCLUDEJS             = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
+printf "TEST1OUTPUT           = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
+printf "TEST1RESULTS          = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
+printf "CURRENTTIME           = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
+printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1OUTPUT
 
 # Make copy of SOL file and modify start and end times ---
 # `cp modifiedContracts/SnipCoin.sol .`
-`cp $SOURCEDIR/$WHITELISTSOL .`
+`cp $SOURCEDIR/$PRESALEWHITELISTSOL .`
 `cp $SOURCEDIR/$PICOPSCERTIFIERSOL .`
-`cp $SOURCEDIR/$TOKENSOL .`
+`cp $SOURCEDIR/$PRESALETOKENSOL .`
 
 # --- Modify parameters ---
-`perl -pi -e "s/START_DATE \= 1513303200;.*$/START_DATE \= $START_DATE; \/\/ $START_DATE_S/" $TOKENSOL`
+`perl -pi -e "s/START_DATE \= 1513303200;.*$/START_DATE \= $START_DATE; \/\/ $START_DATE_S/" $PRESALETOKENSOL`
 
-DIFFS1=`diff $SOURCEDIR/$WHITELISTSOL $WHITELISTSOL`
-echo "--- Differences $SOURCEDIR/$WHITELISTSOL $WHITELISTSOL ---" | tee -a $TEST1OUTPUT
+DIFFS1=`diff $SOURCEDIR/$PRESALEWHITELISTSOL $PRESALEWHITELISTSOL`
+echo "--- Differences $SOURCEDIR/$PRESALEWHITELISTSOL $PRESALEWHITELISTSOL ---" | tee -a $TEST1OUTPUT
 echo "$DIFFS1" | tee -a $TEST1OUTPUT
 
 DIFFS1=`diff $SOURCEDIR/$PICOPSCERTIFIERSOL $PICOPSCERTIFIERSOL`
 echo "--- Differences $SOURCEDIR/$PICOPSCERTIFIERSOL $PICOPSCERTIFIERSOL ---" | tee -a $TEST1OUTPUT
 echo "$DIFFS1" | tee -a $TEST1OUTPUT
 
-DIFFS1=`diff $SOURCEDIR/$TOKENSOL $TOKENSOL`
-echo "--- Differences $SOURCEDIR/$TOKENSOL $TOKENSOL ---" | tee -a $TEST1OUTPUT
+DIFFS1=`diff $SOURCEDIR/$PRESALETOKENSOL $PRESALETOKENSOL`
+echo "--- Differences $SOURCEDIR/$PRESALETOKENSOL $PRESALETOKENSOL ---" | tee -a $TEST1OUTPUT
 echo "$DIFFS1" | tee -a $TEST1OUTPUT
 
 solc_0.4.18 --version | tee -a $TEST1OUTPUT
 
-echo "var whitelistOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $WHITELISTSOL`;" > $WHITELISTJS
+echo "var whitelistOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALEWHITELISTSOL`;" > $PRESALEWHITELISTJS
 echo "var picopsCertifierOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PICOPSCERTIFIERSOL`;" > $PICOPSCERTIFIERJS
-echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $TOKENSOL`;" > $TOKENJS
+echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALETOKENSOL`;" > $PRESALETOKENJS
 
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
-loadScript("$WHITELISTJS");
+loadScript("$PRESALEWHITELISTJS");
 loadScript("$PICOPSCERTIFIERJS");
-loadScript("$TOKENJS");
-loadScript("functions.js");
+loadScript("$PRESALETOKENJS");
+loadScript("presaleFunctions.js");
 
-var whitelistAbi = JSON.parse(whitelistOutput.contracts["$WHITELISTSOL:DeveryPresaleWhitelist"].abi);
-var whitelistBin = "0x" + whitelistOutput.contracts["$WHITELISTSOL:DeveryPresaleWhitelist"].bin;
+var whitelistAbi = JSON.parse(whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].abi);
+var whitelistBin = "0x" + whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].bin;
 var picopsCertifierAbi = JSON.parse(picopsCertifierOutput.contracts["$PICOPSCERTIFIERSOL:TestPICOPSCertifier"].abi);
 var picopsCertifierBin = "0x" + picopsCertifierOutput.contracts["$PICOPSCERTIFIERSOL:TestPICOPSCertifier"].bin;
-var tokenAbi = JSON.parse(tokenOutput.contracts["$TOKENSOL:DeveryPresale"].abi);
-var tokenBin = "0x" + tokenOutput.contracts["$TOKENSOL:DeveryPresale"].bin;
+var tokenAbi = JSON.parse(tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].abi);
+var tokenBin = "0x" + tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].bin;
 
-// console.log("DATA: whitelistAbi=" + JSON.stringify(whitelistAbi));
-// console.log("DATA: whitelistBin=" + JSON.stringify(whitelistBin));
-// console.log("DATA: picopsCertifierAbi=" + JSON.stringify(picopsCertifierAbi));
-// console.log("DATA: picopsCertifierBin=" + JSON.stringify(picopsCertifierBin));
-// console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-// console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
+console.log("DATA: whitelistAbi=" + JSON.stringify(whitelistAbi));
+console.log("DATA: whitelistBin=" + JSON.stringify(whitelistBin));
+console.log("DATA: picopsCertifierAbi=" + JSON.stringify(picopsCertifierAbi));
+console.log("DATA: picopsCertifierBin=" + JSON.stringify(picopsCertifierBin));
+console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
+console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
 
 
 unlockAccounts("$PASSWORD");
@@ -387,7 +387,7 @@ console.log("RESULT: ");
 
 
 EOF
-grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
-cat $DEPLOYMENTDATA
+grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $PRESALEDEPLOYMENTDATA
+cat $PRESALEDEPLOYMENTDATA
 grep "RESULT: " $TEST1OUTPUT | sed "s/RESULT: //" > $TEST1RESULTS
 cat $TEST1RESULTS

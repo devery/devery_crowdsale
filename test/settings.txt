@@ -3,14 +3,15 @@ PASSWORD=testtest
 
 SOURCEDIR=../contracts
 
-WHITELISTSOL=DeveryPresaleWhitelist.sol
-WHITELISTJS=DeveryPresaleWhitelist.js
+PRESALEWHITELISTSOL=DeveryPresaleWhitelist.sol
+PRESALEWHITELISTJS=DeveryPresaleWhitelist.js
 PICOPSCERTIFIERSOL=TestPICOPSCertifier.sol
 PICOPSCERTIFIERJS=TestPICOPSCertifier.js
-TOKENSOL=DeveryPresale.sol
-TOKENJS=DeveryPresale.js
+PRESALETOKENSOL=DeveryPresale.sol
+PRESALETOKENJS=DeveryPresale.js
 
 DEPLOYMENTDATA=deploymentData.txt
+PRESALEDEPLOYMENTDATA=presaleDeploymentData.txt
 
 INCLUDEJS=./include.js
 TEST1OUTPUT=test1output.txt
