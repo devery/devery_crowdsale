@@ -97,22 +97,30 @@ contract BTTSTokenInterface is ERC20Interface {
 
 
 // ----------------------------------------------------------------------------
+// Parity PICOPS Whitelist Interface
+// ----------------------------------------------------------------------------
+contract PICOPSCertifier {
+    function certified(address) public constant returns (bool);
+}
+
+
+// ----------------------------------------------------------------------------
 // Safe maths
 // ----------------------------------------------------------------------------
-contract SafeMath {
-    function safeAdd(uint a, uint b) internal pure returns (uint c) {
+library SafeMath {
+    function add(uint a, uint b) internal pure returns (uint c) {
         c = a + b;
         require(c >= a);
     }
-    function safeSub(uint a, uint b) internal pure returns (uint c) {
+    function sub(uint a, uint b) internal pure returns (uint c) {
         require(b <= a);
         c = a - b;
     }
-    function safeMul(uint a, uint b) internal pure returns (uint c) {
+    function mul(uint a, uint b) internal pure returns (uint c) {
         c = a * b;
         require(a == 0 || c / a == b);
     }
-    function safeDiv(uint a, uint b) internal pure returns (uint c) {
+    function div(uint a, uint b) internal pure returns (uint c) {
         require(b > 0);
         c = a / b;
     }
@@ -149,65 +157,139 @@ contract Owned {
 
 
 // ----------------------------------------------------------------------------
+// Devery Vesting Contract
+// ----------------------------------------------------------------------------
+contract DeveryVesting {
+    using SafeMath for uint;
+
+    // ERC20Interface public token;
+    DeveryCrowdsale public crowdsale;
+    uint public totalProportion;
+    uint public totalTokens;
+    uint public constant PERIOD_LENGTH = 30 days;
+    uint public startDate;
+
+    struct Entry {
+        uint proportion;
+        uint periods;
+        uint withdrawn;
+    }
+    mapping (address => Entry) public entries;
+
+    event NewEntry(address indexed holder, uint proportion, uint periods);
+
+    function DeveryVesting(address _crowdsale) public {
+        crowdsale = DeveryCrowdsale(_crowdsale);
+    }
+
+    function addEntry(address holder, uint256 proportion, uint256 periods) public {
+        require(msg.sender == crowdsale.owner());
+        require(holder != address(0));
+        require(proportion > 0);
+        require(periods > 0);
+        require(entries[holder].proportion == 0);
+        entries[holder] = Entry({
+            proportion: proportion,
+            periods: periods,
+            withdrawn: 0
+        });
+        totalProportion = totalProportion.add(proportion);
+        NewEntry(holder, proportion, periods);
+    }
+
+    function vested(address holder, uint time) public constant returns (uint) {
+        if (startDate == 0 || time <= startDate) {
+            return 0;
+        }
+        Entry memory entry = entries[holder];
+        if (time > startDate + entry.periods * PERIOD_LENGTH) {
+            return totalTokens * entry.proportion / totalProportion;
+        }
+        uint periods = (time - startDate) / PERIOD_LENGTH;
+        uint tokens = totalTokens * periods / entry.periods;
+        return tokens;
+    }
+
+    function finalise() public {
+        require(msg.sender == address(crowdsale));
+        totalTokens = crowdsale.bttsToken().balanceOf(address(this));
+        startDate = now;
+    }
+
+}
+
+
+// ----------------------------------------------------------------------------
 // Devery Crowdsale Contract
 // ----------------------------------------------------------------------------
-contract DeveryCrowdsale is SafeMath, Owned {
+contract DeveryCrowdsale is Owned {
+    using SafeMath for uint;
 
     BTTSTokenInterface public bttsToken;
     uint8 public constant TOKEN_DECIMALS = 18;
 
+    ERC20Interface public presaleToken = ERC20Interface(0x8ca1d9C33c338520604044977be69a9AC19d6E54);
+    uint public presaleEthAmountsProcessed;
+    bool public presaleProcessed;
+    // TEST uint public constant PRESALE_BONUS_PERCENT = 5;
+    uint public constant PRESALE_BONUS_PERCENT = 0;
+
+    // TEST uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 150 * 10**uint(TOKEN_DECIMALS);
+    uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 0;
+    mapping(address => bool) bonusTokensAllocate;
+
+    PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2f058c43ac8965938f6e9ca286685a3e63f24e);
+
     address public wallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
     address public teamWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+    address public reserveWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+    DeveryVesting public vestingTeamWallet;
     uint public constant TEAM_PERCENT_EVE = 15;
+    uint public constant RESERVE_PERCENT_EVE = 25;
 
-    /*
-    BonusListInterface public bonusList;
-    uint public constant TIER1_BONUS = 50;
-    uint public constant TIER2_BONUS = 20;
-    uint public constant TIER3_BONUS = 15;
+    // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
+    // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
+    uint public startDate = 1516291200;
+    uint public firstPeriodEndDate = startDate + 12 hours;
+    uint public endDate = startDate + 14 days;
 
-    // 9:00pm, 14 December GMT-5 => 02:00 15 December UTC => 13:00 15 December AEST => 1513303200
-    // new Date(1513303200 * 1000).toUTCString() =>  "Fri, 15 Dec 2017 02:00:00 UTC"
-    
-    // // Start 10 Dec 2017 11:00 EST => 10 Dec 2017 16:00 UTC => 11 Dec 2017 03:00 AEST
-    // // new Date(1512921600 * 1000).toUTCString() => "Sun, 10 Dec 2017 16:00:00 UTC"
-    uint public constant START_DATE = 1512921600;
-    // End 21 Dec 2017 11:00 EST => 21 Dec 2017 16:00 UTC => 21 Dec 2017 03:00 AEST
-    // new Date(1513872000 * 1000).toUTCString() => "Thu, 21 Dec 2017 16:00:00 UTC"
-    uint public endDate = 1513872000;
-
-    // ETH/USD 9 Dec 2017 11:00 EST => 9 Dec 2017 16:00 UTC => 10 Dec 2017 03:00 AEST => 489.44 from CMC
-    uint public usdPerKEther = 489440;
-    uint public constant USD_CENT_PER_GZE = 35;
-    uint public constant CAP_USD = 35000000;
+    // ETH/USD 11 Jan 2018 22:34 AEDT => 1182.75 from CMC
+    uint public usdPerKEther = 1182750;
+    uint public constant USD_CENT_PER_6_EVE = 100;
+    uint public constant CAP_USD = 10000000;
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
 
     uint public contributedEth;
     uint public contributedUsd;
     uint public generatedEve;
 
-    //  AUD 10,000 = ~ USD 7,500
-    uint public lockedAccountThresholdUsd = 7500;
     mapping(address => uint) public accountEthAmount;
 
-    bool public precommitmentAdjusted;
     bool public finalised;
 
     event BTTSTokenUpdated(address indexed oldBTTSToken, address indexed newBTTSToken);
+    event PICOPSCertifierUpdated(address indexed oldPICOPSCertifier, address indexed newPICOPSCertifier);
     event WalletUpdated(address indexed oldWallet, address indexed newWallet);
     event TeamWalletUpdated(address indexed oldTeamWallet, address indexed newTeamWallet);
-    event BonusListUpdated(address indexed oldBonusList, address indexed newBonusList);
+    event ReserveWalletUpdated(address indexed oldReserveWallet, address indexed newReserveWallet);
+    event StartDateUpdated(uint oldStartDate, uint newStartDate);
+    event FirstPeriodEndDateUpdated(uint oldFirstPeriodEndDate, uint newFirstPeriodEndDate);
     event EndDateUpdated(uint oldEndDate, uint newEndDate);
     event UsdPerKEtherUpdated(uint oldUsdPerKEther, uint newUsdPerKEther);
-    event LockedAccountThresholdUsdUpdated(uint oldEthLockedThreshold, uint newEthLockedThreshold);
-    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint gzeAmount, uint contributedEth, uint contributedUsd, uint generatedEve, bool lockAccount);
 
-    function GazeCoinCrowdsale() public {
+    function DeveryCrowdsale() public {
+        vestingTeamWallet = new DeveryVesting(this);
     }
+
     function setBTTSToken(address _bttsToken) public onlyOwner {
-        require(now <= START_DATE);
+        require(now <= startDate);
         BTTSTokenUpdated(address(bttsToken), _bttsToken);
         bttsToken = BTTSTokenInterface(_bttsToken);
+    }
+    function setPICOPSCertifier(address _picopsCertifier) public onlyOwner {
+        require(now <= startDate);
+        PICOPSCertifierUpdated(address(picopsCertifier), _picopsCertifier);
+        picopsCertifier = PICOPSCertifier(_picopsCertifier);
     }
     function setWallet(address _wallet) public onlyOwner {
         WalletUpdated(wallet, _wallet);
@@ -217,127 +299,129 @@ contract DeveryCrowdsale is SafeMath, Owned {
         TeamWalletUpdated(teamWallet, _teamWallet);
         teamWallet = _teamWallet;
     }
-    function setBonusList(address _bonusList) public onlyOwner {
-        require(now <= START_DATE);
-        BonusListUpdated(address(bonusList), _bonusList);
-        bonusList = BonusListInterface(_bonusList);
+    function setReserveWallet(address _reserveWallet) public onlyOwner {
+        ReserveWalletUpdated(reserveWallet, _reserveWallet);
+        reserveWallet = _reserveWallet;
+    }
+    function setStartDate(uint _startDate) public onlyOwner {
+        require(_startDate >= now);
+        StartDateUpdated(startDate, _startDate);
+        startDate = _startDate;
+    }
+    function setFirstPeriodEndDate(uint _firstPeriodEndDate) public onlyOwner {
+        require(_firstPeriodEndDate >= now);
+        require(_firstPeriodEndDate >= startDate);
+        FirstPeriodEndDateUpdated(firstPeriodEndDate, _firstPeriodEndDate);
+        firstPeriodEndDate = _firstPeriodEndDate;
     }
     function setEndDate(uint _endDate) public onlyOwner {
         require(_endDate >= now);
+        require(_endDate >= firstPeriodEndDate);
         EndDateUpdated(endDate, _endDate);
         endDate = _endDate;
     }
     function setUsdPerKEther(uint _usdPerKEther) public onlyOwner {
-        require(now <= START_DATE);
+        require(now <= startDate);
         UsdPerKEtherUpdated(usdPerKEther, _usdPerKEther);
         usdPerKEther = _usdPerKEther;
-    }
-    function setLockedAccountThresholdUsd(uint _lockedAccountThresholdUsd) public onlyOwner {
-        require(now <= START_DATE);
-        LockedAccountThresholdUsdUpdated(lockedAccountThresholdUsd, _lockedAccountThresholdUsd);
-        lockedAccountThresholdUsd = _lockedAccountThresholdUsd;
     }
 
     function capEth() public view returns (uint) {
         return CAP_USD * 10**uint(3 + 18) / usdPerKEther;
     }
-    function gzeFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
-        return usdPerKEther * ethAmount * (100 + bonusPercent) / 10**uint(3 + 2 - 2) / USD_CENT_PER_GZE;
+    function eveFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
+        return usdPerKEther * ethAmount * (100 + bonusPercent) * 6 / 10**uint(3 + 2 - 2) / USD_CENT_PER_6_EVE;
     }
-    function gzePerEth() public view returns (uint) {
-        return gzeFromEth(10**18, 0);
+    function evePerEth() public view returns (uint) {
+        return eveFromEth(10**18, 0);
     }
-    function lockedAccountThresholdEth() public view returns (uint) {
-        return lockedAccountThresholdUsd * 10**uint(3 + 18) / usdPerKEther;
-    }
-    function getBonusPercent(address addr) public view returns (uint bonusPercent) {
-        uint tier = bonusList.bonusList(addr);
-        if (tier == 1) {
-            bonusPercent = TIER1_BONUS;
-        } else if (tier == 2) {
-            bonusPercent = TIER2_BONUS;
-        } else if (tier == 3) {
-            bonusPercent = TIER3_BONUS;
-        } else {
-            bonusPercent = 0;
+
+    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent,
+        uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
+
+    function generateTokensForPresaleAccounts(address[] accounts) public onlyOwner {
+        require(bttsToken != address(0));
+        require(!presaleProcessed);
+        for (uint i = 0; i < accounts.length; i++) {
+            address account = accounts[i];
+            uint ethAmount = presaleToken.balanceOf(account);
+            uint eveAmount = bttsToken.balanceOf(account);
+            if (eveAmount == 0) {
+                presaleEthAmountsProcessed = presaleEthAmountsProcessed.add(ethAmount);
+                accountEthAmount[account] = accountEthAmount[account].add(ethAmount);
+                eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);
+                eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
+                bonusTokensAllocate[account] = true;
+                uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
+                contributedEth = contributedEth.add(ethAmount);
+                contributedUsd = contributedUsd.add(usdAmount);
+                generatedEve = generatedEve.add(eveAmount);
+                Contributed(account, ethAmount, 0, ethAmount, usdAmount, PRESALE_BONUS_PERCENT, eveAmount,
+                    contributedEth, contributedUsd, generatedEve);
+                bttsToken.mint(account, eveAmount, false);
+            }
+        }
+        if (presaleEthAmountsProcessed == presaleToken.totalSupply()) {
+            presaleProcessed = true;
         }
     }
+
     function () public payable {
-        require((now >= START_DATE && now <= endDate) || (msg.sender == owner && msg.value == MIN_CONTRIBUTION_ETH));
+        // require((now >= START_DATE && now <= endDate) || (msg.sender == owner && msg.value == MIN_CONTRIBUTION_ETH));
         require(contributedEth < capEth());
         require(msg.value >= MIN_CONTRIBUTION_ETH);
-        uint bonusPercent = getBonusPercent(msg.sender);
         uint ethAmount = msg.value;
         uint ethRefund = 0;
-        if (safeAdd(contributedEth, ethAmount) > capEth()) {
-            ethAmount = safeSub(capEth(), contributedEth);
-            ethRefund = safeSub(msg.value, ethAmount);
+        if (contributedEth.add(ethAmount) > capEth()) {
+            ethAmount = capEth().sub(contributedEth);
+            ethRefund = msg.value.sub(ethAmount);
         }
-        uint usdAmount = safeDiv(safeMul(ethAmount, usdPerKEther), 10**uint(3 + 18));
-        uint gzeAmount = gzeFromEth(ethAmount, bonusPercent);
-        generatedEve = safeAdd(generatedEve, gzeAmount);
-        contributedEth = safeAdd(contributedEth, ethAmount);
-        contributedUsd = safeAdd(contributedUsd, usdAmount);
-        accountEthAmount[msg.sender] = safeAdd(accountEthAmount[msg.sender], ethAmount);
-        bool lockAccount = accountEthAmount[msg.sender] > lockedAccountThresholdEth();
-        bttsToken.mint(msg.sender, gzeAmount, lockAccount);
+        uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
+        uint eveAmount = eveFromEth(ethAmount, 0);
+        generatedEve = generatedEve.add(eveAmount);
+        if (!bonusTokensAllocate[msg.sender]) {
+            eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
+            bonusTokensAllocate[msg.sender] = true;
+        }
+        contributedEth = contributedEth.add(ethAmount);
+        contributedUsd = contributedUsd.add(usdAmount);
+        accountEthAmount[msg.sender] = accountEthAmount[msg.sender].add(ethAmount);
+        bttsToken.mint(msg.sender, eveAmount, false);
         if (ethAmount > 0) {
             wallet.transfer(ethAmount);
         }
-        Contributed(msg.sender, ethAmount, ethRefund, accountEthAmount[msg.sender], usdAmount, gzeAmount, contributedEth, contributedUsd, generatedEve, lockAccount);
+        Contributed(msg.sender, ethAmount, ethRefund, accountEthAmount[msg.sender], usdAmount, 0, eveAmount,
+            contributedEth, contributedUsd, generatedEve);
         if (ethRefund > 0) {
             msg.sender.transfer(ethRefund);
         }
     }
 
-    function addPrecommitment(address tokenOwner, uint ethAmount, uint bonusPercent) public onlyOwner {
-        require(!finalised);
-        uint usdAmount = safeDiv(safeMul(ethAmount, usdPerKEther), 10**uint(3 + 18));
-        uint gzeAmount = gzeFromEth(ethAmount, bonusPercent);
-        uint ethRefund = 0;
-        generatedEve = safeAdd(generatedEve, gzeAmount);
-        contributedEth = safeAdd(contributedEth, ethAmount);
-        contributedUsd = safeAdd(contributedUsd, usdAmount);
-        accountEthAmount[tokenOwner] = safeAdd(accountEthAmount[tokenOwner], ethAmount);
-        bool lockAccount = accountEthAmount[tokenOwner] > lockedAccountThresholdEth();
-        bttsToken.mint(tokenOwner, gzeAmount, lockAccount);
-        Contributed(tokenOwner, ethAmount, ethRefund, accountEthAmount[tokenOwner], usdAmount, gzeAmount, contributedEth, contributedUsd, generatedEve, lockAccount);
-    }
-    function addPrecommitmentAdjustment(address tokenOwner, uint gzeAmount) public onlyOwner {
-        require(now > endDate || contributedEth >= capEth());
-        require(!finalised);
-        uint ethAmount = 0;
-        uint usdAmount = 0;
-        uint ethRefund = 0;
-        generatedEve = safeAdd(generatedEve, gzeAmount);
-        bool lockAccount = accountEthAmount[tokenOwner] > lockedAccountThresholdEth();
-        bttsToken.mint(tokenOwner, gzeAmount, lockAccount);
-        precommitmentAdjusted = true;
-        Contributed(tokenOwner, ethAmount, ethRefund, accountEthAmount[tokenOwner], usdAmount, gzeAmount, contributedEth, contributedUsd, generatedEve, lockAccount);
-    }
-    function roundUp(uint a) public pure returns (uint) {
+    function roundUp(uint a) internal pure returns (uint) {
         uint multiple = 10**uint(TOKEN_DECIMALS);
         uint remainder = a % multiple;
         if (remainder > 0) {
-            return safeSub(safeAdd(a, multiple), remainder);
+            return a.add(multiple).sub(remainder);
         }
     }
     function finalise() public onlyOwner {
         require(!finalised);
-        require(precommitmentAdjusted);
         require(now > endDate || contributedEth >= capEth());
-        uint total = safeDiv(safeMul(generatedEve, 100), safeSub(100, TEAM_PERCENT_EVE));
-        uint amountTeam = safeDiv(safeMul(total, TEAM_PERCENT_EVE), 100);
-        generatedEve = safeAdd(generatedEve, amountTeam);
+        uint total = generatedEve.mul(100).div(uint(100).sub(TEAM_PERCENT_EVE).sub(RESERVE_PERCENT_EVE));
+        uint amountTeam = total.mul(TEAM_PERCENT_EVE).div(100);
+        uint amountReserve = total.mul(RESERVE_PERCENT_EVE).div(100);
+        generatedEve = generatedEve.add(amountTeam).add(amountReserve);
         uint rounded = roundUp(generatedEve);
         if (rounded > generatedEve) {
-            uint dust = safeSub(rounded, generatedEve);
-            generatedEve = safeAdd(generatedEve, dust);
-            amountTeam = safeAdd(amountTeam, dust);
+            uint dust = rounded.sub(generatedEve);
+            generatedEve = generatedEve.add(dust);
+            amountReserve = amountReserve.add(dust);
         }
-        bttsToken.mint(teamWallet, amountTeam, false);
+        // bttsToken.mint(teamWallet, amountTeam, false);
+        bttsToken.mint(address(vestingTeamWallet), amountTeam, false);
+        bttsToken.mint(reserveWallet, amountReserve, false);
         bttsToken.disableMinting();
+        vestingTeamWallet.finalise();
         finalised = true;
     }
-    */
 }

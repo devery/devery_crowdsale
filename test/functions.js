@@ -1,5 +1,5 @@
-// Dec 9 2017 03:00 AEST
-var ethPriceUSD = 453.55;
+// Jan 11 2018 13:07 AEST
+var ethPriceUSD = 1310.74;
 var defaultGasPrice = web3.toWei(50, "gwei");
 
 // -----------------------------------------------------------------------------
@@ -15,11 +15,13 @@ addAccount(eth.accounts[3], "Account #3 - Devery Whitelisted");
 addAccount(eth.accounts[4], "Account #4 - PICOPS Certified");
 addAccount(eth.accounts[5], "Account #5 - Devery Whitelisted");
 addAccount(eth.accounts[6], "Account #6 - Not whitelisted or certified");
-addAccount(eth.accounts[7], "Account #7");
+addAccount(eth.accounts[7], "Account #7 - PICOPS Certified");
 addAccount(eth.accounts[8], "Account #8");
 addAccount(eth.accounts[9], "Account #9");
-addAccount(eth.accounts[10], "Account #10");
-addAccount(eth.accounts[11], "Account #11");
+addAccount(eth.accounts[10], "Account #10 - Reserve Wallet");
+addAccount(eth.accounts[11], "Account #11 - Team Member 1");
+addAccount(eth.accounts[12], "Account #12 - Team Member 2");
+addAccount(eth.accounts[13], "Account #13 - Team Member 3");
 
 
 var minerAccount = eth.accounts[0];
@@ -32,8 +34,11 @@ var account6 = eth.accounts[6];
 var account7 = eth.accounts[7];
 var account8 = eth.accounts[8];
 var account9 = eth.accounts[9];
-var owner1 = eth.accounts[10];
-var owner2 = eth.accounts[11];
+var reserveWallet = eth.accounts[10];
+var teamMember1Wallet = eth.accounts[11];
+var teamMember2Wallet = eth.accounts[12];
+var teamMember3Wallet = eth.accounts[13];
+
 
 var baseBlock = eth.blockNumber;
 
@@ -251,6 +256,7 @@ function printTokenContractDetails() {
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
     console.log("RESULT: token.transferable=" + contract.transferable());
     console.log("RESULT: token.mintable=" + contract.mintable());
+    /*
     console.log("RESULT: token.wallet=" + contract.wallet());
     console.log("RESULT: token.START_DATE=" + contract.START_DATE() + " " + new Date(contract.START_DATE() * 1000).toUTCString());
     console.log("RESULT: token.closed=" + contract.closed());
@@ -265,6 +271,7 @@ function printTokenContractDetails() {
     console.log("RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=" + contract.addressCanContribute("0xa44a08d3f6933c69212114bb66e2df1813651844"));
     console.log("RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=" + contract.addressCanContribute("0xa55a151eb00fded1634d27d1127b4be4627079ea"));
     console.log("RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=" + contract.addressCanContribute("0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9"));
+    */
 
     var latestBlock = eth.blockNumber;
     var i;
@@ -290,6 +297,7 @@ function printTokenContractDetails() {
     });
     transfersEnabledEvents.stopWatching();
 
+    /*
     var walletUpdatedEvents = contract.WalletUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
     walletUpdatedEvents.watch(function (error, result) {
@@ -332,23 +340,31 @@ function printTokenContractDetails() {
     });
     picopsCertifierUpdatedEvents.stopWatching();
 
+    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent,
+        uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
+
     var contributedEvents = contract.Contributed({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
     contributedEvents.watch(function (error, result) {
       console.log("RESULT: Contributed " + i++ + " #" + result.blockNumber + " addr=" + result.args.addr + 
         " ethAmount=" + result.args.ethAmount + " " + result.args.ethAmount.shift(-18) + " ETH" +
         " ethRefund=" + result.args.ethRefund + " " + result.args.ethRefund.shift(-18) + " ETH" +
+        " accountEthAmount=" + result.args.accountEthAmount + " " + result.args.accountEthAmount.shift(-18) + " ETH" +
         " usdAmount=" + result.args.usdAmount + " USD" +
+        " bonusPercent=" + result.args.bonusPercent + "%" +
+        " eveAmount=" + result.args.eveAmount + " " + result.args.eveAmount.shift(-18) +
         " contributedEth=" + result.args.contributedEth + " " + result.args.contributedEth.shift(-18) + " ETH" +
-        " contributedUsd=" + result.args.contributedUsd + " USD");
+        " contributedUsd=" + result.args.contributedUsd + " USD" +
+        " generatedEve=" + result.args.generatedEve + " " + result.args.generatedEve.shift(-18));
     });
     contributedEvents.stopWatching();
+    */
 
     var approvalEvents = contract.Approval({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvents.watch(function (error, result) {
-      console.log("RESULT: Approval " + i++ + " #" + result.blockNumber + " owner=" + result.args.owner + " spender=" + result.args.spender +
-        " value=" + result.args.value.shift(-decimals));
+      console.log("RESULT: Approval " + i++ + " #" + result.blockNumber + " tokenOwner=" + result.args.tokenOwner + " spender=" + result.args.spender +
+        " tokens=" + result.args.tokens.shift(-decimals));
     });
     approvalEvents.stopWatching();
 
@@ -356,7 +372,7 @@ function printTokenContractDetails() {
     i = 0;
     transferEvents.watch(function (error, result) {
       console.log("RESULT: Transfer " + i++ + " #" + result.blockNumber + ": from=" + result.args.from + " to=" + result.args.to +
-        " value=" + result.args.value.shift(-decimals));
+        " tokens=" + result.args.tokens.shift(-decimals));
     });
     transferEvents.stopWatching();
 
@@ -366,57 +382,183 @@ function printTokenContractDetails() {
 
 
 // -----------------------------------------------------------------------------
-// Whitelist Contract
+// Crowdsale Contract
 // -----------------------------------------------------------------------------
-var whitelistContractAddress = null;
-var whitelistContractAbi = null;
+var crowdsaleContractAddress = null;
+var crowdsaleContractAbi = null;
 
-function addWhitelistContractAddressAndAbi(address, whitelistAbi) {
-  whitelistContractAddress = address;
-  whitelistContractAbi = whitelistAbi;
+function addCrowdsaleContractAddressAndAbi(address, crowdsaleAbi) {
+  crowdsaleContractAddress = address;
+  crowdsaleContractAbi = crowdsaleAbi;
 }
 
-var whitelistFromBlock = 0;
-function printWhitelistContractDetails() {
-  console.log("RESULT: whitelistContractAddress=" + whitelistContractAddress);
-  if (whitelistContractAddress != null && whitelistContractAbi != null) {
-    var contract = eth.contract(whitelistContractAbi).at(whitelistContractAddress);
-    console.log("RESULT: whitelist.owner=" + contract.owner());
-    console.log("RESULT: whitelist.newOwner=" + contract.newOwner());
-    console.log("RESULT: whitelist.sealed=" + contract.sealed());
+var crowdsaleFromBlock = 0;
+function printCrowdsaleContractDetails() {
+  console.log("RESULT: crowdsaleContractAddress=" + crowdsaleContractAddress);
+  if (crowdsaleContractAddress != null && crowdsaleContractAbi != null) {
+    var contract = eth.contract(crowdsaleContractAbi).at(crowdsaleContractAddress);
+    console.log("RESULT: crowdsale.owner=" + contract.owner());
+    console.log("RESULT: crowdsale.newOwner=" + contract.newOwner());
+    console.log("RESULT: crowdsale.bttsToken=" + contract.bttsToken());
+    console.log("RESULT: crowdsale.TOKEN_DECIMALS=" + contract.TOKEN_DECIMALS());
+    console.log("RESULT: crowdsale.presaleToken=" + contract.presaleToken());
+    console.log("RESULT: crowdsale.presaleEthAmountsProcessed=" + contract.presaleEthAmountsProcessed() + " " + contract.presaleEthAmountsProcessed().shift(-18));
+    console.log("RESULT: crowdsale.presaleProcessed=" + contract.presaleProcessed());
+    console.log("RESULT: crowdsale.PRESALE_BONUS_PERCENT=" + contract.PRESALE_BONUS_PERCENT());
+    console.log("RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=" + contract.PER_ACCOUNT_ADDITIONAL_TOKENS() + " " + contract.PER_ACCOUNT_ADDITIONAL_TOKENS().shift(-18) + " EVE");
+    console.log("RESULT: crowdsale.picopsCertifier=" + contract.picopsCertifier());
+    console.log("RESULT: crowdsale.wallet=" + contract.wallet());
+    console.log("RESULT: crowdsale.teamWallet=" + contract.teamWallet());
+    console.log("RESULT: crowdsale.reserveWallet=" + contract.reserveWallet());
+    console.log("RESULT: crowdsale.vestingTeamWallet=" + contract.vestingTeamWallet());
+    console.log("RESULT: crowdsale.TEAM_PERCENT_EVE=" + contract.TEAM_PERCENT_EVE());
+    console.log("RESULT: crowdsale.RESERVE_PERCENT_EVE=" + contract.RESERVE_PERCENT_EVE());
+
+    console.log("RESULT: crowdsale.startDate=" + contract.startDate() + " " + new Date(contract.startDate() * 1000).toUTCString());
+    console.log("RESULT: crowdsale.firstPeriodEndDate=" + contract.firstPeriodEndDate() + " " + new Date(contract.firstPeriodEndDate() * 1000).toUTCString());
+    console.log("RESULT: crowdsale.endDate=" + contract.endDate() + " " + new Date(contract.endDate() * 1000).toUTCString());
+    console.log("RESULT: crowdsale.usdPerKEther=" + contract.usdPerKEther() + " = " + contract.usdPerKEther().shift(-3) + " USD per ETH");
+    console.log("RESULT: crowdsale.USD_CENT_PER_6_EVE=" + contract.USD_CENT_PER_6_EVE());
+    console.log("RESULT: crowdsale.CAP_USD=" + contract.CAP_USD());
+    console.log("RESULT: crowdsale.capEth=" + contract.capEth() + " " + contract.capEth().shift(-18) + " ETH");
+    console.log("RESULT: crowdsale.MIN_CONTRIBUTION_ETH=" + contract.MIN_CONTRIBUTION_ETH() + " " + contract.MIN_CONTRIBUTION_ETH().shift(-18) + " ETH");
+    console.log("RESULT: crowdsale.contributedEth=" + contract.contributedEth() + " " + contract.contributedEth().shift(-18) + " ETH");
+    console.log("RESULT: crowdsale.contributedUsd=" + contract.contributedUsd());
+    console.log("RESULT: crowdsale.generatedEve=" + contract.generatedEve() + " " + contract.generatedEve().shift(-18) + " EVE");
+    var oneEther = web3.toWei(1, "ether");
+    console.log("RESULT: crowdsale.eveFromEth(1 ether, 5%)=" + contract.eveFromEth(oneEther, 5) + " " + contract.eveFromEth(oneEther, 5).shift(-18) + " EVE");
+    console.log("RESULT: crowdsale.evePerEth()=" + contract.evePerEth() + " " + contract.evePerEth().shift(-18) + " EVE");
+    console.log("RESULT: crowdsale.finalised=" + contract.finalised());
 
     var latestBlock = eth.blockNumber;
     var i;
 
-    var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: whitelistFromBlock, toBlock: latestBlock });
+    var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
     i = 0;
     ownershipTransferredEvents.watch(function (error, result) {
       console.log("RESULT: OwnershipTransferred " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
     ownershipTransferredEvents.stopWatching();
 
-    var adminAddedEvents = contract.AdminAdded({}, { fromBlock: whitelistFromBlock, toBlock: latestBlock });
+    var bttsTokenUpdatedEvents = contract.BTTSTokenUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
     i = 0;
-    adminAddedEvents.watch(function (error, result) {
-      console.log("RESULT: AdminAdded " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    bttsTokenUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: BTTSTokenUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
-    adminAddedEvents.stopWatching();
+    bttsTokenUpdatedEvents.stopWatching();
 
-    var adminRemovedEvents = contract.AdminRemoved({}, { fromBlock: whitelistFromBlock, toBlock: latestBlock });
+    var picopsCertifierUpdatedEvents = contract.PICOPSCertifierUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
     i = 0;
-    adminRemovedEvents.watch(function (error, result) {
-      console.log("RESULT: AdminRemoved " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    picopsCertifierUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: PICOPSCertifierUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
-    adminRemovedEvents.stopWatching();
+    picopsCertifierUpdatedEvents.stopWatching();
 
-    var whitelistedEvents = contract.Whitelisted({}, { fromBlock: whitelistFromBlock, toBlock: latestBlock });
+    var walletUpdatedEvents = contract.WalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
     i = 0;
-    whitelistedEvents.watch(function (error, result) {
-      console.log("RESULT: Whitelisted " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    walletUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: WalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
-    whitelistedEvents.stopWatching();
+    walletUpdatedEvents.stopWatching();
 
-    whitelistFromBlock = latestBlock + 1;
+    var teamWalletUpdatedEvents = contract.TeamWalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    teamWalletUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: TeamWalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    teamWalletUpdatedEvents.stopWatching();
+
+    var reserveWalletUpdatedEvents = contract.ReserveWalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    reserveWalletUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: ReserveWalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    reserveWalletUpdatedEvents.stopWatching();
+
+    var startDateUpdatedEvents = contract.StartDateUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    startDateUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: StartDateUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    startDateUpdatedEvents.stopWatching();
+
+    var firstPeriodEndDateUpdatedEvents = contract.FirstPeriodEndDateUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    firstPeriodEndDateUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: FirstPeriodEndDateUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    firstPeriodEndDateUpdatedEvents.stopWatching();
+
+    var endDateUpdatedEvents = contract.EndDateUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    endDateUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: EndDateUpdated " + i++ + " #" + result.blockNumber +
+        " oldEndDate=" + result.args.oldEndDate + " " + new Date(result.args.oldEndDate * 1000).toUTCString() +
+        " newEndDate=" + result.args.newEndDate + " " + new Date(result.args.newEndDate * 1000).toUTCString());
+    });
+    endDateUpdatedEvents.stopWatching();
+
+    var usdPerKEtherUpdatedEvents = contract.UsdPerKEtherUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    usdPerKEtherUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: UsdPerKEtherUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    usdPerKEtherUpdatedEvents.stopWatching();
+
+    var contributedEvents = contract.Contributed({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
+    i = 0;
+    contributedEvents.watch(function (error, result) {
+      console.log("RESULT: Contributed " + i++ + " #" + result.blockNumber + " addr=" + result.args.addr + 
+        " ethAmount=" + result.args.ethAmount.shift(-18) + " ETH" +
+        " ethRefund=" + result.args.ethRefund.shift(-18) + " ETH" +
+        " accountEthAmount=" + result.args.accountEthAmount.shift(-18) + " ETH" +
+        " usdAmount=" + result.args.usdAmount + " USD" +
+        " bonusPercent=" + result.args.bonusPercent + "%" +
+        " eveAmount=" + result.args.eveAmount.shift(-18) +
+        " contributedEth=" + result.args.contributedEth.shift(-18) + " ETH" +
+        " contributedUsd=" + result.args.contributedUsd + " USD" +
+        " generatedEve=" + result.args.generatedEve.shift(-18));
+    });
+    contributedEvents.stopWatching();
+
+    crowdsaleFromBlock = latestBlock + 1;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Vesting Contract
+// -----------------------------------------------------------------------------
+var vestingContractAddress = null;
+var vestingContractAbi = null;
+
+function addVestingContractAddressAndAbi(address, vestingAbi) {
+  vestingContractAddress = address;
+  vestingContractAbi = vestingAbi;
+}
+
+var vestingFromBlock = 0;
+function printVestingContractDetails() {
+  console.log("RESULT: vestingContractAddress=" + vestingContractAddress);
+  if (vestingContractAddress != null && vestingContractAbi != null) {
+    var contract = eth.contract(vestingContractAbi).at(vestingContractAddress);
+    console.log("RESULT: vesting.crowdsale=" + contract.crowdsale());
+    console.log("RESULT: vesting.totalProportion=" + contract.totalProportion());
+    console.log("RESULT: vesting.totalTokens=" + contract.totalTokens().shift(-18));
+    console.log("RESULT: vesting.PERIOD_LENGTH=" + contract.PERIOD_LENGTH() + " " + contract.PERIOD_LENGTH() / 60 / 60 / 24 + " days");
+    console.log("RESULT: vesting.startDate=" + contract.startDate() + " " + new Date(contract.startDate() * 1000).toUTCString());
+
+    var latestBlock = eth.blockNumber;
+    var i;
+
+    var newEntryEvents = contract.NewEntry({}, { fromBlock: vestingFromBlock, toBlock: latestBlock });
+    i = 0;
+    newEntryEvents.watch(function (error, result) {
+      console.log("RESULT: NewEntry " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    newEntryEvents.stopWatching();
+
+    vestingFromBlock = latestBlock + 1;
   }
 }
 

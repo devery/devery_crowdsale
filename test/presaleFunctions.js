@@ -1,5 +1,5 @@
-// Dec 9 2017 03:00 AEST
-var ethPriceUSD = 453.55;
+// Jan 11 2018 13:07 AEST
+var ethPriceUSD = 1310.74;
 var defaultGasPrice = web3.toWei(50, "gwei");
 
 // -----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ addAccount(eth.accounts[3], "Account #3 - Devery Whitelisted");
 addAccount(eth.accounts[4], "Account #4 - PICOPS Certified");
 addAccount(eth.accounts[5], "Account #5 - Devery Whitelisted");
 addAccount(eth.accounts[6], "Account #6 - Not whitelisted or certified");
-addAccount(eth.accounts[7], "Account #7");
+addAccount(eth.accounts[7], "Account #7 - PICOPS Certified");
 addAccount(eth.accounts[8], "Account #8");
 addAccount(eth.accounts[9], "Account #9");
 addAccount(eth.accounts[10], "Account #10");

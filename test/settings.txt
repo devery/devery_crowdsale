@@ -18,7 +18,6 @@ PRESALETOKENJS=DeveryPresale.js
 DEPLOYMENTDATA=deploymentData.txt
 PRESALEDEPLOYMENTDATA=presaleDeploymentData.txt
 
-INCLUDEJS=./include.js
 TEST1OUTPUT=test1output.txt
 TEST1RESULTS=test1results.txt
 TEST2OUTPUT=test2output.txt

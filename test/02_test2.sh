@@ -24,38 +24,40 @@ PICOPSCERTIFIERJS=`grep ^PICOPSCERTIFIERJS= settings.txt | sed "s/^.*=//"`
 PRESALETOKENSOL=`grep ^PRESALETOKENSOL= settings.txt | sed "s/^.*=//"`
 PRESALETOKENJS=`grep ^PRESALETOKENJS= settings.txt | sed "s/^.*=//"`
 
+DEPLOYMENTDATA=`grep ^DEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
 PRESALEDEPLOYMENTDATA=`grep ^PRESALEDEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
+PRESALETOKENADDRESS=`grep tokenAddress= $PRESALEDEPLOYMENTDATA | sed "s/^.*=//"`
 
-INCLUDEJS=`grep ^INCLUDEJS= settings.txt | sed "s/^.*=//"`
-TEST1OUTPUT=`grep ^TEST1OUTPUT= settings.txt | sed "s/^.*=//"`
-TEST1RESULTS=`grep ^TEST1RESULTS= settings.txt | sed "s/^.*=//"`
+TEST2OUTPUT=`grep ^TEST2OUTPUT= settings.txt | sed "s/^.*=//"`
+TEST2RESULTS=`grep ^TEST2RESULTS= settings.txt | sed "s/^.*=//"`
 
 CURRENTTIME=`date +%s`
 CURRENTTIMES=`date -r $CURRENTTIME -u`
 
-START_DATE=`echo "$CURRENTTIME+45" | bc`
+START_DATE=`echo "$CURRENTTIME+80" | bc`
 START_DATE_S=`date -r $START_DATE -u`
 
-printf "MODE                  = '$MODE'\n" | tee $TEST1OUTPUT
-printf "GETHATTACHPOINT       = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
-printf "PASSWORD              = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
-printf "SOURCEDIR             = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
-printf "TOKENFACTORYSOL       = '$TOKENFACTORYSOL'\n" | tee -a $TEST1OUTPUT
-printf "TOKENFACTORYJS        = '$TOKENFACTORYJS'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALESOL          = '$CROWDSALESOL'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALEJS           = '$CROWDSALEJS'\n" | tee -a $TEST1OUTPUT
-printf "PRESALEWHITELISTSOL   = '$PRESALEWHITELISTSOL'\n" | tee -a $TEST1OUTPUT
-printf "PRESALEWHITELISTJS    = '$PRESALEWHITELISTJS'\n" | tee -a $TEST1OUTPUT
-printf "PICOPSCERTIFIERSOL    = '$PICOPSCERTIFIERSOL'\n" | tee -a $TEST1OUTPUT
-printf "PICOPSCERTIFIERJS     = '$PICOPSCERTIFIERJS'\n" | tee -a $TEST1OUTPUT
-printf "PRESALETOKENSOL       = '$PRESALETOKENSOL'\n" | tee -a $TEST1OUTPUT
-printf "PRESALETOKENJS        = '$PRESALETOKENJS'\n" | tee -a $TEST1OUTPUT
-printf "PRESALEDEPLOYMENTDATA = '$PRESALEDEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
-printf "INCLUDEJS             = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
-printf "TEST1OUTPUT           = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
-printf "TEST1RESULTS          = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
-printf "CURRENTTIME           = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
-printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1OUTPUT
+printf "MODE                  = '$MODE'\n" | tee $TEST2OUTPUT
+printf "GETHATTACHPOINT       = '$GETHATTACHPOINT'\n" | tee -a $TEST2OUTPUT
+printf "PASSWORD              = '$PASSWORD'\n" | tee -a $TEST2OUTPUT
+printf "SOURCEDIR             = '$SOURCEDIR'\n" | tee -a $TEST2OUTPUT
+printf "TOKENFACTORYSOL       = '$TOKENFACTORYSOL'\n" | tee -a $TEST2OUTPUT
+printf "TOKENFACTORYJS        = '$TOKENFACTORYJS'\n" | tee -a $TEST2OUTPUT
+printf "CROWDSALESOL          = '$CROWDSALESOL'\n" | tee -a $TEST2OUTPUT
+printf "CROWDSALEJS           = '$CROWDSALEJS'\n" | tee -a $TEST2OUTPUT
+printf "PRESALEWHITELISTSOL   = '$PRESALEWHITELISTSOL'\n" | tee -a $TEST2OUTPUT
+printf "PRESALEWHITELISTJS    = '$PRESALEWHITELISTJS'\n" | tee -a $TEST2OUTPUT
+printf "PICOPSCERTIFIERSOL    = '$PICOPSCERTIFIERSOL'\n" | tee -a $TEST2OUTPUT
+printf "PICOPSCERTIFIERJS     = '$PICOPSCERTIFIERJS'\n" | tee -a $TEST2OUTPUT
+printf "PRESALETOKENSOL       = '$PRESALETOKENSOL'\n" | tee -a $TEST2OUTPUT
+printf "PRESALETOKENJS        = '$PRESALETOKENJS'\n" | tee -a $TEST2OUTPUT
+printf "DEPLOYMENTDATA        = '$DEPLOYMENTDATA'\n" | tee -a $TEST2OUTPUT
+printf "PRESALEDEPLOYMENTDATA = '$PRESALEDEPLOYMENTDATA'\n" | tee -a $TEST2OUTPUT
+printf "PRESALETOKENADDRESS   = '$PRESALETOKENADDRESS'\n" | tee -a $TEST2OUTPUT
+printf "TEST2OUTPUT           = '$TEST2OUTPUT'\n" | tee -a $TEST2OUTPUT
+printf "TEST2RESULTS          = '$TEST2RESULTS'\n" | tee -a $TEST2OUTPUT
+printf "CURRENTTIME           = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST2OUTPUT
+printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST2OUTPUT
 
 # Make copy of SOL file and modify start and end times ---
 # `cp modifiedContracts/SnipCoin.sol .`
@@ -66,13 +68,18 @@ printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1
 # `cp $SOURCEDIR/$PRESALETOKENSOL .`
 
 # --- Modify parameters ---
-# `perl -pi -e "s/START_DATE \= 1513303200;.*$/START_DATE \= $START_DATE; \/\/ $START_DATE_S/" $PRESALETOKENSOL`
+`perl -pi -e "s/ERC20Interface\(0x8ca1d9C33c338520604044977be69a9AC19d6E54\);/ERC20Interface\($PRESALETOKENADDRESS\);/" $CROWDSALESOL`
+`perl -pi -e "s/startDate \= 1516291200;.*$/startDate \= $START_DATE; \/\/ $START_DATE_S/" $CROWDSALESOL`
+`perl -pi -e "s/wallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/wallet \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" $CROWDSALESOL`
+`perl -pi -e "s/teamWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/teamWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
+`perl -pi -e "s/reserveWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/reserveWallet \= 0xaBBa43E7594E3B76afB157989e93c6621497FD4b;/" $CROWDSALESOL`
+
 
 DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
-echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST1OUTPUT
-echo "$DIFFS1" | tee -a $TEST1OUTPUT
+echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST2OUTPUT
+echo "$DIFFS1" | tee -a $TEST2OUTPUT
 
-solc_0.4.18 --version | tee -a $TEST1OUTPUT
+solc_0.4.18 --version | tee -a $TEST2OUTPUT
 
 echo "var tokenFactoryOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $TOKENFACTORYSOL`;" > $TOKENFACTORYJS
 echo "var crowdsaleOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $CROWDSALESOL`;" > $CROWDSALEJS
@@ -80,7 +87,7 @@ echo "var crowdsaleOutput=`solc_0.4.18 --optimize --pretty-json --combined-json 
 # echo "var picopsCertifierOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PICOPSCERTIFIERSOL`;" > $PICOPSCERTIFIERJS
 # echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALETOKENSOL`;" > $PRESALETOKENJS
 
-geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
+geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST2OUTPUT
 loadScript("$TOKENFACTORYJS");
 loadScript("$CROWDSALEJS");
 loadScript("$PRESALEWHITELISTJS");
@@ -95,28 +102,30 @@ var tokenFactoryBin = "0x" + tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTS
 var tokenAbi = JSON.parse(tokenFactoryOutput.contracts["$TOKENFACTORYSOL:BTTSToken"].abi);
 var crowdsaleAbi = JSON.parse(crowdsaleOutput.contracts["$CROWDSALESOL:DeveryCrowdsale"].abi);
 var crowdsaleBin = "0x" + crowdsaleOutput.contracts["$CROWDSALESOL:DeveryCrowdsale"].bin;
+var vestingAbi = JSON.parse(crowdsaleOutput.contracts["$CROWDSALESOL:DeveryVesting"].abi);
 
 var whitelistAbi = JSON.parse(whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].abi);
 var whitelistBin = "0x" + whitelistOutput.contracts["$PRESALEWHITELISTSOL:DeveryPresaleWhitelist"].bin;
 var picopsCertifierAbi = JSON.parse(picopsCertifierOutput.contracts["$PICOPSCERTIFIERSOL:TestPICOPSCertifier"].abi);
 var picopsCertifierBin = "0x" + picopsCertifierOutput.contracts["$PICOPSCERTIFIERSOL:TestPICOPSCertifier"].bin;
-var tokenAbi = JSON.parse(tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].abi);
-var tokenBin = "0x" + tokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].bin;
+// var presaleTokenAbi = JSON.parse(presaleTokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].abi);
+// var presaleTokenBin = "0x" + presaleTokenOutput.contracts["$PRESALETOKENSOL:DeveryPresale"].bin;
 
-console.log("DATA: tokenFactoryLibBTTSAbi=" + JSON.stringify(tokenFactoryLibBTTSAbi));
-console.log("DATA: tokenFactoryLibBTTSBin=" + JSON.stringify(tokenFactoryLibBTTSBin));
-console.log("DATA: tokenFactoryAbi=" + JSON.stringify(tokenFactoryAbi));
-console.log("DATA: tokenFactoryBin=" + JSON.stringify(tokenFactoryBin));
-console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-console.log("DATA: crowdsaleAbi=" + JSON.stringify(crowdsaleAbi));
-console.log("DATA: crowdsaleBin=" + JSON.stringify(crowdsaleBin));
+// console.log("DATA: tokenFactoryLibBTTSAbi=" + JSON.stringify(tokenFactoryLibBTTSAbi));
+// console.log("DATA: tokenFactoryLibBTTSBin=" + JSON.stringify(tokenFactoryLibBTTSBin));
+// console.log("DATA: tokenFactoryAbi=" + JSON.stringify(tokenFactoryAbi));
+// console.log("DATA: tokenFactoryBin=" + JSON.stringify(tokenFactoryBin));
+// console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
+// console.log("DATA: crowdsaleAbi=" + JSON.stringify(crowdsaleAbi));
+// console.log("DATA: crowdsaleBin=" + JSON.stringify(crowdsaleBin));
+// console.log("DATA: vestingAbi=" + JSON.stringify(vestingAbi));
 
 // console.log("DATA: whitelistAbi=" + JSON.stringify(whitelistAbi));
 // console.log("DATA: whitelistBin=" + JSON.stringify(whitelistBin));
 // console.log("DATA: picopsCertifierAbi=" + JSON.stringify(picopsCertifierAbi));
 // console.log("DATA: picopsCertifierBin=" + JSON.stringify(picopsCertifierBin));
-// console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-// console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
+// console.log("DATA: presaleTokenAbi=" + JSON.stringify(presaleTokenAbi));
+// console.log("DATA: presaleTokenBin=" + JSON.stringify(presaleTokenBin));
 
 
 unlockAccounts("$PASSWORD");
@@ -191,8 +200,8 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var tokenMessage = "Deploy Token Contract";
-var symbol = "GZE";
-var name = "GazeCoin";
+var symbol = "EVE";
+var name = "Devery";
 var decimals = 18;
 var initialSupply = 0;
 var mintable = true;
@@ -216,6 +225,122 @@ printBalances();
 printTxData("deployTokenTx", deployTokenTx);
 printTokenFactoryContractDetails();
 printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var crowdsaleMessage = "Deploy Devery Crowdsale Contract";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + crowdsaleMessage);
+var crowdsaleContract = web3.eth.contract(crowdsaleAbi);
+// console.log(JSON.stringify(crowdsaleContract));
+var crowdsaleTx = null;
+var crowdsaleAddress = null;
+var vesting;
+var crowdsale = crowdsaleContract.new({from: contractOwnerAccount, data: crowdsaleBin, gas: 6000000, gasPrice: defaultGasPrice},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        crowdsaleTx = contract.transactionHash;
+      } else {
+        crowdsaleAddress = contract.address;
+        addAccount(crowdsaleAddress, "Devery Crowdsale");
+        addAccount(crowdsale.vestingTeamWallet(), "Devery Vesting Team Wallet");
+        addCrowdsaleContractAddressAndAbi(crowdsaleAddress, crowdsaleAbi);
+        addVestingContractAddressAndAbi(crowdsale.vestingTeamWallet(), vestingAbi);
+        vesting = web3.eth.contract(vestingAbi).at(crowdsale.vestingTeamWallet());
+        console.log("DATA: crowdsaleAddress=" + crowdsaleAddress);
+        console.log("DATA: vestingAddress=" + crowdsale.vestingTeamWallet());
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(crowdsaleTx, crowdsaleMessage);
+printTxData("crowdsaleAddress=" + crowdsaleAddress, crowdsaleTx);
+printCrowdsaleContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var setup_Message = "Setup";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + setup_Message);
+var setup_1Tx = crowdsale.setBTTSToken(tokenAddress, {from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+var setup_2Tx = token.setMinter(crowdsaleAddress, {from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+var setup_3Tx = crowdsale.generateTokensForPresaleAccounts([contractOwnerAccount, account3, account4, account5], {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_4Tx = vesting.addEntry(teamMember1Wallet, 1, 24, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_5Tx = vesting.addEntry(teamMember2Wallet, 3, 12, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_6Tx = vesting.addEntry(teamMember3Wallet, 5, 6, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(setup_1Tx, setup_Message + " - crowdsale.setBTTSToken(tokenAddress)");
+failIfTxStatusError(setup_2Tx, setup_Message + " - token.setMinter(crowdsaleAddress)");
+failIfTxStatusError(setup_3Tx, setup_Message + " - crowdsale.generateTokensForPresaleAccounts([ac1, ac3, ac4, ac5])");
+failIfTxStatusError(setup_4Tx, setup_Message + " - vesting.addEntry(teamMember1Wallet, 1, 24)");
+failIfTxStatusError(setup_5Tx, setup_Message + " - vesting.addEntry(teamMember2Wallet, 3, 12)");
+failIfTxStatusError(setup_6Tx, setup_Message + " - vesting.addEntry(teamMember3Wallet, 5, 6)");
+printTxData("setup_1Tx", setup_1Tx);
+printTxData("setup_2Tx", setup_2Tx);
+printTxData("setup_3Tx", setup_3Tx);
+printTxData("setup_4Tx", setup_4Tx);
+printTxData("setup_5Tx", setup_5Tx);
+printTxData("setup_6Tx", setup_6Tx);
+printCrowdsaleContractDetails();
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var sendContribution0Message = "Send Test Contribution From Owner Account";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + sendContribution0Message);
+var sendContribution0_1Tx = eth.sendTransaction({from: account6, to: crowdsaleAddress, gas: 400000, value: web3.toWei("1", "ether")});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(sendContribution0_1Tx, sendContribution0Message + " - ac6 1 ETH");
+printTxData("sendContribution0_1Tx", sendContribution0_1Tx);
+printCrowdsaleContractDetails();
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var sendContribution0Message = "Send Test Contribution From Owner Account";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + sendContribution0Message);
+var sendContribution0_1Tx = eth.sendTransaction({from: account6, to: crowdsaleAddress, gas: 400000, value: web3.toWei("10000", "ether")});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(sendContribution0_1Tx, sendContribution0Message + " - ac6 10,000 ETH");
+printTxData("sendContribution0_1Tx", sendContribution0_1Tx);
+printCrowdsaleContractDetails();
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var finaliseMessage = "Finalise Sale";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + finaliseMessage);
+var finaliseTx = crowdsale.finalise({from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(finaliseTx, finaliseMessage);
+printTxData("finaliseTx", finaliseTx);
+printCrowdsaleContractDetails();
+printTokenContractDetails();
+printVestingContractDetails();
 console.log("RESULT: ");
 
 
@@ -507,7 +632,7 @@ console.log("RESULT: ");
 
 
 EOF
-grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $PRESALEDEPLOYMENTDATA
-cat $PRESALEDEPLOYMENTDATA
-grep "RESULT: " $TEST1OUTPUT | sed "s/RESULT: //" > $TEST1RESULTS
-cat $TEST1RESULTS
+grep "DATA: " $TEST2OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
+cat $DEPLOYMENTDATA
+grep "RESULT: " $TEST2OUTPUT | sed "s/RESULT: //" > $TEST2RESULTS
+cat $TEST2RESULTS

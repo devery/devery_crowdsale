@@ -1,0 +1,983 @@
+MODE                  = 'test'
+GETHATTACHPOINT       = 'ipc:./testchain/geth.ipc'
+PASSWORD              = 'testtest'
+SOURCEDIR             = '../contracts'
+TOKENFACTORYSOL       = 'BTTSTokenFactory.sol'
+TOKENFACTORYJS        = 'BTTSTokenFactory.js'
+CROWDSALESOL          = 'DeveryCrowdsale.sol'
+CROWDSALEJS           = 'DeveryCrowdsale.js'
+PRESALEWHITELISTSOL   = 'DeveryPresaleWhitelist.sol'
+PRESALEWHITELISTJS    = 'DeveryPresaleWhitelist.js'
+PICOPSCERTIFIERSOL    = 'TestPICOPSCertifier.sol'
+PICOPSCERTIFIERJS     = 'TestPICOPSCertifier.js'
+PRESALETOKENSOL       = 'DeveryPresale.sol'
+PRESALETOKENJS        = 'DeveryPresale.js'
+DEPLOYMENTDATA        = 'deploymentData.txt'
+PRESALEDEPLOYMENTDATA = 'presaleDeploymentData.txt'
+PRESALETOKENADDRESS   = '0xe6ada9beed6e24be4c0259383db61b52bfca85f3'
+TEST2OUTPUT           = 'test2output.txt'
+TEST2RESULTS          = 'test2results.txt'
+CURRENTTIME           = '1515946436' 'Sun 14 Jan 2018 16:13:56 UTC'
+START_DATE            = '1515946516' 'Sun 14 Jan 2018 16:15:16 UTC'
+--- Differences ../contracts/DeveryCrowdsale.sol DeveryCrowdsale.sol ---
+231c231
+<     ERC20Interface public presaleToken = ERC20Interface(0x8ca1d9C33c338520604044977be69a9AC19d6E54);
+---
+>     ERC20Interface public presaleToken = ERC20Interface(0xe6ada9beed6e24be4c0259383db61b52bfca85f3);
+243,245c243,245
+<     address public wallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+<     address public teamWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+<     address public reserveWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+---
+>     address public wallet = 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;
+>     address public teamWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
+>     address public reserveWallet = 0xaBBa43E7594E3B76afB157989e93c6621497FD4b;
+252c252
+<     uint public startDate = 1516291200;
+---
+>     uint public startDate = 1515946516; // Sun 14 Jan 2018 16:15:16 UTC
+solc, the solidity compiler commandline interface
+Version: 0.4.18+commit.9cf6e910.Darwin.appleclang
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.7.3-stable-4bb3c89d/darwin-amd64/go1.9.2
+coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
+at block: 39 (Mon, 15 Jan 2018 03:13:54 AEDT)
+ datadir: /Users/bok/Projects/DeveryCrowdsale/test/testchain
+ modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+> 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       12.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy BTTS Library
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: tokenFactoryLibBTTSAddress=0x43ac93ca1533f31e82ae941b6f477096cf9a28e6
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       18.180107500000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.180107500000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy BTTS Library
+1
+> 
+RESULT: tokenFactoryLibBTTSTx status=0x1 Success gas=6000000 gasUsed=3602150 costETH=0.1801075 costUSD=236.07410455 @ ETH/USD=1310.74 gasPrice=50 gwei block=45 txIx=0 txId=0x7d18cfe0a729613b3e250f6ae851d37bb1007b4780a5628f7801e9ea8fe2a862 @ 1515946448 Sun, 14 Jan 2018 16:14:08 UTC
+undefined
+> 
+RESULT: tokenContractAddress=null
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy BTTSTokenFactory
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: tokenFactoryAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       24.329990550000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.329990550000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy BTTSTokenFactory
+1
+> 
+RESULT: tokenFactoryTx status=0x1 Success gas=6000000 gasUsed=2997661 costETH=0.14988305 costUSD=196.457708957 @ ETH/USD=1310.74 gasPrice=50 gwei block=47 txIx=0 txId=0x3370bfceb80fc6d033113a2727cc2afa1d54a210c0db1df0378523d2f2e6bca4 @ 1515946457 Sun, 14 Jan 2018 16:14:17 UTC
+undefined
+> 
+RESULT: tokenFactoryContractAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
+RESULT: tokenFactory.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: tokenFactory.newOwner=0x0000000000000000000000000000000000000000
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy Token Contract
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: tokenFactoryContractAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
+RESULT: get BTTSTokenListing 0 #49 {"bttsTokenAddress":"0x519172068aa711e6e53dc3982b63e1df5b482be9","decimals":"18","initialSupply":"0","mintable":true,"name":"Devery","ownerAddress":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433","symbol":"EVE","transferable":false}
+undefined
+> 
+RESULT: bttsTokens=#1 ["0x519172068aa711e6e53dc3982b63e1df5b482be9"]
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.421106350000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.421106350000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: deployTokenTx status=0x1 Success gas=4000000 gasUsed=1822316 costETH=0.0911158 costUSD=119.429123692 @ ETH/USD=1310.74 gasPrice=50 gwei block=49 txIx=0 txId=0x2d23e1097fd8f49c66c3189f561f08a711a097400017910ffba0394089e13985 @ 1515946463 Sun, 14 Jan 2018 16:14:23 UTC
+undefined
+> 
+RESULT: tokenFactoryContractAddress=0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b
+RESULT: tokenFactory.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: tokenFactory.newOwner=0x0000000000000000000000000000000000000000
+RESULT: BTTSTokenListing 0 #49 {"bttsTokenAddress":"0x519172068aa711e6e53dc3982b63e1df5b482be9","decimals":"18","initialSupply":"0","mintable":true,"name":"Devery","ownerAddress":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433","symbol":"EVE","transferable":false}
+undefined
+> 
+RESULT: tokenContractAddress=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=EVE
+RESULT: token.name=Devery
+RESULT: token.decimals=18
+RESULT: token.totalSupply=0
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Deploy Devery Crowdsale Contract
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+DATA: crowdsaleAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+DATA: vestingAddress=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       39.538885850000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.538885850000000000           0.000000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: 17 0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc        0.000000000000000000           0.000000000000000000 Devery Crowdsale
+RESULT: 18 0xa1b42c6ad2e1d69eee56532557480c20697aa3b5        0.000000000000000000           0.000000000000000000 Devery Vesting Team Wallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Deploy Devery Crowdsale Contract
+1
+> 
+RESULT: crowdsaleAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc status=0x1 Success gas=6000000 gasUsed=2355590 costETH=0.1177795 costUSD=154.37830183 @ ETH/USD=1310.74 gasPrice=50 gwei block=52 txIx=0 txId=0x558b5312364dea466f8b051c9dc6b8d32f4feb4664845befd37ae1c6d597be68 @ 1515946468 Sun, 14 Jan 2018 16:14:28 UTC
+undefined
+> 
+RESULT: crowdsaleContractAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: crowdsale.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: crowdsale.newOwner=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.bttsToken=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.TOKEN_DECIMALS=18
+RESULT: crowdsale.presaleToken=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
+RESULT: crowdsale.presaleEthAmountsProcessed=0 0
+RESULT: crowdsale.presaleProcessed=false
+RESULT: crowdsale.PRESALE_BONUS_PERCENT=0
+RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=0 0 EVE
+RESULT: crowdsale.picopsCertifier=0x1e2f058c43ac8965938f6e9ca286685a3e63f24e
+RESULT: crowdsale.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: crowdsale.teamWallet=0xaaaa9de1e6c564446ebca0fd102d8bd92093c756
+RESULT: crowdsale.reserveWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: crowdsale.vestingTeamWallet=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: crowdsale.TEAM_PERCENT_EVE=15
+RESULT: crowdsale.RESERVE_PERCENT_EVE=25
+RESULT: crowdsale.startDate=1515946516 Sun, 14 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.firstPeriodEndDate=1515989716 Mon, 15 Jan 2018 04:15:16 UTC
+RESULT: crowdsale.endDate=1517156116 Sun, 28 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.usdPerKEther=1182750 = 1182.75 USD per ETH
+RESULT: crowdsale.USD_CENT_PER_6_EVE=100
+RESULT: crowdsale.CAP_USD=10000000
+RESULT: crowdsale.capEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.MIN_CONTRIBUTION_ETH=10000000000000000 0.01 ETH
+RESULT: crowdsale.contributedEth=0 0 ETH
+RESULT: crowdsale.contributedUsd=0
+RESULT: crowdsale.generatedEve=0 0 EVE
+RESULT: crowdsale.eveFromEth(1 ether, 5%)=7.451325e+21 7451.325 EVE
+RESULT: crowdsale.evePerEth()=7.0965e+21 7096.5 EVE
+RESULT: crowdsale.finalised=false
+undefined
+> 
+RESULT: vestingContractAddress=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: vesting.crowdsale=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: vesting.totalProportion=0
+RESULT: vesting.totalTokens=0
+RESULT: vesting.PERIOD_LENGTH=2592000 30 days
+RESULT: vesting.startDate=0 Thu, 01 Jan 1970 00:00:00 UTC
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Setup
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       51.581205400000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.581205400000000000          70.965000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000    14193000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000     5246438.917743856756025473 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000    19439509.882743856756025473 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: 17 0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc        0.000000000000000000           0.000000000000000000 Devery Crowdsale
+RESULT: 18 0xa1b42c6ad2e1d69eee56532557480c20697aa3b5        0.000000000000000000           0.000000000000000000 Devery Vesting Team Wallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                              38879019.765487713512050946 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Setup - crowdsale.setBTTSToken(tokenAddress)
+1
+> 
+RESULT: PASS Setup - token.setMinter(crowdsaleAddress)
+1
+> 
+RESULT: PASS Setup - crowdsale.generateTokensForPresaleAccounts([ac1, ac3, ac4, ac5])
+1
+> 
+RESULT: PASS Setup - vesting.addEntry(teamMember1Wallet, 1, 24)
+1
+> 
+RESULT: PASS Setup - vesting.addEntry(teamMember2Wallet, 3, 12)
+1
+> 
+RESULT: PASS Setup - vesting.addEntry(teamMember3Wallet, 5, 6)
+1
+> 
+RESULT: setup_1Tx status=0x1 Success gas=400000 gasUsed=45635 costETH=0.00228175 costUSD=2.990780995 @ ETH/USD=1310.74 gasPrice=50 gwei block=54 txIx=0 txId=0x2c5bb0fe16feaca1f5a4bae2bd8d416b85b85e31c03290600424664ccecf89e6 @ 1515946479 Sun, 14 Jan 2018 16:14:39 UTC
+undefined
+> 
+RESULT: setup_2Tx status=0x1 Success gas=400000 gasUsed=31219 costETH=0.00156095 costUSD=2.045999603 @ ETH/USD=1310.74 gasPrice=50 gwei block=54 txIx=1 txId=0x483b5f83dd4ff8e26a5b9bd64692f5035a1a56bcd5cd854faebf418965e4219c @ 1515946479 Sun, 14 Jan 2018 16:14:39 UTC
+undefined
+> 
+RESULT: setup_3Tx status=0x1 Success gas=800000 gasUsed=523676 costETH=0.0261838 costUSD=34.320154012 @ ETH/USD=1310.74 gasPrice=50 gwei block=56 txIx=0 txId=0xd13cd9923bad81793fa23915e628e7ec4a63c944d7ac44d9f0b59e4f388b3962 @ 1515946483 Sun, 14 Jan 2018 16:14:43 UTC
+undefined
+> 
+RESULT: setup_4Tx status=0x1 Success gas=800000 gasUsed=91975 costETH=0.00459875 costUSD=6.027765575 @ ETH/USD=1310.74 gasPrice=50 gwei block=56 txIx=1 txId=0x60828cb805fedb985672fc66e4e878adbb435f1b939164a93dfda7f67cb5f4df @ 1515946483 Sun, 14 Jan 2018 16:14:43 UTC
+undefined
+> 
+RESULT: setup_5Tx status=0x1 Success gas=800000 gasUsed=76975 costETH=0.00384875 costUSD=5.044710575 @ ETH/USD=1310.74 gasPrice=50 gwei block=56 txIx=2 txId=0x36fba81c8d916f234319a7b925727ac8f814c78aaddf91bf00c47863153aa85e @ 1515946483 Sun, 14 Jan 2018 16:14:43 UTC
+undefined
+> 
+RESULT: setup_6Tx status=0x1 Success gas=800000 gasUsed=76911 costETH=0.00384555 costUSD=5.040516207 @ ETH/USD=1310.74 gasPrice=50 gwei block=56 txIx=3 txId=0xb02cde7e91f2c0dcc7d9fd0295096cc261b51384d1bbc78244dc83556bda6c3b @ 1515946483 Sun, 14 Jan 2018 16:14:43 UTC
+undefined
+> 
+RESULT: crowdsaleContractAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: crowdsale.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: crowdsale.newOwner=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.bttsToken=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: crowdsale.TOKEN_DECIMALS=18
+RESULT: crowdsale.presaleToken=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
+RESULT: crowdsale.presaleEthAmountsProcessed=5.478619004507533785958e+21 5478.619004507533785958
+RESULT: crowdsale.presaleProcessed=true
+RESULT: crowdsale.PRESALE_BONUS_PERCENT=0
+RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=0 0 EVE
+RESULT: crowdsale.picopsCertifier=0x1e2f058c43ac8965938f6e9ca286685a3e63f24e
+RESULT: crowdsale.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: crowdsale.teamWallet=0xaaaa9de1e6c564446ebca0fd102d8bd92093c756
+RESULT: crowdsale.reserveWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: crowdsale.vestingTeamWallet=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: crowdsale.TEAM_PERCENT_EVE=15
+RESULT: crowdsale.RESERVE_PERCENT_EVE=25
+RESULT: crowdsale.startDate=1515946516 Sun, 14 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.firstPeriodEndDate=1515989716 Mon, 15 Jan 2018 04:15:16 UTC
+RESULT: crowdsale.endDate=1517156116 Sun, 28 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.usdPerKEther=1182750 = 1182.75 USD per ETH
+RESULT: crowdsale.USD_CENT_PER_6_EVE=100
+RESULT: crowdsale.CAP_USD=10000000
+RESULT: crowdsale.capEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.MIN_CONTRIBUTION_ETH=10000000000000000 0.01 ETH
+RESULT: crowdsale.contributedEth=5.478619004507533785958e+21 5478.619004507533785958 ETH
+RESULT: crowdsale.contributedUsd=6479835
+RESULT: crowdsale.generatedEve=3.8879019765487713512050946e+25 38879019.765487713512050946 EVE
+RESULT: crowdsale.eveFromEth(1 ether, 5%)=7.451325e+21 7451.325 EVE
+RESULT: crowdsale.evePerEth()=7.0965e+21 7096.5 EVE
+RESULT: crowdsale.finalised=false
+RESULT: BTTSTokenUpdated 0 #54 {"newBTTSToken":"0x519172068aa711e6e53dc3982b63e1df5b482be9","oldBTTSToken":"0x0000000000000000000000000000000000000000"}
+RESULT: Contributed 0 #56 addr=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 ethAmount=0.01 ETH ethRefund=0 ETH accountEthAmount=0.01 ETH usdAmount=11 USD bonusPercent=0% eveAmount=70.965 contributedEth=0.01 ETH contributedUsd=11 USD generatedEve=70.965
+RESULT: Contributed 1 #56 addr=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethAmount=2000 ETH ethRefund=0 ETH accountEthAmount=2000 ETH usdAmount=2365500 USD bonusPercent=0% eveAmount=14193000 contributedEth=2000.01 ETH contributedUsd=2365511 USD generatedEve=14193070.965
+RESULT: Contributed 2 #56 addr=0xa44a08d3f6933c69212114bb66e2df1813651844 ethAmount=739.299502253766892979 ETH ethRefund=0 ETH accountEthAmount=739.299502253766892979 ETH usdAmount=874406 USD bonusPercent=0% eveAmount=5246438.917743856756025473 contributedEth=2739.309502253766892979 ETH contributedUsd=3239917 USD generatedEve=19439509.882743856756025473
+RESULT: Contributed 3 #56 addr=0xa55a151eb00fded1634d27d1127b4be4627079ea ethAmount=2739.309502253766892979 ETH ethRefund=0 ETH accountEthAmount=2739.309502253766892979 ETH usdAmount=3239918 USD bonusPercent=0% eveAmount=19439509.882743856756025473 contributedEth=5478.619004507533785958 ETH contributedUsd=6479835 USD generatedEve=38879019.765487713512050946
+undefined
+> 
+RESULT: tokenContractAddress=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=EVE
+RESULT: token.name=Devery
+RESULT: token.decimals=18
+RESULT: token.totalSupply=38879019.765487713512050946
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: Transfer 0 #56: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=70.965
+RESULT: Transfer 1 #56: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 tokens=14193000
+RESULT: Transfer 2 #56: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 tokens=5246438.917743856756025473
+RESULT: Transfer 3 #56: from=0x0000000000000000000000000000000000000000 to=0xa55a151eb00fded1634d27d1127b4be4627079ea tokens=19439509.882743856756025473
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Test Contribution From Owner Account
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       63.587263650000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.581205400000000000          70.965000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        1.000000000000000000           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000    14193000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000     5246438.917743856756025473 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000    19439509.882743856756025473 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -1.006058250000000000        7096.500000000000000000 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: 17 0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc        0.000000000000000000           0.000000000000000000 Devery Crowdsale
+RESULT: 18 0xa1b42c6ad2e1d69eee56532557480c20697aa3b5        0.000000000000000000           0.000000000000000000 Devery Vesting Team Wallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                              38886116.265487713512050946 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Test Contribution From Owner Account - ac6 1 ETH
+1
+> 
+RESULT: sendContribution0_1Tx status=0x1 Success gas=400000 gasUsed=121165 costETH=0.00605825 costUSD=7.940790605 @ ETH/USD=1310.74 gasPrice=50 gwei block=60 txIx=0 txId=0x0da5e5678bab46fca10ca5d5e6b38b2538702d83fe8e4e5bc7facf492bc4dfd4 @ 1515946488 Sun, 14 Jan 2018 16:14:48 UTC
+undefined
+> 
+RESULT: crowdsaleContractAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: crowdsale.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: crowdsale.newOwner=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.bttsToken=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: crowdsale.TOKEN_DECIMALS=18
+RESULT: crowdsale.presaleToken=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
+RESULT: crowdsale.presaleEthAmountsProcessed=5.478619004507533785958e+21 5478.619004507533785958
+RESULT: crowdsale.presaleProcessed=true
+RESULT: crowdsale.PRESALE_BONUS_PERCENT=0
+RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=0 0 EVE
+RESULT: crowdsale.picopsCertifier=0x1e2f058c43ac8965938f6e9ca286685a3e63f24e
+RESULT: crowdsale.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: crowdsale.teamWallet=0xaaaa9de1e6c564446ebca0fd102d8bd92093c756
+RESULT: crowdsale.reserveWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: crowdsale.vestingTeamWallet=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: crowdsale.TEAM_PERCENT_EVE=15
+RESULT: crowdsale.RESERVE_PERCENT_EVE=25
+RESULT: crowdsale.startDate=1515946516 Sun, 14 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.firstPeriodEndDate=1515989716 Mon, 15 Jan 2018 04:15:16 UTC
+RESULT: crowdsale.endDate=1517156116 Sun, 28 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.usdPerKEther=1182750 = 1182.75 USD per ETH
+RESULT: crowdsale.USD_CENT_PER_6_EVE=100
+RESULT: crowdsale.CAP_USD=10000000
+RESULT: crowdsale.capEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.MIN_CONTRIBUTION_ETH=10000000000000000 0.01 ETH
+RESULT: crowdsale.contributedEth=5.479619004507533785958e+21 5479.619004507533785958 ETH
+RESULT: crowdsale.contributedUsd=6481017
+RESULT: crowdsale.generatedEve=3.8886116265487713512050946e+25 38886116.265487713512050946 EVE
+RESULT: crowdsale.eveFromEth(1 ether, 5%)=7.451325e+21 7451.325 EVE
+RESULT: crowdsale.evePerEth()=7.0965e+21 7096.5 EVE
+RESULT: crowdsale.finalised=false
+RESULT: Contributed 0 #60 addr=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 ethAmount=1 ETH ethRefund=0 ETH accountEthAmount=1 ETH usdAmount=1182 USD bonusPercent=0% eveAmount=7096.5 contributedEth=5479.619004507533785958 ETH contributedUsd=6481017 USD generatedEve=38886116.265487713512050946
+undefined
+> 
+RESULT: tokenContractAddress=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=EVE
+RESULT: token.name=Devery
+RESULT: token.decimals=18
+RESULT: token.totalSupply=38886116.265487713512050946
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: Transfer 0 #60: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 tokens=7096.5
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Test Contribution From Owner Account
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       69.591168400000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.581205400000000000          70.965000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2976.253115551650318882           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000    14193000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000     5246438.917743856756025473 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000    19439509.882743856756025473 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9    -2976.263078551650318882    21120980.234512286487946113 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: 17 0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc        0.000000000000000000           0.000000000000000000 Devery Crowdsale
+RESULT: 18 0xa1b42c6ad2e1d69eee56532557480c20697aa3b5        0.000000000000000000           0.000000000000000000 Devery Vesting Team Wallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                              59999999.999999999999997059 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Test Contribution From Owner Account - ac6 10,000 ETH
+1
+> 
+RESULT: sendContribution0_1Tx status=0x1 Success gas=400000 gasUsed=78095 costETH=0.00390475 costUSD=5.118112015 @ ETH/USD=1310.74 gasPrice=50 gwei block=62 txIx=0 txId=0xe2e346967ad8b647d6f4c75d0cc5fc22d41b549730aebcd90fca2555afd3388e @ 1515946501 Sun, 14 Jan 2018 16:15:01 UTC
+undefined
+> 
+RESULT: crowdsaleContractAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: crowdsale.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: crowdsale.newOwner=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.bttsToken=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: crowdsale.TOKEN_DECIMALS=18
+RESULT: crowdsale.presaleToken=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
+RESULT: crowdsale.presaleEthAmountsProcessed=5.478619004507533785958e+21 5478.619004507533785958
+RESULT: crowdsale.presaleProcessed=true
+RESULT: crowdsale.PRESALE_BONUS_PERCENT=0
+RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=0 0 EVE
+RESULT: crowdsale.picopsCertifier=0x1e2f058c43ac8965938f6e9ca286685a3e63f24e
+RESULT: crowdsale.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: crowdsale.teamWallet=0xaaaa9de1e6c564446ebca0fd102d8bd92093c756
+RESULT: crowdsale.reserveWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: crowdsale.vestingTeamWallet=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: crowdsale.TEAM_PERCENT_EVE=15
+RESULT: crowdsale.RESERVE_PERCENT_EVE=25
+RESULT: crowdsale.startDate=1515946516 Sun, 14 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.firstPeriodEndDate=1515989716 Mon, 15 Jan 2018 04:15:16 UTC
+RESULT: crowdsale.endDate=1517156116 Sun, 28 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.usdPerKEther=1182750 = 1182.75 USD per ETH
+RESULT: crowdsale.USD_CENT_PER_6_EVE=100
+RESULT: crowdsale.CAP_USD=10000000
+RESULT: crowdsale.capEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.MIN_CONTRIBUTION_ETH=10000000000000000 0.01 ETH
+RESULT: crowdsale.contributedEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.contributedUsd=9999997
+RESULT: crowdsale.generatedEve=5.9999999999999999999997059e+25 59999999.999999999999997059 EVE
+RESULT: crowdsale.eveFromEth(1 ether, 5%)=7.451325e+21 7451.325 EVE
+RESULT: crowdsale.evePerEth()=7.0965e+21 7096.5 EVE
+RESULT: crowdsale.finalised=false
+RESULT: Contributed 0 #62 addr=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 ethAmount=2975.253115551650318882 ETH ethRefund=7024.746884448349681118 ETH accountEthAmount=2976.253115551650318882 ETH usdAmount=3518980 USD bonusPercent=0% eveAmount=21113883.734512286487946113 contributedEth=8454.87212005918410484 ETH contributedUsd=9999997 USD generatedEve=59999999.999999999999997059
+undefined
+> 
+RESULT: tokenContractAddress=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=EVE
+RESULT: token.name=Devery
+RESULT: token.decimals=18
+RESULT: token.totalSupply=59999999.999999999999997059
+RESULT: token.transferable=false
+RESULT: token.mintable=true
+RESULT: Transfer 0 #62: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 tokens=21113883.734512286487946113
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Finalise Sale
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                          Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       75.599229900000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.589266900000000000          70.965000000000000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2976.253115551650318882           0.000000000000000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000    14193000.000000000000000000 Account #3 - Devery Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000     5246438.917743856756025473 Account #4 - PICOPS Certified
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000    19439509.882743856756025473 Account #5 - Devery Whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9    -2976.263078551650318882    21120980.234512286487946113 Account #6 - Not whitelisted or certified
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7 - PICOPS Certified
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000 Account #10 - Reserve Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000    25000000.000000000000003677 Account #11 - Team Member 1
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000000000000000 Account #12 - Team Member 2
+RESULT: 13 0xadda9b762a00ff12711113bfdc36958b73d7f915        0.000000000000000000           0.000000000000000000 Account #13 - Team Member 3
+RESULT: 14 0x43ac93ca1533f31e82ae941b6f477096cf9a28e6        0.000000000000000000           0.000000000000000000 BTTS Library
+RESULT: 15 0x354059c8c025b0bb359d8a9a6afaf1e550b2ea4b        0.000000000000000000           0.000000000000000000 BTTSTokenFactory
+RESULT: 16 0x519172068aa711e6e53dc3982b63e1df5b482be9        0.000000000000000000           0.000000000000000000 Token 'EVE' 'Devery'
+RESULT: 17 0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc        0.000000000000000000           0.000000000000000000 Devery Crowdsale
+RESULT: 18 0xa1b42c6ad2e1d69eee56532557480c20697aa3b5        0.000000000000000000    14999999.999999999999999264 Devery Vesting Team Wallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT:                                                                             100000000.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Finalise Sale
+1
+> 
+RESULT: finaliseTx status=0x1 Success gas=400000 gasUsed=161230 costETH=0.0080615 costUSD=10.56653051 @ ETH/USD=1310.74 gasPrice=50 gwei block=64 txIx=0 txId=0x0c8222debb75f28a3aeb0fff101f6715e416c32481fb4b3866500da31ce03527 @ 1515946507 Sun, 14 Jan 2018 16:15:07 UTC
+undefined
+> 
+RESULT: crowdsaleContractAddress=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: crowdsale.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: crowdsale.newOwner=0x0000000000000000000000000000000000000000
+RESULT: crowdsale.bttsToken=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: crowdsale.TOKEN_DECIMALS=18
+RESULT: crowdsale.presaleToken=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
+RESULT: crowdsale.presaleEthAmountsProcessed=5.478619004507533785958e+21 5478.619004507533785958
+RESULT: crowdsale.presaleProcessed=true
+RESULT: crowdsale.PRESALE_BONUS_PERCENT=0
+RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=0 0 EVE
+RESULT: crowdsale.picopsCertifier=0x1e2f058c43ac8965938f6e9ca286685a3e63f24e
+RESULT: crowdsale.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: crowdsale.teamWallet=0xaaaa9de1e6c564446ebca0fd102d8bd92093c756
+RESULT: crowdsale.reserveWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: crowdsale.vestingTeamWallet=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: crowdsale.TEAM_PERCENT_EVE=15
+RESULT: crowdsale.RESERVE_PERCENT_EVE=25
+RESULT: crowdsale.startDate=1515946516 Sun, 14 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.firstPeriodEndDate=1515989716 Mon, 15 Jan 2018 04:15:16 UTC
+RESULT: crowdsale.endDate=1517156116 Sun, 28 Jan 2018 16:15:16 UTC
+RESULT: crowdsale.usdPerKEther=1182750 = 1182.75 USD per ETH
+RESULT: crowdsale.USD_CENT_PER_6_EVE=100
+RESULT: crowdsale.CAP_USD=10000000
+RESULT: crowdsale.capEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.MIN_CONTRIBUTION_ETH=10000000000000000 0.01 ETH
+RESULT: crowdsale.contributedEth=8.45487212005918410484e+21 8454.87212005918410484 ETH
+RESULT: crowdsale.contributedUsd=9999997
+RESULT: crowdsale.generatedEve=1e+26 100000000 EVE
+RESULT: crowdsale.eveFromEth(1 ether, 5%)=7.451325e+21 7451.325 EVE
+RESULT: crowdsale.evePerEth()=7.0965e+21 7096.5 EVE
+RESULT: crowdsale.finalised=true
+undefined
+> 
+RESULT: tokenContractAddress=0x519172068aa711e6e53dc3982b63e1df5b482be9
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.symbol=EVE
+RESULT: token.name=Devery
+RESULT: token.decimals=18
+RESULT: token.totalSupply=100000000
+RESULT: token.transferable=false
+RESULT: token.mintable=false
+RESULT: MintingDisabled 0 #64 {}
+RESULT: Transfer 0 #64: from=0x0000000000000000000000000000000000000000 to=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5 tokens=14999999.999999999999999264
+RESULT: Transfer 1 #64: from=0x0000000000000000000000000000000000000000 to=0xabba43e7594e3b76afb157989e93c6621497fd4b tokens=25000000.000000000000003677
+undefined
+> 
+RESULT: vestingContractAddress=0xa1b42c6ad2e1d69eee56532557480c20697aa3b5
+RESULT: vesting.crowdsale=0xb3c7d39fdd2e7dcd02b660b1a317ae06c7c915cc
+RESULT: vesting.totalProportion=9
+RESULT: vesting.totalTokens=14999999.999999999999999264
+RESULT: vesting.PERIOD_LENGTH=2592000 30 days
+RESULT: vesting.startDate=1515946507 Sun, 14 Jan 2018 16:15:07 UTC
+RESULT: NewEntry 0 #56 {"holder":"0xabba43e7594e3b76afb157989e93c6621497fd4b","periods":"24","proportion":"1"}
+RESULT: NewEntry 1 #56 {"holder":"0xacca534c9f62ab495bd986e002ddf0f054caae4f","periods":"12","proportion":"3"}
+RESULT: NewEntry 2 #56 {"holder":"0xadda9b762a00ff12711113bfdc36958b73d7f915","periods":"6","proportion":"5"}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
