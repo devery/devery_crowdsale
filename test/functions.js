@@ -413,6 +413,8 @@ function printCrowdsaleContractDetails() {
     console.log("RESULT: crowdsale.vestingTeamWallet=" + contract.vestingTeamWallet());
     console.log("RESULT: crowdsale.TEAM_PERCENT_EVE=" + contract.TEAM_PERCENT_EVE());
     console.log("RESULT: crowdsale.RESERVE_PERCENT_EVE=" + contract.RESERVE_PERCENT_EVE());
+    console.log("RESULT: crowdsale.TARGET_EVE=" + contract.TARGET_EVE() + " " + contract.TARGET_EVE().shift(-18) + " EVE");
+    console.log("RESULT: crowdsale.PRESALEPLUSCROWDSALE_EVE=" + contract.PRESALEPLUSCROWDSALE_EVE() + " " + contract.PRESALEPLUSCROWDSALE_EVE().shift(-18) + " EVE");
 
     console.log("RESULT: crowdsale.startDate=" + contract.startDate() + " " + new Date(contract.startDate() * 1000).toUTCString());
     console.log("RESULT: crowdsale.firstPeriodEndDate=" + contract.firstPeriodEndDate() + " " + new Date(contract.firstPeriodEndDate() * 1000).toUTCString());
@@ -421,6 +423,8 @@ function printCrowdsaleContractDetails() {
     console.log("RESULT: crowdsale.USD_CENT_PER_6_EVE=" + contract.USD_CENT_PER_6_EVE());
     console.log("RESULT: crowdsale.CAP_USD=" + contract.CAP_USD());
     console.log("RESULT: crowdsale.capEth=" + contract.capEth() + " " + contract.capEth().shift(-18) + " ETH");
+    console.log("RESULT: crowdsale.presaleEth=" + contract.presaleEth() + " " + contract.presaleEth().shift(-18) + " ETH");
+    console.log("RESULT: crowdsale.crowdsaleEth=" + contract.crowdsaleEth() + " " + contract.crowdsaleEth().shift(-18) + " ETH");
     console.log("RESULT: crowdsale.MIN_CONTRIBUTION_ETH=" + contract.MIN_CONTRIBUTION_ETH() + " " + contract.MIN_CONTRIBUTION_ETH().shift(-18) + " ETH");
     console.log("RESULT: crowdsale.contributedEth=" + contract.contributedEth() + " " + contract.contributedEth().shift(-18) + " ETH");
     console.log("RESULT: crowdsale.contributedUsd=" + contract.contributedUsd());

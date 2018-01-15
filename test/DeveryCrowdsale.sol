@@ -228,33 +228,37 @@ contract DeveryCrowdsale is Owned {
     BTTSTokenInterface public bttsToken;
     uint8 public constant TOKEN_DECIMALS = 18;
 
-    ERC20Interface public presaleToken = ERC20Interface(0xe6ada9beed6e24be4c0259383db61b52bfca85f3);
+    ERC20Interface public presaleToken = ERC20Interface(0x12322cf0575d3ce515765d134d7dd9d2725530ae);
     uint public presaleEthAmountsProcessed;
     bool public presaleProcessed;
-    // TEST uint public constant PRESALE_BONUS_PERCENT = 5;
-    uint public constant PRESALE_BONUS_PERCENT = 0;
+    uint public constant PRESALE_BONUS_PERCENT = 5;
+    // TEST uint public constant PRESALE_BONUS_PERCENT = 0;
 
-    // TEST uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 150 * 10**uint(TOKEN_DECIMALS);
-    uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 0;
+    uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 150 * 10**uint(TOKEN_DECIMALS);
+    // TEST uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 0;
     mapping(address => bool) bonusTokensAllocate;
 
     PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2f058c43ac8965938f6e9ca286685a3e63f24e);
 
     address public wallet = 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;
     address public teamWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
-    address public reserveWallet = 0xaBBa43E7594E3B76afB157989e93c6621497FD4b;
+    address public reserveWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
     DeveryVesting public vestingTeamWallet;
     uint public constant TEAM_PERCENT_EVE = 15;
     uint public constant RESERVE_PERCENT_EVE = 25;
+    uint public constant TARGET_EVE = 100000000 * 10**uint(TOKEN_DECIMALS);
+    uint public constant PRESALEPLUSCROWDSALE_EVE = TARGET_EVE * (100 - TEAM_PERCENT_EVE - RESERVE_PERCENT_EVE) / 100;
 
     // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
     // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
-    uint public startDate = 1515946516; // Sun 14 Jan 2018 16:15:16 UTC
+    uint public startDate = 1516114411; // Tue 16 Jan 2018 14:53:31 UTC
     uint public firstPeriodEndDate = startDate + 12 hours;
     uint public endDate = startDate + 14 days;
 
-    // ETH/USD 11 Jan 2018 22:34 AEDT => 1182.75 from CMC
-    uint public usdPerKEther = 1182750;
+    // OLD ETH/USD 16 Jan 2018 00:00 AEDT => 1,290.60 from CMC
+    // OLD uint public usdPerKEther = 1290600;
+    // TODO ETH/USD 7 day average from CMC - 1180
+    uint public usdPerKEther = 1180000;
     uint public constant USD_CENT_PER_6_EVE = 100;
     uint public constant CAP_USD = 10000000;
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
@@ -282,7 +286,7 @@ contract DeveryCrowdsale is Owned {
     }
 
     function setBTTSToken(address _bttsToken) public onlyOwner {
-        require(now <= startDate);
+        // TODO require(now <= startDate);
         BTTSTokenUpdated(address(bttsToken), _bttsToken);
         bttsToken = BTTSTokenInterface(_bttsToken);
     }
@@ -326,11 +330,31 @@ contract DeveryCrowdsale is Owned {
         usdPerKEther = _usdPerKEther;
     }
 
+    // capEth       = USD 10,000,000 / 1,180 = 8474.576271186440677966
+    // presaleEth   = 4561.764705882353
+    // crowdsaleEth = capEth - presaleEth
+    //              = 3912.811565304087678
+    // totalEve     = 100,000,000
+    // presalePlusCrowdsaleEve = 60% x totalEve = 60,000,000
+    // evePerEth x presaleEth x 1.05 + evePerEth x crowdsaleEth = presalePlusCrowdsaleEve
+    // evePerEth x (presaleEth x 1.05 + crowdsaleEth) = presalePlusCrowdsaleEve
+    // evePerEth = presalePlusCrowdsaleEve / (presaleEth x 1.05 + crowdsaleEth)
+    //           = 60000000/(4561.764705882353*1.05 + 3912.811565304087678)
+    //           = 6894.440198
+
     function capEth() public view returns (uint) {
         return CAP_USD * 10**uint(3 + 18) / usdPerKEther;
     }
+    function presaleEth() public view returns (uint) {
+        return presaleToken.totalSupply();
+    }
+    function crowdsaleEth() public view returns (uint) {
+        return capEth() - presaleEth();
+    }
     function eveFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
-        return usdPerKEther * ethAmount * (100 + bonusPercent) * 6 / 10**uint(3 + 2 - 2) / USD_CENT_PER_6_EVE;
+        uint _crowdsaleEth = crowdsaleEth(); 
+        uint adjustedEth = (presaleEth() * (100 + PRESALE_BONUS_PERCENT) + crowdsaleEth() * 100)/100;
+        return ethAmount * (100 + bonusPercent) * PRESALEPLUSCROWDSALE_EVE / adjustedEth / 100;
     }
     function evePerEth() public view returns (uint) {
         return eveFromEth(10**18, 0);
@@ -378,11 +402,12 @@ contract DeveryCrowdsale is Owned {
         }
         uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
         uint eveAmount = eveFromEth(ethAmount, 0);
-        generatedEve = generatedEve.add(eveAmount);
+        // TESTING uint eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);
         if (!bonusTokensAllocate[msg.sender]) {
             eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
             bonusTokensAllocate[msg.sender] = true;
         }
+        generatedEve = generatedEve.add(eveAmount);
         contributedEth = contributedEth.add(ethAmount);
         contributedUsd = contributedUsd.add(usdAmount);
         accountEthAmount[msg.sender] = accountEthAmount[msg.sender].add(ethAmount);
@@ -416,6 +441,11 @@ contract DeveryCrowdsale is Owned {
             uint dust = rounded.sub(generatedEve);
             generatedEve = generatedEve.add(dust);
             amountReserve = amountReserve.add(dust);
+        }
+        if (generatedEve > TARGET_EVE) {
+            uint diff = generatedEve.sub(TARGET_EVE);
+            generatedEve = TARGET_EVE;
+            amountReserve = amountReserve.sub(diff);
         }
         // bttsToken.mint(teamWallet, amountTeam, false);
         bttsToken.mint(address(vestingTeamWallet), amountTeam, false);

@@ -34,7 +34,7 @@ TEST2RESULTS=`grep ^TEST2RESULTS= settings.txt | sed "s/^.*=//"`
 CURRENTTIME=`date +%s`
 CURRENTTIMES=`date -r $CURRENTTIME -u`
 
-START_DATE=`echo "$CURRENTTIME+80" | bc`
+START_DATE=`echo "$CURRENTTIME+90" | bc`
 START_DATE_S=`date -r $START_DATE -u`
 
 printf "MODE                  = '$MODE'\n" | tee $TEST2OUTPUT
@@ -72,7 +72,7 @@ printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST2
 `perl -pi -e "s/startDate \= 1516291200;.*$/startDate \= $START_DATE; \/\/ $START_DATE_S/" $CROWDSALESOL`
 `perl -pi -e "s/wallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/wallet \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" $CROWDSALESOL`
 `perl -pi -e "s/teamWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/teamWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
-`perl -pi -e "s/reserveWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/reserveWallet \= 0xaBBa43E7594E3B76afB157989e93c6621497FD4b;/" $CROWDSALESOL`
+`perl -pi -e "s/reserveWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/reserveWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
 
 
 DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
