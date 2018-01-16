@@ -256,22 +256,6 @@ function printTokenContractDetails() {
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
     console.log("RESULT: token.transferable=" + contract.transferable());
     console.log("RESULT: token.mintable=" + contract.mintable());
-    /*
-    console.log("RESULT: token.wallet=" + contract.wallet());
-    console.log("RESULT: token.START_DATE=" + contract.START_DATE() + " " + new Date(contract.START_DATE() * 1000).toUTCString());
-    console.log("RESULT: token.closed=" + contract.closed());
-    console.log("RESULT: token.ethMinContribution=" + contract.ethMinContribution() + " " + contract.ethMinContribution().shift(-18) + " ETH");
-    console.log("RESULT: token.usdCap=" + contract.usdCap());
-    console.log("RESULT: token.usdPerKEther=" + contract.usdPerKEther());
-    console.log("RESULT: token.ethCap=" + contract.ethCap() + " " + contract.ethCap().shift(-18) + " ETH");
-    console.log("RESULT: token.contributedEth=" + contract.contributedEth() + " " + contract.contributedEth().shift(-18) + " ETH");
-    console.log("RESULT: token.contributedUsd=" + contract.contributedUsd());
-    console.log("RESULT: token.whitelist=" + contract.whitelist());
-    console.log("RESULT: token.picopsCertifier=" + contract.picopsCertifier());
-    console.log("RESULT: token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=" + contract.addressCanContribute("0xa44a08d3f6933c69212114bb66e2df1813651844"));
-    console.log("RESULT: token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=" + contract.addressCanContribute("0xa55a151eb00fded1634d27d1127b4be4627079ea"));
-    console.log("RESULT: token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=" + contract.addressCanContribute("0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9"));
-    */
 
     var latestBlock = eth.blockNumber;
     var i;
@@ -296,69 +280,6 @@ function printTokenContractDetails() {
       console.log("RESULT: TransfersEnabled " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
     transfersEnabledEvents.stopWatching();
-
-    /*
-    var walletUpdatedEvents = contract.WalletUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    walletUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: WalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    walletUpdatedEvents.stopWatching();
-
-    var ethMinContributionUpdatedEvents = contract.EthMinContributionUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    ethMinContributionUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: EthMinContributionUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    ethMinContributionUpdatedEvents.stopWatching();
-
-    var usdCapUpdatedEvents = contract.UsdCapUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    usdCapUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: UsdCapUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    usdCapUpdatedEvents.stopWatching();
-
-    var usdPerKEtherUpdatedEvents = contract.UsdPerKEtherUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    usdPerKEtherUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: UsdPerKEtherUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    usdPerKEtherUpdatedEvents.stopWatching();
-
-    var whitelistUpdatedEvents = contract.WhitelistUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    whitelistUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: WhitelistUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    whitelistUpdatedEvents.stopWatching();
-
-    var picopsCertifierUpdatedEvents = contract.PICOPSCertifierUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    picopsCertifierUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: PICOPSCertifierUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    picopsCertifierUpdatedEvents.stopWatching();
-
-    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent,
-        uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
-
-    var contributedEvents = contract.Contributed({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    contributedEvents.watch(function (error, result) {
-      console.log("RESULT: Contributed " + i++ + " #" + result.blockNumber + " addr=" + result.args.addr + 
-        " ethAmount=" + result.args.ethAmount + " " + result.args.ethAmount.shift(-18) + " ETH" +
-        " ethRefund=" + result.args.ethRefund + " " + result.args.ethRefund.shift(-18) + " ETH" +
-        " accountEthAmount=" + result.args.accountEthAmount + " " + result.args.accountEthAmount.shift(-18) + " ETH" +
-        " usdAmount=" + result.args.usdAmount + " USD" +
-        " bonusPercent=" + result.args.bonusPercent + "%" +
-        " eveAmount=" + result.args.eveAmount + " " + result.args.eveAmount.shift(-18) +
-        " contributedEth=" + result.args.contributedEth + " " + result.args.contributedEth.shift(-18) + " ETH" +
-        " contributedUsd=" + result.args.contributedUsd + " USD" +
-        " generatedEve=" + result.args.generatedEve + " " + result.args.generatedEve.shift(-18));
-    });
-    contributedEvents.stopWatching();
-    */
 
     var approvalEvents = contract.Approval({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
@@ -420,7 +341,6 @@ function printCrowdsaleContractDetails() {
     console.log("RESULT: crowdsale.firstPeriodEndDate=" + contract.firstPeriodEndDate() + " " + new Date(contract.firstPeriodEndDate() * 1000).toUTCString());
     console.log("RESULT: crowdsale.endDate=" + contract.endDate() + " " + new Date(contract.endDate() * 1000).toUTCString());
     console.log("RESULT: crowdsale.usdPerKEther=" + contract.usdPerKEther() + " = " + contract.usdPerKEther().shift(-3) + " USD per ETH");
-    console.log("RESULT: crowdsale.USD_CENT_PER_6_EVE=" + contract.USD_CENT_PER_6_EVE());
     console.log("RESULT: crowdsale.CAP_USD=" + contract.CAP_USD());
     console.log("RESULT: crowdsale.capEth=" + contract.capEth() + " " + contract.capEth().shift(-18) + " ETH");
     console.log("RESULT: crowdsale.presaleEth=" + contract.presaleEth() + " " + contract.presaleEth().shift(-18) + " ETH");
@@ -432,6 +352,7 @@ function printCrowdsaleContractDetails() {
     var oneEther = web3.toWei(1, "ether");
     console.log("RESULT: crowdsale.eveFromEth(1 ether, 5%)=" + contract.eveFromEth(oneEther, 5) + " " + contract.eveFromEth(oneEther, 5).shift(-18) + " EVE");
     console.log("RESULT: crowdsale.evePerEth()=" + contract.evePerEth() + " " + contract.evePerEth().shift(-18) + " EVE");
+    console.log("RESULT: crowdsale.usdPerEve()=" + contract.usdPerEve() + " " + contract.usdPerEve().shift(-18) + " USD");
     console.log("RESULT: crowdsale.finalised=" + contract.finalised());
 
     var latestBlock = eth.blockNumber;
@@ -548,9 +469,28 @@ function printVestingContractDetails() {
     var contract = eth.contract(vestingContractAbi).at(vestingContractAddress);
     console.log("RESULT: vesting.crowdsale=" + contract.crowdsale());
     console.log("RESULT: vesting.totalProportion=" + contract.totalProportion());
-    console.log("RESULT: vesting.totalTokens=" + contract.totalTokens().shift(-18));
-    console.log("RESULT: vesting.PERIOD_LENGTH=" + contract.PERIOD_LENGTH() + " " + contract.PERIOD_LENGTH() / 60 / 60 / 24 + " days");
+    console.log("RESULT: vesting.totalTokens=" + contract.totalTokens().shift(-18) + " EVE");
     console.log("RESULT: vesting.startDate=" + contract.startDate() + " " + new Date(contract.startDate() * 1000).toUTCString());
+    var tokenShare1 = vesting.tokenShare(teamMember1Wallet);
+    var withdrawable1 = vesting.withdrawable(teamMember1Wallet);
+    var withdrawn1 = vesting.withdrawn(teamMember1Wallet);
+    console.log("RESULT: vesting.tokenShare(" + teamMember1Wallet + ")=" + tokenShare1.shift(-18) +
+        " EVE, withdrawable=" + withdrawable1.shift(-18) +
+        " EVE, withdrawn=" + withdrawn1.shift(-18) + " EVE");
+    var tokenShare2 = vesting.tokenShare(teamMember2Wallet);
+    var withdrawable2 = vesting.withdrawable(teamMember2Wallet);
+    var withdrawn2 = vesting.withdrawn(teamMember2Wallet);
+    console.log("RESULT: vesting.tokenShare(" + teamMember2Wallet + ")=" + tokenShare2.shift(-18) +
+        " EVE, withdrawable=" + withdrawable2.shift(-18) +
+        " EVE, withdrawn=" + withdrawn2.shift(-18) + " EVE");
+    var tokenShare3 = vesting.tokenShare(teamMember3Wallet);
+    var withdrawable3 = vesting.withdrawable(teamMember3Wallet);
+    var withdrawn3 = vesting.withdrawn(teamMember3Wallet);
+    console.log("RESULT: vesting.tokenShare(" + teamMember3Wallet + ")=" + tokenShare3.shift(-18) +
+        " EVE, withdrawable=" + withdrawable3.shift(-18) +
+        " EVE, withdrawn=" + withdrawn3.shift(-18) + " EVE");
+    var totalTokenShare = tokenShare1.add(tokenShare2).add(tokenShare3);
+    console.log("RESULT: vesting.totalTokenShare=" + totalTokenShare.shift(-18) + " EVE");
 
     var latestBlock = eth.blockNumber;
     var i;
@@ -561,6 +501,13 @@ function printVestingContractDetails() {
       console.log("RESULT: NewEntry " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
     newEntryEvents.stopWatching();
+
+    var withdrawnEvents = contract.Withdrawn({}, { fromBlock: vestingFromBlock, toBlock: latestBlock });
+    i = 0;
+    withdrawnEvents.watch(function (error, result) {
+      console.log("RESULT: Withdrawn " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    withdrawnEvents.stopWatching();
 
     vestingFromBlock = latestBlock + 1;
   }

@@ -73,7 +73,9 @@ printf "START_DATE            = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST2
 `perl -pi -e "s/wallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/wallet \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" $CROWDSALESOL`
 `perl -pi -e "s/teamWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/teamWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
 `perl -pi -e "s/reserveWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/reserveWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
-
+`perl -pi -e "s/addEntry\(holder, proportion, periods, 1 days\);/addEntry\(holder, proportion, periods, 1 seconds\);/" $CROWDSALESOL`
+`perl -pi -e "s/addEntry\(holder, proportion, periods, 30 days\);/addEntry\(holder, proportion, periods, 30 seconds\);/" $CROWDSALESOL`
+`perl -pi -e "s/addEntry\(holder, proportion, periods, 365 days\);/addEntry\(holder, proportion, periods, 365 seconds\);/" $CROWDSALESOL`
 
 DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
 echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST2OUTPUT
@@ -274,18 +276,18 @@ var setup_2Tx = token.setMinter(crowdsaleAddress, {from: contractOwnerAccount, g
 while (txpool.status.pending > 0) {
 }
 var setup_3Tx = crowdsale.generateTokensForPresaleAccounts([contractOwnerAccount, account3, account4, account5], {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
-var setup_4Tx = vesting.addEntry(teamMember1Wallet, 1, 24, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
-var setup_5Tx = vesting.addEntry(teamMember2Wallet, 3, 12, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
-var setup_6Tx = vesting.addEntry(teamMember3Wallet, 5, 6, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_4Tx = vesting.addEntryInDays(teamMember1Wallet, 1, 30, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_5Tx = vesting.addEntryInMonths(teamMember2Wallet, 3, 8, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
+var setup_6Tx = vesting.addEntryInYears(teamMember3Wallet, 5, 1, {from: contractOwnerAccount, gas: 800000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
 failIfTxStatusError(setup_1Tx, setup_Message + " - crowdsale.setBTTSToken(tokenAddress)");
 failIfTxStatusError(setup_2Tx, setup_Message + " - token.setMinter(crowdsaleAddress)");
 failIfTxStatusError(setup_3Tx, setup_Message + " - crowdsale.generateTokensForPresaleAccounts([ac1, ac3, ac4, ac5])");
-failIfTxStatusError(setup_4Tx, setup_Message + " - vesting.addEntry(teamMember1Wallet, 1, 24)");
-failIfTxStatusError(setup_5Tx, setup_Message + " - vesting.addEntry(teamMember2Wallet, 3, 12)");
-failIfTxStatusError(setup_6Tx, setup_Message + " - vesting.addEntry(teamMember3Wallet, 5, 6)");
+failIfTxStatusError(setup_4Tx, setup_Message + " - vesting.addEntryInDays(teamMember1Wallet, 1, 30)");
+failIfTxStatusError(setup_5Tx, setup_Message + " - vesting.addEntryInMonths(teamMember2Wallet, 3, 8)");
+failIfTxStatusError(setup_6Tx, setup_Message + " - vesting.addEntryInYears(teamMember3Wallet, 5, 1)");
 printTxData("setup_1Tx", setup_1Tx);
 printTxData("setup_2Tx", setup_2Tx);
 printTxData("setup_3Tx", setup_3Tx);
@@ -332,13 +334,131 @@ console.log("RESULT: ");
 var finaliseMessage = "Finalise Sale";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + finaliseMessage);
-var finaliseTx = crowdsale.finalise({from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+var finalise1Tx = crowdsale.finalise({from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+var finalise2Tx = token.enableTransfers({from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(finaliseTx, finaliseMessage);
-printTxData("finaliseTx", finaliseTx);
+failIfTxStatusError(finalise1Tx, finaliseMessage + " - crowdsale.finalise()");
+failIfTxStatusError(finalise2Tx, finaliseMessage + " - token.enableTransfers()");
+printTxData("finalise1Tx", finalise1Tx);
+printTxData("finalise2Tx", finalise2Tx);
 printCrowdsaleContractDetails();
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+waitUntil("vesting.startDate()", vesting.startDate(), 0);
+
+// -----------------------------------------------------------------------------
+var withdrawVesting1Message = "Withdraw Vesting @ vesting.startDate() + 0s";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + withdrawVesting1Message);
+var withdrawVesting1_1Tx = vesting.withdraw({from: teamMember1Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting1_2Tx = vesting.withdraw({from: teamMember2Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting1_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(withdrawVesting1_1Tx, withdrawVesting1Message + " - " + teamMember1Wallet);
+failIfTxStatusError(withdrawVesting1_2Tx, withdrawVesting1Message + " - " + teamMember2Wallet);
+failIfTxStatusError(withdrawVesting1_3Tx, withdrawVesting1Message + " - " + teamMember3Wallet);
+printTxData("withdrawVesting1_1Tx", withdrawVesting1_1Tx);
+printTxData("withdrawVesting1_2Tx", withdrawVesting1_2Tx);
+printTxData("withdrawVesting1_3Tx", withdrawVesting1_3Tx);
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+waitUntil("vesting.startDate() + 31 seconds", vesting.startDate(), 31);
+
+// -----------------------------------------------------------------------------
+var withdrawVesting2Message = "Withdraw Vesting @ vesting.startDate() + 31s";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + withdrawVesting2Message);
+var withdrawVesting2_1Tx = vesting.withdraw({from: teamMember1Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting2_2Tx = vesting.withdraw({from: teamMember2Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting2_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(withdrawVesting2_1Tx, withdrawVesting2Message + " - " + teamMember1Wallet);
+failIfTxStatusError(withdrawVesting2_2Tx, withdrawVesting2Message + " - " + teamMember2Wallet);
+failIfTxStatusError(withdrawVesting2_3Tx, withdrawVesting2Message + " - " + teamMember3Wallet);
+printTxData("withdrawVesting2_1Tx", withdrawVesting2_1Tx);
+printTxData("withdrawVesting2_2Tx", withdrawVesting2_2Tx);
+printTxData("withdrawVesting2_3Tx", withdrawVesting2_3Tx);
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+waitUntil("vesting.startDate() + 61 seconds", vesting.startDate(), 61);
+
+// -----------------------------------------------------------------------------
+var withdrawVesting3Message = "Withdraw Vesting @ vesting.startDate() + 61s";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + withdrawVesting3Message);
+var withdrawVesting3_1Tx = vesting.withdraw({from: teamMember1Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting3_2Tx = vesting.withdraw({from: teamMember2Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting3_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(withdrawVesting3_1Tx, withdrawVesting3Message + " - " + teamMember1Wallet);
+failIfTxStatusError(withdrawVesting3_2Tx, withdrawVesting3Message + " - " + teamMember2Wallet);
+failIfTxStatusError(withdrawVesting3_3Tx, withdrawVesting3Message + " - " + teamMember3Wallet);
+printTxData("withdrawVesting3_1Tx", withdrawVesting3_1Tx);
+printTxData("withdrawVesting3_2Tx", withdrawVesting3_2Tx);
+printTxData("withdrawVesting3_3Tx", withdrawVesting3_3Tx);
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+waitUntil("vesting.startDate() + 91 seconds", vesting.startDate(), 91);
+
+// -----------------------------------------------------------------------------
+var withdrawVesting4Message = "Withdraw Vesting @ vesting.startDate() + 91s";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + withdrawVesting4Message);
+var withdrawVesting4_1Tx = vesting.withdraw({from: teamMember1Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting4_2Tx = vesting.withdraw({from: teamMember2Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting4_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(withdrawVesting4_1Tx, withdrawVesting4Message + " - " + teamMember1Wallet);
+failIfTxStatusError(withdrawVesting4_2Tx, withdrawVesting4Message + " - " + teamMember2Wallet);
+failIfTxStatusError(withdrawVesting4_3Tx, withdrawVesting4Message + " - " + teamMember3Wallet);
+printTxData("withdrawVesting4_1Tx", withdrawVesting4_1Tx);
+printTxData("withdrawVesting4_2Tx", withdrawVesting4_2Tx);
+printTxData("withdrawVesting4_3Tx", withdrawVesting4_3Tx);
+printTokenContractDetails();
+printVestingContractDetails();
+console.log("RESULT: ");
+
+
+waitUntil("vesting.startDate() + 130 seconds", vesting.startDate(), 130);
+
+// -----------------------------------------------------------------------------
+var withdrawVesting5Message = "Withdraw Vesting @ vesting.startDate() + 130s";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + withdrawVesting5Message);
+var withdrawVesting5_1Tx = vesting.withdraw({from: teamMember1Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting5_2Tx = vesting.withdraw({from: teamMember2Wallet, gas: 400000, gasPrice: defaultGasPrice});
+var withdrawVesting5_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(withdrawVesting5_1Tx, withdrawVesting5Message + " - " + teamMember1Wallet);
+failIfTxStatusError(withdrawVesting5_2Tx, withdrawVesting5Message + " - " + teamMember2Wallet);
+failIfTxStatusError(withdrawVesting5_3Tx, withdrawVesting5Message + " - " + teamMember3Wallet);
+printTxData("withdrawVesting5_1Tx", withdrawVesting5_1Tx);
+printTxData("withdrawVesting5_2Tx", withdrawVesting5_2Tx);
+printTxData("withdrawVesting5_3Tx", withdrawVesting5_3Tx);
 printTokenContractDetails();
 printVestingContractDetails();
 console.log("RESULT: ");

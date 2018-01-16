@@ -166,23 +166,34 @@ contract DeveryVesting {
     DeveryCrowdsale public crowdsale;
     uint public totalProportion;
     uint public totalTokens;
-    uint public constant PERIOD_LENGTH = 30 days;
     uint public startDate;
 
     struct Entry {
         uint proportion;
         uint periods;
+        uint periodLength;
         uint withdrawn;
     }
     mapping (address => Entry) public entries;
 
-    event NewEntry(address indexed holder, uint proportion, uint periods);
+    event NewEntry(address indexed holder, uint proportion, uint periods, uint periodLength);
+    event Withdrawn(address indexed holder, uint withdrawn);
 
     function DeveryVesting(address _crowdsale) public {
         crowdsale = DeveryCrowdsale(_crowdsale);
     }
 
-    function addEntry(address holder, uint256 proportion, uint256 periods) public {
+    function addEntryInDays(address holder, uint proportion, uint periods) public {
+        addEntry(holder, proportion, periods, 1 seconds);
+    }
+    function addEntryInMonths(address holder, uint proportion, uint periods) public {
+        addEntry(holder, proportion, periods, 30 seconds);
+    }
+    function addEntryInYears(address holder, uint proportion, uint periods) public {
+        addEntry(holder, proportion, periods, 365 seconds);
+    }
+
+    function addEntry(address holder, uint proportion, uint periods, uint periodLength) internal {
         require(msg.sender == crowdsale.owner());
         require(holder != address(0));
         require(proportion > 0);
@@ -191,23 +202,62 @@ contract DeveryVesting {
         entries[holder] = Entry({
             proportion: proportion,
             periods: periods,
+            periodLength: periodLength,
             withdrawn: 0
         });
         totalProportion = totalProportion.add(proportion);
-        NewEntry(holder, proportion, periods);
+        NewEntry(holder, proportion, periods, periodLength);
     }
 
+    function tokenShare(address holder) public constant returns (uint) {
+        Entry memory entry = entries[holder];
+        if (entry.proportion == 0 || totalProportion == 0) {
+            return 0;
+        } else {
+            return totalTokens * entry.proportion / totalProportion;
+        }
+    }
     function vested(address holder, uint time) public constant returns (uint) {
         if (startDate == 0 || time <= startDate) {
             return 0;
         }
         Entry memory entry = entries[holder];
-        if (time > startDate + entry.periods * PERIOD_LENGTH) {
-            return totalTokens * entry.proportion / totalProportion;
+        if (entry.proportion == 0 || totalProportion == 0) {
+            return 0;
+        } else {
+            uint _tokenShare = totalTokens * entry.proportion / totalProportion;
+            if (time > startDate + (entry.periods * entry.periodLength)) {
+                return _tokenShare;
+            }
+            uint periods = (time - startDate) / entry.periodLength;
+            return _tokenShare * periods / entry.periods;
         }
-        uint periods = (time - startDate) / PERIOD_LENGTH;
-        uint tokens = totalTokens * periods / entry.periods;
-        return tokens;
+    }
+    function withdrawable(address holder) public constant returns (uint) {
+        Entry memory entry = entries[holder];
+        if (entry.proportion == 0 || totalProportion == 0) {
+            return 0;
+        } else {
+            uint _vested = vested(holder, now);
+            return _vested - entry.withdrawn;
+        }
+    }
+    function withdraw() public {
+        Entry storage entry = entries[msg.sender];
+        require(entry.proportion > 0 && totalProportion > 0);
+        uint _vested = vested(msg.sender, now);
+        uint _withdrawn = entry.withdrawn;
+        // TODO require(_vested > _withdrawn);
+        if (_vested > _withdrawn) {
+            uint _withdrawable = _vested - _withdrawn;
+            entry.withdrawn = _vested;
+            require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
+            Withdrawn(msg.sender, _withdrawable);
+        }
+    }
+    function withdrawn(address holder) public constant returns (uint) {
+        Entry memory entry = entries[holder];
+        return entry.withdrawn;
     }
 
     function finalise() public {
@@ -251,15 +301,12 @@ contract DeveryCrowdsale is Owned {
 
     // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
     // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
-    uint public startDate = 1516114411; // Tue 16 Jan 2018 14:53:31 UTC
+    uint public startDate = 1516129270; // Tue 16 Jan 2018 19:01:10 UTC
     uint public firstPeriodEndDate = startDate + 12 hours;
     uint public endDate = startDate + 14 days;
 
-    // OLD ETH/USD 16 Jan 2018 00:00 AEDT => 1,290.60 from CMC
-    // OLD uint public usdPerKEther = 1290600;
-    // TODO ETH/USD 7 day average from CMC - 1180
+    // ETH/USD 7 day average from CMC - 1180
     uint public usdPerKEther = 1180000;
-    uint public constant USD_CENT_PER_6_EVE = 100;
     uint public constant CAP_USD = 10000000;
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
 
@@ -352,12 +399,15 @@ contract DeveryCrowdsale is Owned {
         return capEth() - presaleEth();
     }
     function eveFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
-        uint _crowdsaleEth = crowdsaleEth(); 
         uint adjustedEth = (presaleEth() * (100 + PRESALE_BONUS_PERCENT) + crowdsaleEth() * 100)/100;
         return ethAmount * (100 + bonusPercent) * PRESALEPLUSCROWDSALE_EVE / adjustedEth / 100;
     }
     function evePerEth() public view returns (uint) {
         return eveFromEth(10**18, 0);
+    }
+    function usdPerEve() public view returns (uint) {
+        uint evePerKEth = eveFromEth(10**(18 + 3), 0);
+        return usdPerKEther * 10**(18 + 18) / evePerKEth;
     }
 
     event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent,
