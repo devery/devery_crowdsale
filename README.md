@@ -44,7 +44,7 @@
 
 ### Generate Tokens For Presale Accounts
 
-# Execute `deveryCrowdsale.generateTokensForPresaleAccounts([account1, account2, ..., accountn])` so all presale accounts have their tokens generated
+* Execute `deveryCrowdsale.generateTokensForPresaleAccounts([account1, account2, ..., accountn])` so all presale accounts have their tokens generated
 
 <br />
 
@@ -58,3 +58,27 @@
 ### Finalisation
 
 * Execute `deveryCrowdsale.finalise()`
+
+<br />
+
+### Vesting
+
+The crowdsale contract will automatically deploy a vesting contract. To verify the source on EtherScan, you will have to provide the
+additional parameter data of 0x{24 zeros}{crowdsale contract address}.
+
+These vesting entries are non-revocable. For revocable vesting entries, allocate the proportion to a wallet address with 1 day and after 1 day
+withdraw the tokens to the wallet address and manually process the token vesting.
+
+There are three functions to allocate the vesting schedule:
+
+* `addEntryInDays(address holder, uint proportion, uint periods)`
+* `addEntryInMonths(address holder, uint proportion, uint periods)`
+* `addEntryInYears(address holder, uint proportion, uint periods)`
+
+The holder will be able to call the `withdraw()` function to withdraw any vested tokens.
+
+<br />
+
+<br />
+
+(c) BokkyPooBah / Bok Consulting Pty Ltd for Devery - Jan 17 2018. The MIT Licence.

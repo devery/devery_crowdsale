@@ -329,7 +329,7 @@ function printCrowdsaleContractDetails() {
     console.log("RESULT: crowdsale.PER_ACCOUNT_ADDITIONAL_TOKENS=" + contract.PER_ACCOUNT_ADDITIONAL_TOKENS() + " " + contract.PER_ACCOUNT_ADDITIONAL_TOKENS().shift(-18) + " EVE");
     console.log("RESULT: crowdsale.picopsCertifier=" + contract.picopsCertifier());
     console.log("RESULT: crowdsale.wallet=" + contract.wallet());
-    console.log("RESULT: crowdsale.teamWallet=" + contract.teamWallet());
+    // console.log("RESULT: crowdsale.teamWallet=" + contract.teamWallet());
     console.log("RESULT: crowdsale.reserveWallet=" + contract.reserveWallet());
     console.log("RESULT: crowdsale.vestingTeamWallet=" + contract.vestingTeamWallet());
     console.log("RESULT: crowdsale.TEAM_PERCENT_EVE=" + contract.TEAM_PERCENT_EVE());
@@ -386,12 +386,12 @@ function printCrowdsaleContractDetails() {
     });
     walletUpdatedEvents.stopWatching();
 
-    var teamWalletUpdatedEvents = contract.TeamWalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
-    i = 0;
-    teamWalletUpdatedEvents.watch(function (error, result) {
-      console.log("RESULT: TeamWalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    teamWalletUpdatedEvents.stopWatching();
+    // var teamWalletUpdatedEvents = contract.TeamWalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    // i = 0;
+    // teamWalletUpdatedEvents.watch(function (error, result) {
+    //   console.log("RESULT: TeamWalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    // });
+    // teamWalletUpdatedEvents.stopWatching();
 
     var reserveWalletUpdatedEvents = contract.ReserveWalletUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
     i = 0;
@@ -429,6 +429,13 @@ function printCrowdsaleContractDetails() {
       console.log("RESULT: UsdPerKEtherUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
     usdPerKEtherUpdatedEvents.stopWatching();
+
+    var firstPeriodCapUpdatedEvents = contract.FirstPeriodCapUpdated({}, { fromBlock: crowdsaleFromBlock, toBlock: latestBlock });
+    i = 0;
+    firstPeriodCapUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: FirstPeriodCapUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    firstPeriodCapUpdatedEvents.stopWatching();
 
     var contributedEvents = contract.Contributed({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;

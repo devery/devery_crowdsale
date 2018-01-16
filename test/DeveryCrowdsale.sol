@@ -278,7 +278,7 @@ contract DeveryCrowdsale is Owned {
     BTTSTokenInterface public bttsToken;
     uint8 public constant TOKEN_DECIMALS = 18;
 
-    ERC20Interface public presaleToken = ERC20Interface(0x12322cf0575d3ce515765d134d7dd9d2725530ae);
+    ERC20Interface public presaleToken = ERC20Interface(0x3605208ab7eeb9f905ab1f9615fb4915fd2453ec);
     uint public presaleEthAmountsProcessed;
     bool public presaleProcessed;
     uint public constant PRESALE_BONUS_PERCENT = 5;
@@ -288,10 +288,10 @@ contract DeveryCrowdsale is Owned {
     // TEST uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 0;
     mapping(address => bool) bonusTokensAllocate;
 
-    PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2f058c43ac8965938f6e9ca286685a3e63f24e);
+    PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x0b53e5ec7b91526f737b93200ba0a43797763f33);
 
     address public wallet = 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;
-    address public teamWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
+    // address public teamWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
     address public reserveWallet = 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;
     DeveryVesting public vestingTeamWallet;
     uint public constant TEAM_PERCENT_EVE = 15;
@@ -301,14 +301,15 @@ contract DeveryCrowdsale is Owned {
 
     // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
     // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
-    uint public startDate = 1516129270; // Tue 16 Jan 2018 19:01:10 UTC
-    uint public firstPeriodEndDate = startDate + 12 hours;
+    uint public startDate = 1516144650; // Tue 16 Jan 2018 23:17:30 UTC
+    uint public firstPeriodEndDate = startDate + 1 minutes;
     uint public endDate = startDate + 14 days;
 
     // ETH/USD 7 day average from CMC - 1180
     uint public usdPerKEther = 1180000;
     uint public constant CAP_USD = 10000000;
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
+    uint public firstPeriodCap = 20 ether;
 
     uint public contributedEth;
     uint public contributedUsd;
@@ -321,12 +322,13 @@ contract DeveryCrowdsale is Owned {
     event BTTSTokenUpdated(address indexed oldBTTSToken, address indexed newBTTSToken);
     event PICOPSCertifierUpdated(address indexed oldPICOPSCertifier, address indexed newPICOPSCertifier);
     event WalletUpdated(address indexed oldWallet, address indexed newWallet);
-    event TeamWalletUpdated(address indexed oldTeamWallet, address indexed newTeamWallet);
+    // event TeamWalletUpdated(address indexed oldTeamWallet, address indexed newTeamWallet);
     event ReserveWalletUpdated(address indexed oldReserveWallet, address indexed newReserveWallet);
     event StartDateUpdated(uint oldStartDate, uint newStartDate);
     event FirstPeriodEndDateUpdated(uint oldFirstPeriodEndDate, uint newFirstPeriodEndDate);
     event EndDateUpdated(uint oldEndDate, uint newEndDate);
     event UsdPerKEtherUpdated(uint oldUsdPerKEther, uint newUsdPerKEther);
+    event FirstPeriodCapUpdated(uint oldFirstPeriodCap, uint newFirstPeriodCap);
 
     function DeveryCrowdsale() public {
         vestingTeamWallet = new DeveryVesting(this);
@@ -346,10 +348,10 @@ contract DeveryCrowdsale is Owned {
         WalletUpdated(wallet, _wallet);
         wallet = _wallet;
     }
-    function setTeamWallet(address _teamWallet) public onlyOwner {
-        TeamWalletUpdated(teamWallet, _teamWallet);
-        teamWallet = _teamWallet;
-    }
+    // function setTeamWallet(address _teamWallet) public onlyOwner {
+    //     TeamWalletUpdated(teamWallet, _teamWallet);
+    //     teamWallet = _teamWallet;
+    // }
     function setReserveWallet(address _reserveWallet) public onlyOwner {
         ReserveWalletUpdated(reserveWallet, _reserveWallet);
         reserveWallet = _reserveWallet;
@@ -375,6 +377,11 @@ contract DeveryCrowdsale is Owned {
         require(now <= startDate);
         UsdPerKEtherUpdated(usdPerKEther, _usdPerKEther);
         usdPerKEther = _usdPerKEther;
+    }
+    function setFirstPeriodCap(uint _firstPeriodCap) public onlyOwner {
+        require(_firstPeriodCap >= MIN_CONTRIBUTION_ETH);
+        FirstPeriodCapUpdated(firstPeriodCap, _firstPeriodCap);
+        firstPeriodCap = _firstPeriodCap;
     }
 
     // capEth       = USD 10,000,000 / 1,180 = 8474.576271186440677966
@@ -441,10 +448,19 @@ contract DeveryCrowdsale is Owned {
     }
 
     function () public payable {
-        // require((now >= START_DATE && now <= endDate) || (msg.sender == owner && msg.value == MIN_CONTRIBUTION_ETH));
+        require(!finalised);
+        uint ethAmount = msg.value;
+        if (msg.sender == owner) {
+            require(msg.value == MIN_CONTRIBUTION_ETH);
+        } else {
+            require(now >= startDate && now <= endDate);
+            if (now <= firstPeriodEndDate) {
+                require(accountEthAmount[msg.sender].add(ethAmount) <= firstPeriodCap);
+                require(picopsCertifier.certified(msg.sender));
+            }
+        }
         require(contributedEth < capEth());
         require(msg.value >= MIN_CONTRIBUTION_ETH);
-        uint ethAmount = msg.value;
         uint ethRefund = 0;
         if (contributedEth.add(ethAmount) > capEth()) {
             ethAmount = capEth().sub(contributedEth);
@@ -453,7 +469,7 @@ contract DeveryCrowdsale is Owned {
         uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
         uint eveAmount = eveFromEth(ethAmount, 0);
         // TESTING uint eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);
-        if (!bonusTokensAllocate[msg.sender]) {
+        if (picopsCertifier.certified(msg.sender) && !bonusTokensAllocate[msg.sender]) {
             eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
             bonusTokensAllocate[msg.sender] = true;
         }

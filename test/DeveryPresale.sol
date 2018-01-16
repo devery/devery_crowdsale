@@ -189,7 +189,7 @@ contract DeveryPresale is ERC20Token {
     address public wallet;
     // 9:00pm, 14 December GMT-5 => 02:00 15 December UTC => 13:00 15 December AEST => 1513303200
     // new Date(1513303200 * 1000).toUTCString() =>  "Fri, 15 Dec 2017 02:00:00 UTC"
-    uint public constant START_DATE = 1516061032; // Tue 16 Jan 2018 00:03:52 UTC
+    uint public constant START_DATE = 1516142110; // Tue 16 Jan 2018 22:35:10 UTC
     bool public closed;
     uint public ethMinContribution = 20 ether;
     uint public constant TEST_CONTRIBUTION = 0.01 ether;
