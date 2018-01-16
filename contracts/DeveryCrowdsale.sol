@@ -1,9 +1,8 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// 'EVE' 'Devery EVE' token contract
+// 'EVE' 'Devery EVE' crowdsale and token contracts
 //
-// Deployed to : {TBA}
 // Symbol      : EVE
 // Name        : Devery EVE
 // Total supply: Minted
@@ -210,37 +209,37 @@ contract DeveryVesting {
     }
 
     function tokenShare(address holder) public constant returns (uint) {
+        uint result = 0;
         Entry memory entry = entries[holder];
-        if (entry.proportion == 0 || totalProportion == 0) {
-            return 0;
-        } else {
-            return totalTokens * entry.proportion / totalProportion;
+        if (entry.proportion > 0 && totalProportion > 0) {
+            result = totalTokens.mul(entry.proportion).div(totalProportion);
         }
+        return result;
     }
     function vested(address holder, uint time) public constant returns (uint) {
-        if (startDate == 0 || time <= startDate) {
-            return 0;
-        }
-        Entry memory entry = entries[holder];
-        if (entry.proportion == 0 || totalProportion == 0) {
-            return 0;
-        } else {
-            uint _tokenShare = totalTokens * entry.proportion / totalProportion;
-            if (time > startDate + (entry.periods * entry.periodLength)) {
-                return _tokenShare;
+        uint result = 0;
+        if (startDate > 0 && time > startDate) {
+            Entry memory entry = entries[holder];
+            if (entry.proportion > 0 && totalProportion > 0) {
+                uint _tokenShare = totalTokens * entry.proportion / totalProportion;
+                if (time > startDate.add(entry.periods.mul(entry.periodLength))) {
+                    result = _tokenShare;
+                } else {
+                    uint periods = time.sub(startDate).div(entry.periodLength);
+                    result = _tokenShare.mul(periods).div(entry.periods);
+                }
             }
-            uint periods = (time - startDate) / entry.periodLength;
-            return _tokenShare * periods / entry.periods;
         }
+        return result;
     }
     function withdrawable(address holder) public constant returns (uint) {
+        uint result = 0;
         Entry memory entry = entries[holder];
-        if (entry.proportion == 0 || totalProportion == 0) {
-            return 0;
-        } else {
+        if (entry.proportion > 0 && totalProportion > 0) {
             uint _vested = vested(holder, now);
-            return _vested - entry.withdrawn;
+            result = _vested.sub(entry.withdrawn);
         }
+        return result;
     }
     function withdraw() public {
         Entry storage entry = entries[msg.sender];
@@ -249,7 +248,7 @@ contract DeveryVesting {
         uint _withdrawn = entry.withdrawn;
         // TODO require(_vested > _withdrawn);
         if (_vested > _withdrawn) {
-            uint _withdrawable = _vested - _withdrawn;
+            uint _withdrawable = _vested.sub(_withdrawn);
             entry.withdrawn = _vested;
             require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
             Withdrawn(msg.sender, _withdrawable);
@@ -329,6 +328,7 @@ contract DeveryCrowdsale is Owned {
     event EndDateUpdated(uint oldEndDate, uint newEndDate);
     event UsdPerKEtherUpdated(uint oldUsdPerKEther, uint newUsdPerKEther);
     event FirstPeriodCapUpdated(uint oldFirstPeriodCap, uint newFirstPeriodCap);
+    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent, uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
 
     function DeveryCrowdsale() public {
         vestingTeamWallet = new DeveryVesting(this);
@@ -403,22 +403,19 @@ contract DeveryCrowdsale is Owned {
         return presaleToken.totalSupply();
     }
     function crowdsaleEth() public view returns (uint) {
-        return capEth() - presaleEth();
+        return capEth().sub(presaleEth());
     }
     function eveFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
-        uint adjustedEth = (presaleEth() * (100 + PRESALE_BONUS_PERCENT) + crowdsaleEth() * 100)/100;
-        return ethAmount * (100 + bonusPercent) * PRESALEPLUSCROWDSALE_EVE / adjustedEth / 100;
+        uint adjustedEth = presaleEth().mul(100 + PRESALE_BONUS_PERCENT).add(crowdsaleEth().mul(100)).div(100);
+        return ethAmount.mul(100 + bonusPercent).mul(PRESALEPLUSCROWDSALE_EVE).div(adjustedEth).div(100);
     }
     function evePerEth() public view returns (uint) {
         return eveFromEth(10**18, 0);
     }
     function usdPerEve() public view returns (uint) {
         uint evePerKEth = eveFromEth(10**(18 + 3), 0);
-        return usdPerKEther * 10**(18 + 18) / evePerKEth;
+        return usdPerKEther.mul(10**(18 + 18)).div(evePerKEth);
     }
-
-    event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent,
-        uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
 
     function generateTokensForPresaleAccounts(address[] accounts) public onlyOwner {
         require(bttsToken != address(0));
