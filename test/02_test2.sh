@@ -65,9 +65,6 @@ printf "START_DATE             = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST
 # `cp modifiedContracts/SnipCoin.sol .`
 `cp $SOURCEDIR/$TOKENFACTORYSOL .`
 `cp $SOURCEDIR/$CROWDSALESOL .`
-# `cp $SOURCEDIR/$PRESALEWHITELISTSOL .`
-# `cp $SOURCEDIR/$PICOPSCERTIFIERSOL .`
-# `cp $SOURCEDIR/$PRESALETOKENSOL .`
 
 # --- Modify parameters ---
 `perl -pi -e "s/ERC20Interface\(0x8ca1d9C33c338520604044977be69a9AC19d6E54\);/ERC20Interface\($PRESALETOKENADDRESS\);/" $CROWDSALESOL`
@@ -89,9 +86,6 @@ solc_0.4.18 --version | tee -a $TEST2OUTPUT
 
 echo "var tokenFactoryOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $TOKENFACTORYSOL`;" > $TOKENFACTORYJS
 echo "var crowdsaleOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $CROWDSALESOL`;" > $CROWDSALEJS
-# echo "var whitelistOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALEWHITELISTSOL`;" > $PRESALEWHITELISTJS
-# echo "var picopsCertifierOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PICOPSCERTIFIERSOL`;" > $PICOPSCERTIFIERJS
-# echo "var tokenOutput=`solc_0.4.18 --optimize --pretty-json --combined-json abi,bin,interface $PRESALETOKENSOL`;" > $PRESALETOKENJS
 
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST2OUTPUT
@@ -408,8 +402,8 @@ while (txpool.status.pending > 0) {
 }
 printBalances();
 failIfTxStatusError(withdrawVesting1_1Tx, withdrawVesting1Message + " - " + teamMember1Wallet);
-failIfTxStatusError(withdrawVesting1_2Tx, withdrawVesting1Message + " - " + teamMember2Wallet);
-failIfTxStatusError(withdrawVesting1_3Tx, withdrawVesting1Message + " - " + teamMember3Wallet);
+passIfTxStatusError(withdrawVesting1_2Tx, withdrawVesting1Message + " - " + teamMember2Wallet + " - expecting revert");
+passIfTxStatusError(withdrawVesting1_3Tx, withdrawVesting1Message + " - " + teamMember3Wallet + " - expecting revert");
 printTxData("withdrawVesting1_1Tx", withdrawVesting1_1Tx);
 printTxData("withdrawVesting1_2Tx", withdrawVesting1_2Tx);
 printTxData("withdrawVesting1_3Tx", withdrawVesting1_3Tx);
@@ -432,7 +426,7 @@ while (txpool.status.pending > 0) {
 printBalances();
 failIfTxStatusError(withdrawVesting2_1Tx, withdrawVesting2Message + " - " + teamMember1Wallet);
 failIfTxStatusError(withdrawVesting2_2Tx, withdrawVesting2Message + " - " + teamMember2Wallet);
-failIfTxStatusError(withdrawVesting2_3Tx, withdrawVesting2Message + " - " + teamMember3Wallet);
+passIfTxStatusError(withdrawVesting2_3Tx, withdrawVesting2Message + " - " + teamMember3Wallet + " - expecting revert");
 printTxData("withdrawVesting2_1Tx", withdrawVesting2_1Tx);
 printTxData("withdrawVesting2_2Tx", withdrawVesting2_2Tx);
 printTxData("withdrawVesting2_3Tx", withdrawVesting2_3Tx);
@@ -453,9 +447,9 @@ var withdrawVesting3_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 40000
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(withdrawVesting3_1Tx, withdrawVesting3Message + " - " + teamMember1Wallet);
+passIfTxStatusError(withdrawVesting3_1Tx, withdrawVesting3Message + " - " + teamMember1Wallet + " - expecting revert");
 failIfTxStatusError(withdrawVesting3_2Tx, withdrawVesting3Message + " - " + teamMember2Wallet);
-failIfTxStatusError(withdrawVesting3_3Tx, withdrawVesting3Message + " - " + teamMember3Wallet);
+passIfTxStatusError(withdrawVesting3_3Tx, withdrawVesting3Message + " - " + teamMember3Wallet + " - expecting revert");
 printTxData("withdrawVesting3_1Tx", withdrawVesting3_1Tx);
 printTxData("withdrawVesting3_2Tx", withdrawVesting3_2Tx);
 printTxData("withdrawVesting3_3Tx", withdrawVesting3_3Tx);
@@ -476,9 +470,9 @@ var withdrawVesting4_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 40000
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(withdrawVesting4_1Tx, withdrawVesting4Message + " - " + teamMember1Wallet);
+passIfTxStatusError(withdrawVesting4_1Tx, withdrawVesting4Message + " - " + teamMember1Wallet + " - expecting revert");
 failIfTxStatusError(withdrawVesting4_2Tx, withdrawVesting4Message + " - " + teamMember2Wallet);
-failIfTxStatusError(withdrawVesting4_3Tx, withdrawVesting4Message + " - " + teamMember3Wallet);
+passIfTxStatusError(withdrawVesting4_3Tx, withdrawVesting4Message + " - " + teamMember3Wallet + " - expecting revert");
 printTxData("withdrawVesting4_1Tx", withdrawVesting4_1Tx);
 printTxData("withdrawVesting4_2Tx", withdrawVesting4_2Tx);
 printTxData("withdrawVesting4_3Tx", withdrawVesting4_3Tx);
@@ -499,9 +493,9 @@ var withdrawVesting5_3Tx = vesting.withdraw({from: teamMember3Wallet, gas: 40000
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(withdrawVesting5_1Tx, withdrawVesting5Message + " - " + teamMember1Wallet);
+passIfTxStatusError(withdrawVesting5_1Tx, withdrawVesting5Message + " - " + teamMember1Wallet + " - expecting revert");
 failIfTxStatusError(withdrawVesting5_2Tx, withdrawVesting5Message + " - " + teamMember2Wallet);
-failIfTxStatusError(withdrawVesting5_3Tx, withdrawVesting5Message + " - " + teamMember3Wallet);
+passIfTxStatusError(withdrawVesting5_3Tx, withdrawVesting5Message + " - " + teamMember3Wallet + " - expecting revert");
 printTxData("withdrawVesting5_1Tx", withdrawVesting5_1Tx);
 printTxData("withdrawVesting5_2Tx", withdrawVesting5_2Tx);
 printTxData("withdrawVesting5_3Tx", withdrawVesting5_3Tx);

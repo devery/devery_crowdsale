@@ -161,7 +161,6 @@ contract Owned {
 contract DeveryVesting {
     using SafeMath for uint;
 
-    // ERC20Interface public token;
     DeveryCrowdsale public crowdsale;
     uint public totalProportion;
     uint public totalTokens;
@@ -246,13 +245,11 @@ contract DeveryVesting {
         require(entry.proportion > 0 && totalProportion > 0);
         uint _vested = vested(msg.sender, now);
         uint _withdrawn = entry.withdrawn;
-        // TODO require(_vested > _withdrawn);
-        if (_vested > _withdrawn) {
-            uint _withdrawable = _vested.sub(_withdrawn);
-            entry.withdrawn = _vested;
-            require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
-            Withdrawn(msg.sender, _withdrawable);
-        }
+        require(_vested > _withdrawn);
+        uint _withdrawable = _vested.sub(_withdrawn);
+        entry.withdrawn = _vested;
+        require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
+        Withdrawn(msg.sender, _withdrawable);
     }
     function withdrawn(address holder) public constant returns (uint) {
         Entry memory entry = entries[holder];
@@ -281,16 +278,13 @@ contract DeveryCrowdsale is Owned {
     uint public presaleEthAmountsProcessed;
     bool public presaleProcessed;
     uint public constant PRESALE_BONUS_PERCENT = 5;
-    // TEST uint public constant PRESALE_BONUS_PERCENT = 0;
 
     uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 150 * 10**uint(TOKEN_DECIMALS);
-    // TEST uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 0;
     mapping(address => bool) bonusTokensAllocate;
 
     PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2F058C43ac8965938F6e9CA286685A3E63F24E);
 
     address public wallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
-    // address public teamWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
     address public reserveWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
     DeveryVesting public vestingTeamWallet;
     uint public constant TEAM_PERCENT_EVE = 15;
@@ -321,7 +315,6 @@ contract DeveryCrowdsale is Owned {
     event BTTSTokenUpdated(address indexed oldBTTSToken, address indexed newBTTSToken);
     event PICOPSCertifierUpdated(address indexed oldPICOPSCertifier, address indexed newPICOPSCertifier);
     event WalletUpdated(address indexed oldWallet, address indexed newWallet);
-    // event TeamWalletUpdated(address indexed oldTeamWallet, address indexed newTeamWallet);
     event ReserveWalletUpdated(address indexed oldReserveWallet, address indexed newReserveWallet);
     event StartDateUpdated(uint oldStartDate, uint newStartDate);
     event FirstPeriodEndDateUpdated(uint oldFirstPeriodEndDate, uint newFirstPeriodEndDate);
@@ -335,7 +328,7 @@ contract DeveryCrowdsale is Owned {
     }
 
     function setBTTSToken(address _bttsToken) public onlyOwner {
-        // TODO require(now <= startDate);
+        require(now <= startDate);
         BTTSTokenUpdated(address(bttsToken), _bttsToken);
         bttsToken = BTTSTokenInterface(_bttsToken);
     }
@@ -348,10 +341,6 @@ contract DeveryCrowdsale is Owned {
         WalletUpdated(wallet, _wallet);
         wallet = _wallet;
     }
-    // function setTeamWallet(address _teamWallet) public onlyOwner {
-    //     TeamWalletUpdated(teamWallet, _teamWallet);
-    //     teamWallet = _teamWallet;
-    // }
     function setReserveWallet(address _reserveWallet) public onlyOwner {
         ReserveWalletUpdated(reserveWallet, _reserveWallet);
         reserveWallet = _reserveWallet;
@@ -465,7 +454,6 @@ contract DeveryCrowdsale is Owned {
         }
         uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
         uint eveAmount = eveFromEth(ethAmount, 0);
-        // TESTING uint eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);
         if (picopsCertifier.certified(msg.sender) && !bonusTokensAllocate[msg.sender]) {
             eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
             bonusTokensAllocate[msg.sender] = true;
@@ -510,7 +498,6 @@ contract DeveryCrowdsale is Owned {
             generatedEve = TARGET_EVE;
             amountReserve = amountReserve.sub(diff);
         }
-        // bttsToken.mint(teamWallet, amountTeam, false);
         bttsToken.mint(address(vestingTeamWallet), amountTeam, false);
         bttsToken.mint(reserveWallet, amountReserve, false);
         bttsToken.disableMinting();
