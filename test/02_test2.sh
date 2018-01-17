@@ -71,9 +71,9 @@ printf "START_DATE             = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST
 `perl -pi -e "s/PICOPSCertifier\(0x1e2F058C43ac8965938F6e9CA286685A3E63F24E\);/PICOPSCertifier\($PICOPSCERTIFIERADDRESS\);/" $CROWDSALESOL`
 `perl -pi -e "s/startDate \= 1516291200;.*$/startDate \= $START_DATE; \/\/ $START_DATE_S/" $CROWDSALESOL`
 `perl -pi -e "s/firstPeriodEndDate \= startDate \+ 12 hours;/firstPeriodEndDate \= startDate \+ 1 minutes;/" $CROWDSALESOL`
-`perl -pi -e "s/wallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/wallet \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" $CROWDSALESOL`
-`perl -pi -e "s/teamWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/teamWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
-`perl -pi -e "s/reserveWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/reserveWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
+`perl -pi -e "s/wallet \= 0x87410eE93BDa2445339c9372b20BF25e138F858C;/wallet \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" $CROWDSALESOL`
+# `perl -pi -e "s/teamWallet \= 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;/teamWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
+`perl -pi -e "s/reserveWallet \= 0x87410eE93BDa2445339c9372b20BF25e138F858C;/reserveWallet \= 0xAAAA9De1E6C564446EBCA0fd102D8Bd92093c756;/" $CROWDSALESOL`
 `perl -pi -e "s/addEntry\(holder, proportion, periods, 1 days\);/addEntry\(holder, proportion, periods, 1 seconds\);/" $CROWDSALESOL`
 `perl -pi -e "s/addEntry\(holder, proportion, periods, 30 days\);/addEntry\(holder, proportion, periods, 30 seconds\);/" $CROWDSALESOL`
 `perl -pi -e "s/addEntry\(holder, proportion, periods, 365 days\);/addEntry\(holder, proportion, periods, 365 seconds\);/" $CROWDSALESOL`
@@ -354,13 +354,13 @@ var sendContribution2_1Tx = eth.sendTransaction({from: account6, to: crowdsaleAd
 var sendContribution2_2Tx = eth.sendTransaction({from: account7, to: crowdsaleAddress, gas: 400000, value: web3.toWei("11", "ether")});
 while (txpool.status.pending > 0) {
 }
-var sendContribution2_3Tx = eth.sendTransaction({from: account8, to: crowdsaleAddress, gas: 400000, value: web3.toWei("5000", "ether")});
+var sendContribution2_3Tx = eth.sendTransaction({from: account8, to: crowdsaleAddress, gas: 400000, value: web3.toWei("8000", "ether")});
 while (txpool.status.pending > 0) {
 }
 printBalances();
 failIfTxStatusError(sendContribution2_1Tx, sendContribution2Message + " - ac6 10 ETH");
 failIfTxStatusError(sendContribution2_2Tx, sendContribution2Message + " - ac7 10 ETH");
-failIfTxStatusError(sendContribution2_3Tx, sendContribution2Message + " - ac8 5,000 ETH");
+failIfTxStatusError(sendContribution2_3Tx, sendContribution2Message + " - ac8 8,000 ETH");
 printTxData("sendContribution2_1Tx", sendContribution2_1Tx);
 printTxData("sendContribution2_2Tx", sendContribution2_2Tx);
 printTxData("sendContribution2_3Tx", sendContribution2_3Tx);

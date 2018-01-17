@@ -44,7 +44,25 @@
 
 ### Generate Tokens For Presale Accounts
 
-* Execute `deveryCrowdsale.generateTokensForPresaleAccounts([account1, account2, ..., accountn])` so all presale accounts have their tokens generated
+* Execute `deveryCrowdsale.generateTokensForPresaleAccounts([account1, account2, ..., accountn])` so all 50 presale accounts have their tokens generated.
+
+Source of the data from the closed Presale JSON data [DeveryPresaleSummary.json](https://github.com/devery/devery_presale/blob/3018dfefebc741890f1ac4a4f711e1f46c1c0795/scripts/DeveryPresaleSummary.json#L842-L894),
+in 10 lots of 5 accounts:
+
+```javascript
+["0x000fb1553ecce5ad47b7a31dacde54f02d10896a", "0x001ad8e92592570e989ca076e2d5e4c1638cd3c5", "0x00880e95b07be65ef2bc848678f4951f996ec99e", "0x00b46a5c48eb5c0432d84d7992d804e9dce4a2e0", "0x00cd9fad11d5b2118a3dd32d5d43fdb33bde9e85"]
+["0x01225d715e480f57dac7f568d777ac84b9e7ce01", "0x040bd5e41e003e7efaefbbfcde7c9f5570017d51", "0x14e56cf9e6257475f9b6310adc98865fc24d6504", "0x1a4e641b2ba7ceac062d0c5545de7067d4c94bf9", "0x230aeaa43b4c6cb0dcdccc7efae7fc17d30d1cca"]
+["0x2f0b7563e440b732782a8a99ab7fbd1bc5bbfc4f", "0x3409e1e2b135f2e454c4a735ed631e144dd47f04", "0x346cb860e7447bacd3a616ac956e7900137b2699", "0x4143f535c06d72a1b73a6aff971d4f21af435444", "0x459e03ecbe6078f9981765b8e7dd2106c4e369da"]
+["0x4fde3a127bc681f058e3352a7d2e75a6ebd17fa7", "0x501901b1fef050c2d6a4acbdae449b0ab4c07f11", "0x50ab9ac497a71189d1e2a80ca39f683f6cb485b8", "0x57400ad0ca9db503c4951d3f9a3c57e7d0910213", "0x5a7fb70e55af8a6a2caed12941ab7a52ddf50ba2"]
+["0x695c83719f062432282804444cf37588c13fe563", "0x699ed52f9ec2eadabf792c2368d29f94967e2981", "0x828650a9cddb7c7dc9a402f0217bccb5399dd457", "0x8375a41c445df074709eefa1f4aefee5b8b15c59", "0x85b712005e24c109c06232052484fc1f11c97266"]
+["0x88b7a44cecd526cd2d424b0a4cc2bbb26341dd8f", "0x92173daa89326f4470f3dcb348247ab745b25a2c", "0x99c72a739535fef15968b080611b4752a564a3f8", "0x9abc2b1f7132afe141ef26d1931de302a9f94471", "0xa055cd7a19764625f1185468c50b5cd993d1df02"]
+["0xa9405926aa26d16e5bfe3b24ca905d8b4d0a6cd4", "0xa99334c46561cb2d747c6a7c51e310cb7f475739", "0xaf302aa751058797c6ab5249cb83547a6357763a", "0xb1515a70e08171d454bf240449fe0f0a64e0b68b", "0xb1af48228d777718630247eaa066511ded9e9064"]
+["0xb40c4acbd3ada715f7657692341fb0352d615393", "0xb95d753d130b387f0189d67d6b46f023966ae6b6", "0xba3672d5a9d19874d178ae0dfcd6f9c3a3ea1205", "0xc2e82b98ebb92cf36faa85fba798f838a86843d4", "0xc9b6baace873b378a28068b7e90ef28b3218a9e7"]
+["0xcbdfbbaa9608ac1156ae04afd208d43105f7a557", "0xd4f473aafe7c219d9a54fe52bf5db717fd2455b0", "0xe46b887f84e5f3f190afa33e4b813aded6ab5cef", "0xe6accd697958c089474a48fcf78eeff63a98b0a1", "0xeb782a9d13ba987d15ad463b1a6c45bcda753320"]
+["0xedfd9494b56af5dc8c6939fc2229abd721135858", "0xf58546f5cde2a7ff5c91afc63b43380f0c198be8", "0xf5a099adce21c7180e1aadcf92c6c3d305dc8cb9", "0xfb2815ace3d144b7381e2364e799abed8c0d6ec1", "0xfc310cc73cf44b570209810929ac619d64a68bd5"]
+```
+
+When all the presale accounts have been processed, the `DeveryCrowdsale.presaleProcessed` variable will be set to *true*.
 
 <br />
 

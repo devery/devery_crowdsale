@@ -289,8 +289,8 @@ contract DeveryVesting {
         NewEntry(holder, proportion, periods, periodLength);
     }
 
-    // BK Ok - Constant function
-    function tokenShare(address holder) public constant returns (uint) {
+    // BK Ok - View function
+    function tokenShare(address holder) public view returns (uint) {
         // BK Ok
         uint result = 0;
         // BK Ok
@@ -303,8 +303,8 @@ contract DeveryVesting {
         // BK Ok
         return result;
     }
-    // BK Ok - Constant function
-    function vested(address holder, uint time) public constant returns (uint) {
+    // BK Ok - View function
+    function vested(address holder, uint time) public view returns (uint) {
         // BK Ok
         uint result = 0;
         // BK Ok - Crowdsale finalised and time after finalised date
@@ -331,8 +331,8 @@ contract DeveryVesting {
         // BK Ok
         return result;
     }
-    // BK Ok - Constant function
-    function withdrawable(address holder) public constant returns (uint) {
+    // BK Ok - View function
+    function withdrawable(address holder) public view returns (uint) {
         // BK Ok
         uint result = 0;
         // BK Ok
@@ -357,20 +357,32 @@ contract DeveryVesting {
         uint _vested = vested(msg.sender, now);
         // BK Ok
         uint _withdrawn = entry.withdrawn;
+        // BK Ok
         require(_vested > _withdrawn);
+        // BK Ok
         uint _withdrawable = _vested.sub(_withdrawn);
+        // BK Ok
         entry.withdrawn = _vested;
+        // BK Ok
         require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
+        // BK Ok
         Withdrawn(msg.sender, _withdrawable);
     }
-    function withdrawn(address holder) public constant returns (uint) {
+    // BK Ok - View function
+    function withdrawn(address holder) public view returns (uint) {
+        // BK Ok
         Entry memory entry = entries[holder];
+        // BK Ok
         return entry.withdrawn;
     }
 
+    // BK Ok
     function finalise() public {
+        // BK Ok - Only crowdsale contract can finalise
         require(msg.sender == address(crowdsale));
+        // BK Ok - Store original number of tokens allocated in total
         totalTokens = crowdsale.bttsToken().balanceOf(address(this));
+        // BK Ok - Vesting starts now
         startDate = now;
     }
 
@@ -380,50 +392,81 @@ contract DeveryVesting {
 // ----------------------------------------------------------------------------
 // Devery Crowdsale Contract
 // ----------------------------------------------------------------------------
+// BK Ok
 contract DeveryCrowdsale is Owned {
+    // BK Ok
     using SafeMath for uint;
 
+    // BK Ok
     BTTSTokenInterface public bttsToken;
+    // BK Ok
     uint8 public constant TOKEN_DECIMALS = 18;
 
+    // BK Ok - Confirmed to https://etherscan.io/address/0x8ca1d9C33c338520604044977be69a9AC19d6E54#code
     ERC20Interface public presaleToken = ERC20Interface(0x8ca1d9C33c338520604044977be69a9AC19d6E54);
+    // BK Ok
     uint public presaleEthAmountsProcessed;
+    // BK Ok
     bool public presaleProcessed;
+    // BK Ok
     uint public constant PRESALE_BONUS_PERCENT = 5;
 
+    // BK Ok
     uint public constant PER_ACCOUNT_ADDITIONAL_TOKENS = 150 * 10**uint(TOKEN_DECIMALS);
+    // BK Ok
     mapping(address => bool) bonusTokensAllocate;
 
+    // BK Ok - Confirmed to https://etherscan.io/address/0x1e2F058C43ac8965938F6e9CA286685A3E63F24E#code
     PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2F058C43ac8965938F6e9CA286685A3E63F24E);
 
-    address public wallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
-    address public reserveWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+    // BK Ok - Confirmed to https://etherscan.io/address/0x87410eE93BDa2445339c9372b20BF25e138F858C#code
+    address public wallet = 0x87410eE93BDa2445339c9372b20BF25e138F858C;
+    // BK Ok - Confirmed to https://etherscan.io/address/0x87410eE93BDa2445339c9372b20BF25e138F858C#code
+    address public reserveWallet = 0x87410eE93BDa2445339c9372b20BF25e138F858C;
+    // BK Ok
     DeveryVesting public vestingTeamWallet;
+    // BK Ok
     uint public constant TEAM_PERCENT_EVE = 15;
+    // BK Ok
     uint public constant RESERVE_PERCENT_EVE = 25;
+    // BK Ok
     uint public constant TARGET_EVE = 100000000 * 10**uint(TOKEN_DECIMALS);
+    // BK Ok
     uint public constant PRESALEPLUSCROWDSALE_EVE = TARGET_EVE * (100 - TEAM_PERCENT_EVE - RESERVE_PERCENT_EVE) / 100;
 
     // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
     // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
+    // BK Ok
     uint public startDate = 1516291200;
+    // BK Ok
     uint public firstPeriodEndDate = startDate + 12 hours;
+    // BK Ok
     uint public endDate = startDate + 14 days;
 
-    // ETH/USD 7 day average from CMC - 1180
-    uint public usdPerKEther = 1180000;
+    // ETH/USD rate used 1,000
+    // BK Ok
+    uint public usdPerKEther = 1000000;
+    // BK Ok
     uint public constant CAP_USD = 10000000;
+    // BK Ok
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
+    // BK Ok
     uint public firstPeriodCap = 20 ether;
 
+    // BK Ok
     uint public contributedEth;
+    // BK Ok
     uint public contributedUsd;
+    // BK Ok
     uint public generatedEve;
 
+    // BK Ok
     mapping(address => uint) public accountEthAmount;
 
+    // BK Ok
     bool public finalised;
 
+    // BK Next 10 Ok - Events
     event BTTSTokenUpdated(address indexed oldBTTSToken, address indexed newBTTSToken);
     event PICOPSCertifierUpdated(address indexed oldPICOPSCertifier, address indexed newPICOPSCertifier);
     event WalletUpdated(address indexed oldWallet, address indexed newWallet);
@@ -485,17 +528,19 @@ contract DeveryCrowdsale is Owned {
         firstPeriodCap = _firstPeriodCap;
     }
 
-    // capEth       = USD 10,000,000 / 1,180 = 8474.576271186440677966
-    // presaleEth   = 4561.764705882353
+    // usdPerKEther = 1,000,000
+    // capEth       = USD 10,000,000 / 1,000 = 10,000
+    // presaleEth   = 4,561.764705882353
     // crowdsaleEth = capEth - presaleEth
-    //              = 3912.811565304087678
+    //              = 5,438.235294117647
     // totalEve     = 100,000,000
     // presalePlusCrowdsaleEve = 60% x totalEve = 60,000,000
     // evePerEth x presaleEth x 1.05 + evePerEth x crowdsaleEth = presalePlusCrowdsaleEve
     // evePerEth x (presaleEth x 1.05 + crowdsaleEth) = presalePlusCrowdsaleEve
     // evePerEth = presalePlusCrowdsaleEve / (presaleEth x 1.05 + crowdsaleEth)
-    //           = 60000000/(4561.764705882353*1.05 + 3912.811565304087678)
-    //           = 6894.440198
+    //           = 60,000,000/(4,561.764705882353*1.05 + 5,438.235294117647)
+    //           = 5,866.19890440108697
+    // usdPerEve = 1,000 / 5,866.19890440108697 = 0.170468137254902 
 
     function capEth() public view returns (uint) {
         return CAP_USD * 10**uint(3 + 18) / usdPerKEther;
@@ -525,7 +570,7 @@ contract DeveryCrowdsale is Owned {
             address account = accounts[i];
             uint ethAmount = presaleToken.balanceOf(account);
             uint eveAmount = bttsToken.balanceOf(account);
-            if (eveAmount == 0) {
+            if (eveAmount == 0 && ethAmount != 0) {
                 presaleEthAmountsProcessed = presaleEthAmountsProcessed.add(ethAmount);
                 accountEthAmount[account] = accountEthAmount[account].add(ethAmount);
                 eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);

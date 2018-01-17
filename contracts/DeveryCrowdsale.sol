@@ -207,7 +207,7 @@ contract DeveryVesting {
         NewEntry(holder, proportion, periods, periodLength);
     }
 
-    function tokenShare(address holder) public constant returns (uint) {
+    function tokenShare(address holder) public view returns (uint) {
         uint result = 0;
         Entry memory entry = entries[holder];
         if (entry.proportion > 0 && totalProportion > 0) {
@@ -215,7 +215,7 @@ contract DeveryVesting {
         }
         return result;
     }
-    function vested(address holder, uint time) public constant returns (uint) {
+    function vested(address holder, uint time) public view returns (uint) {
         uint result = 0;
         if (startDate > 0 && time > startDate) {
             Entry memory entry = entries[holder];
@@ -231,7 +231,7 @@ contract DeveryVesting {
         }
         return result;
     }
-    function withdrawable(address holder) public constant returns (uint) {
+    function withdrawable(address holder) public view returns (uint) {
         uint result = 0;
         Entry memory entry = entries[holder];
         if (entry.proportion > 0 && totalProportion > 0) {
@@ -251,7 +251,7 @@ contract DeveryVesting {
         require(crowdsale.bttsToken().transfer(msg.sender, _withdrawable));
         Withdrawn(msg.sender, _withdrawable);
     }
-    function withdrawn(address holder) public constant returns (uint) {
+    function withdrawn(address holder) public view returns (uint) {
         Entry memory entry = entries[holder];
         return entry.withdrawn;
     }
@@ -284,8 +284,8 @@ contract DeveryCrowdsale is Owned {
 
     PICOPSCertifier public picopsCertifier = PICOPSCertifier(0x1e2F058C43ac8965938F6e9CA286685A3E63F24E);
 
-    address public wallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
-    address public reserveWallet = 0xC14d7150543Cc2C9220D2aaB6c2Fe14C90A4d409;
+    address public wallet = 0x87410eE93BDa2445339c9372b20BF25e138F858C;
+    address public reserveWallet = 0x87410eE93BDa2445339c9372b20BF25e138F858C;
     DeveryVesting public vestingTeamWallet;
     uint public constant TEAM_PERCENT_EVE = 15;
     uint public constant RESERVE_PERCENT_EVE = 25;
@@ -298,8 +298,8 @@ contract DeveryCrowdsale is Owned {
     uint public firstPeriodEndDate = startDate + 12 hours;
     uint public endDate = startDate + 14 days;
 
-    // ETH/USD 7 day average from CMC - 1180
-    uint public usdPerKEther = 1180000;
+    // ETH/USD rate used 1,000
+    uint public usdPerKEther = 1000000;
     uint public constant CAP_USD = 10000000;
     uint public constant MIN_CONTRIBUTION_ETH = 0.01 ether;
     uint public firstPeriodCap = 20 ether;
@@ -373,17 +373,19 @@ contract DeveryCrowdsale is Owned {
         firstPeriodCap = _firstPeriodCap;
     }
 
-    // capEth       = USD 10,000,000 / 1,180 = 8474.576271186440677966
-    // presaleEth   = 4561.764705882353
+    // usdPerKEther = 1,000,000
+    // capEth       = USD 10,000,000 / 1,000 = 10,000
+    // presaleEth   = 4,561.764705882353
     // crowdsaleEth = capEth - presaleEth
-    //              = 3912.811565304087678
+    //              = 5,438.235294117647
     // totalEve     = 100,000,000
     // presalePlusCrowdsaleEve = 60% x totalEve = 60,000,000
     // evePerEth x presaleEth x 1.05 + evePerEth x crowdsaleEth = presalePlusCrowdsaleEve
     // evePerEth x (presaleEth x 1.05 + crowdsaleEth) = presalePlusCrowdsaleEve
     // evePerEth = presalePlusCrowdsaleEve / (presaleEth x 1.05 + crowdsaleEth)
-    //           = 60000000/(4561.764705882353*1.05 + 3912.811565304087678)
-    //           = 6894.440198
+    //           = 60,000,000/(4,561.764705882353*1.05 + 5,438.235294117647)
+    //           = 5,866.19890440108697
+    // usdPerEve = 1,000 / 5,866.19890440108697 = 0.170468137254902 
 
     function capEth() public view returns (uint) {
         return CAP_USD * 10**uint(3 + 18) / usdPerKEther;
@@ -413,7 +415,7 @@ contract DeveryCrowdsale is Owned {
             address account = accounts[i];
             uint ethAmount = presaleToken.balanceOf(account);
             uint eveAmount = bttsToken.balanceOf(account);
-            if (eveAmount == 0) {
+            if (eveAmount == 0 && ethAmount != 0) {
                 presaleEthAmountsProcessed = presaleEthAmountsProcessed.add(ethAmount);
                 accountEthAmount[account] = accountEthAmount[account].add(ethAmount);
                 eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);

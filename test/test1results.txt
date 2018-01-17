@@ -1,6 +1,6 @@
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.000000000000000000           0.000000000000000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
@@ -20,7 +20,7 @@
 Deploy Devery Whitelist Contract
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       21.028709850000000000           0.000000000000000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        8.028709850000000000           0.000000000000000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.028709850000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
@@ -38,7 +38,7 @@ Deploy Devery Whitelist Contract
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Deploy Devery Whitelist Contract
-whitelistAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 status=0x1 Success gas=6000000 gasUsed=574197 costETH=0.02870985 costUSD=37.631148789 @ ETH/USD=1310.74 gasPrice=50 gwei block=34 txIx=0 txId=0xd3ec32ef25cbab8e9e1f320c5594e9a0fef23df65c2c90148cc47675e5d7510f @ 1516218646 Wed, 17 Jan 2018 19:50:46 UTC
+whitelistAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 status=0x1 Success gas=6000000 gasUsed=574197 costETH=0.02870985 costUSD=37.631148789 @ ETH/USD=1310.74 gasPrice=50 gwei block=2 txIx=0 txId=0xd3ec32ef25cbab8e9e1f320c5594e9a0fef23df65c2c90148cc47675e5d7510f @ 1516241652 Thu, 18 Jan 2018 02:14:12 UTC
 whitelistContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
 whitelist.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 whitelist.newOwner=0x0000000000000000000000000000000000000000
@@ -47,7 +47,7 @@ whitelist.sealed=false
 Whitelist Accounts
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       27.033405400000000000           0.000000000000000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       14.033405400000000000           0.000000000000000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.033405400000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
@@ -65,19 +65,19 @@ Whitelist Accounts
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Whitelist Accounts - multiAdd([account3, account5, contractOwnerAccount], [1, 1, 1])
-whitelistAccounts_1Tx status=0x1 Success gas=100000 gasUsed=93911 costETH=0.00469555 costUSD=6.154645207 @ ETH/USD=1310.74 gasPrice=50 gwei block=36 txIx=0 txId=0x444eeb6b36c6a69001df347275262305f40ee8ce0917dca9a4a9bce3b25c19ef @ 1516218648 Wed, 17 Jan 2018 19:50:48 UTC
+whitelistAccounts_1Tx status=0x1 Success gas=100000 gasUsed=93911 costETH=0.00469555 costUSD=6.154645207 @ ETH/USD=1310.74 gasPrice=50 gwei block=4 txIx=0 txId=0x444eeb6b36c6a69001df347275262305f40ee8ce0917dca9a4a9bce3b25c19ef @ 1516241660 Thu, 18 Jan 2018 02:14:20 UTC
 whitelistContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
 whitelist.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 whitelist.newOwner=0x0000000000000000000000000000000000000000
 whitelist.sealed=false
-Whitelisted 0 #36 {"addr":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","max":"1"}
-Whitelisted 1 #36 {"addr":"0xa55a151eb00fded1634d27d1127b4be4627079ea","max":"1"}
-Whitelisted 2 #36 {"addr":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433","max":"1"}
+Whitelisted 0 #4 {"addr":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","max":"1"}
+Whitelisted 1 #4 {"addr":"0xa55a151eb00fded1634d27d1127b4be4627079ea","max":"1"}
+Whitelisted 2 #4 {"addr":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433","max":"1"}
 
 Deploy Test PICOPS Certifier Contract
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       33.039729600000000000           0.000000000000000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.039729600000000000           0.000000000000000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.039729600000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
@@ -96,13 +96,13 @@ Deploy Test PICOPS Certifier Contract
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Deploy Test PICOPS Certifier Contract
-picopsCertifierAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff status=0x1 Success gas=6000000 gasUsed=126484 costETH=0.0063242 costUSD=8.289381908 @ ETH/USD=1310.74 gasPrice=50 gwei block=38 txIx=0 txId=0x47a0f2f6f86b1c43e4e7f66184f668482e623195d6c9e6ad3446f98f656b318c @ 1516218653 Wed, 17 Jan 2018 19:50:53 UTC
+picopsCertifierAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff status=0x1 Success gas=6000000 gasUsed=126484 costETH=0.0063242 costUSD=8.289381908 @ ETH/USD=1310.74 gasPrice=50 gwei block=6 txIx=0 txId=0x47a0f2f6f86b1c43e4e7f66184f668482e623195d6c9e6ad3446f98f656b318c @ 1516241662 Thu, 18 Jan 2018 02:14:22 UTC
 
 Deploy Token Contract
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       39.121549150000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.121549150000000000           0.000000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       26.121545950000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.121545950000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
@@ -121,7 +121,7 @@ Deploy Token Contract
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Deploy Token Contract
-tokenAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3 status=0x1 Success gas=6000000 gasUsed=1636391 costETH=0.08181955 costUSD=107.244156967 @ ETH/USD=1310.74 gasPrice=50 gwei block=40 txIx=0 txId=0x8fc09d088e060434afa2ea3fc91ec6059acee09409f851db261e08a752470ed8 @ 1516218655 Wed, 17 Jan 2018 19:50:55 UTC
+tokenAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3 status=0x1 Success gas=6000000 gasUsed=1636327 costETH=0.08181635 costUSD=107.239962599 @ ETH/USD=1310.74 gasPrice=50 gwei block=8 txIx=0 txId=0xdff45d8a3e86ebc1f7bd19c8d4d79fee5b07403d76aeb2e2958c4b69f3eae041 @ 1516241669 Thu, 18 Jan 2018 02:14:29 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -132,7 +132,7 @@ token.totalSupply=0
 token.transferable=false
 token.mintable=true
 token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=20000000000000000000 20 ETH
 token.usdCap=2000000
@@ -149,8 +149,8 @@ token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not regi
 Set Token Contract Parameters
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       48.131870700000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.131870700000000000           0.000000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.131867500000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.131867500000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
@@ -174,12 +174,12 @@ PASS Set Token Contract Parameters - token.setUsdCap(2,200,000)
 PASS Set Token Contract Parameters - token.setUsdPerKEther(444,444)
 PASS Set Token Contract Parameters - token.setWhitelist(whitelistAddress)
 PASS Set Token Contract Parameters - token.setPICOPSCertifier(picopsCertifierAddress)
-setTokenParameters_1Tx status=0x1 Success gas=100000 gasUsed=30487 costETH=0.00152435 costUSD=1.998026519 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=0 txId=0xece634d3899493ffcd18d22437a7685c6a4519902d1a2fbe01a5b79a08ce0861 @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
-setTokenParameters_2Tx status=0x1 Success gas=100000 gasUsed=28444 costETH=0.0014222 costUSD=1.864134428 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=1 txId=0x34e5271079e60348a053040a99d305d420c025ba04b578fb16456031802e5107 @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
-setTokenParameters_3Tx status=0x1 Success gas=100000 gasUsed=28384 costETH=0.0014192 costUSD=1.860202208 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=2 txId=0xaabca1f4fd43dd555e3afad8cdcccb1400f7de9871550ba526b28a491f7e5ac5 @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
-setTokenParameters_4Tx status=0x1 Success gas=100000 gasUsed=28934 costETH=0.0014467 costUSD=1.896247558 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=3 txId=0xeb072e4fab5b5910c4e79b668f336857eda6484dd2176ccc4ba1b5558ebcbdbc @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
-setTokenParameters_5Tx status=0x1 Success gas=100000 gasUsed=45201 costETH=0.00226005 costUSD=2.962337937 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=4 txId=0x1adaf8c136a8f0337af85600386e58cd6d5321f7443852c3b0448c36d8a256c6 @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
-setTokenParameters_6Tx status=0x1 Success gas=100000 gasUsed=44981 costETH=0.00224905 costUSD=2.947919797 @ ETH/USD=1310.74 gasPrice=50 gwei block=43 txIx=5 txId=0xadc8f0062afd711278a909ae02bca9234a592501880e582e2f2512f2ee7f35c3 @ 1516218660 Wed, 17 Jan 2018 19:51:00 UTC
+setTokenParameters_1Tx status=0x1 Success gas=100000 gasUsed=30487 costETH=0.00152435 costUSD=1.998026519 @ ETH/USD=1310.74 gasPrice=50 gwei block=10 txIx=0 txId=0xece634d3899493ffcd18d22437a7685c6a4519902d1a2fbe01a5b79a08ce0861 @ 1516241672 Thu, 18 Jan 2018 02:14:32 UTC
+setTokenParameters_2Tx status=0x1 Success gas=100000 gasUsed=28444 costETH=0.0014222 costUSD=1.864134428 @ ETH/USD=1310.74 gasPrice=50 gwei block=10 txIx=1 txId=0x34e5271079e60348a053040a99d305d420c025ba04b578fb16456031802e5107 @ 1516241672 Thu, 18 Jan 2018 02:14:32 UTC
+setTokenParameters_3Tx status=0x1 Success gas=100000 gasUsed=28384 costETH=0.0014192 costUSD=1.860202208 @ ETH/USD=1310.74 gasPrice=50 gwei block=10 txIx=2 txId=0xaabca1f4fd43dd555e3afad8cdcccb1400f7de9871550ba526b28a491f7e5ac5 @ 1516241672 Thu, 18 Jan 2018 02:14:32 UTC
+setTokenParameters_4Tx status=0x1 Success gas=100000 gasUsed=28934 costETH=0.0014467 costUSD=1.896247558 @ ETH/USD=1310.74 gasPrice=50 gwei block=10 txIx=3 txId=0xeb072e4fab5b5910c4e79b668f336857eda6484dd2176ccc4ba1b5558ebcbdbc @ 1516241672 Thu, 18 Jan 2018 02:14:32 UTC
+setTokenParameters_5Tx status=0x1 Success gas=100000 gasUsed=45201 costETH=0.00226005 costUSD=2.962337937 @ ETH/USD=1310.74 gasPrice=50 gwei block=10 txIx=4 txId=0x1adaf8c136a8f0337af85600386e58cd6d5321f7443852c3b0448c36d8a256c6 @ 1516241672 Thu, 18 Jan 2018 02:14:32 UTC
+setTokenParameters_6Tx status=0x1 Success gas=100000 gasUsed=44981 costETH=0.00224905 costUSD=2.947919797 @ ETH/USD=1310.74 gasPrice=50 gwei block=11 txIx=0 txId=0xadc8f0062afd711278a909ae02bca9234a592501880e582e2f2512f2ee7f35c3 @ 1516241673 Thu, 18 Jan 2018 02:14:33 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -190,7 +190,7 @@ token.totalSupply=0
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=2000000
@@ -203,18 +203,18 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-WalletUpdated 0 #43 {"newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","oldWallet":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
-EthMinContributionUpdated 0 #43 {"newEthMinContribution":"10000000000000000000","oldEthMinContribution":"20000000000000000000"}
-UsdCapUpdated 0 #43 {"newUsdCap":"2000000","oldUsdCap":"2000000"}
-UsdPerKEtherUpdated 0 #43 {"newUsdPerKEther":"730111","oldUsdPerKEther":"730000"}
-WhitelistUpdated 0 #43 {"newWhitelist":"0x90d8927407c79c4a28ee879b821c76fc9bcc2688","oldWhitelist":"0x0000000000000000000000000000000000000000"}
-PICOPSCertifierUpdated 0 #43 {"newPICOPSCertifier":"0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff","oldPICOPSCertifier":"0x0000000000000000000000000000000000000000"}
+WalletUpdated 0 #10 {"newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","oldWallet":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
+EthMinContributionUpdated 0 #10 {"newEthMinContribution":"10000000000000000000","oldEthMinContribution":"20000000000000000000"}
+UsdCapUpdated 0 #10 {"newUsdCap":"2000000","oldUsdCap":"2000000"}
+UsdPerKEtherUpdated 0 #10 {"newUsdPerKEther":"730111","oldUsdPerKEther":"730000"}
+WhitelistUpdated 0 #10 {"newWhitelist":"0x90d8927407c79c4a28ee879b821c76fc9bcc2688","oldWhitelist":"0x0000000000000000000000000000000000000000"}
+PICOPSCertifierUpdated 0 #11 {"newPICOPSCertifier":"0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff","oldPICOPSCertifier":"0x0000000000000000000000000000000000000000"}
 
 Send Test Contribution From Owner Account
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       54.137637850000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.147637850000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       44.137634650000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.147634650000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.010000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
@@ -233,7 +233,7 @@ Send Test Contribution From Owner Account
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Send Test Contribution From Owner Account - ac1 0.01 ETH
-sendContribution0_1Tx status=0x1 Success gas=400000 gasUsed=115343 costETH=0.00576715 costUSD=7.559234191 @ ETH/USD=1310.74 gasPrice=50 gwei block=45 txIx=0 txId=0x62b8ac9eaf3a8bcab3fb5cb2ad0a52c7dc1a0d1a13ef2c20940725d25d70d1fe @ 1516218666 Wed, 17 Jan 2018 19:51:06 UTC
+sendContribution0_1Tx status=0x1 Success gas=400000 gasUsed=115343 costETH=0.00576715 costUSD=7.559234191 @ ETH/USD=1310.74 gasPrice=50 gwei block=14 txIx=0 txId=0x62b8ac9eaf3a8bcab3fb5cb2ad0a52c7dc1a0d1a13ef2c20940725d25d70d1fe @ 1516241681 Thu, 18 Jan 2018 02:14:41 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -244,7 +244,7 @@ token.totalSupply=0.01
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=2000000
@@ -257,16 +257,16 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-Contributed 0 #45 addr=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 ethAmount=10000000000000000 0.01 ETH ethRefund=0 0 ETH usdAmount=7 USD contributedEth=10000000000000000 0.01 ETH contributedUsd=7 USD
+Contributed 0 #14 addr=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 ethAmount=10000000000000000 0.01 ETH ethRefund=0 0 ETH usdAmount=7 USD contributedEth=10000000000000000 0.01 ETH contributedUsd=7 USD
 
-Waiting until 'START_DATE' at 1516218678+0s =Thu, 18 Jan 2018 06:51:19 AEDT now=Thu, 18 Jan 2018 06:51:10 AEDT
-Waited until 'START_DATE' at at 1516218678+0s =Thu, 18 Jan 2018 06:51:19 AEDT now=Thu, 18 Jan 2018 06:51:19 AEDT
+Waiting until 'START_DATE' at 1516241683+0s =Thu, 18 Jan 2018 13:14:44 AEDT now=Thu, 18 Jan 2018 13:14:43 AEDT
+Waited until 'START_DATE' at at 1516241683+0s =Thu, 18 Jan 2018 13:14:44 AEDT now=Thu, 18 Jan 2018 13:14:44 AEDT
 
 Send Contribution #1
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       69.142280650000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.147637850000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       50.142277450000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.147634650000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     1000.010000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.003503550000000000        1000.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
@@ -286,8 +286,8 @@ Send Contribution #1
 
 PASS Send Contribution #1 - ac3 1,000 ETH
 PASS Send Contribution #1 - ac6 800 ETH - Expecting failure as not whitelisted
-sendContribution1_1Tx status=0x1 Success gas=400000 gasUsed=70071 costETH=0.00350355 costUSD=4.592243127 @ ETH/USD=1310.74 gasPrice=50 gwei block=50 txIx=1 txId=0xf9b5a430981f003a76d4fdecbcd5ea76a1b05b925536e220621262b9f19e3428 @ 1516218680 Wed, 17 Jan 2018 19:51:20 UTC
-sendContribution1_2Tx status=0x0 Failure gas=400000 gasUsed=22785 costETH=0.00113925 costUSD=1.493260545 @ ETH/USD=1310.74 gasPrice=50 gwei block=50 txIx=0 txId=0x3203b010cbb98c91039e04947e3c266adaabb48c01a166d4797a30862562e3a0 @ 1516218680 Wed, 17 Jan 2018 19:51:20 UTC
+sendContribution1_1Tx status=0x1 Success gas=400000 gasUsed=70071 costETH=0.00350355 costUSD=4.592243127 @ ETH/USD=1310.74 gasPrice=50 gwei block=16 txIx=0 txId=0xf9b5a430981f003a76d4fdecbcd5ea76a1b05b925536e220621262b9f19e3428 @ 1516241684 Thu, 18 Jan 2018 02:14:44 UTC
+sendContribution1_2Tx status=0x0 Failure gas=400000 gasUsed=22785 costETH=0.00113925 costUSD=1.493260545 @ ETH/USD=1310.74 gasPrice=50 gwei block=16 txIx=1 txId=0x3203b010cbb98c91039e04947e3c266adaabb48c01a166d4797a30862562e3a0 @ 1516241684 Thu, 18 Jan 2018 02:14:44 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -298,7 +298,7 @@ token.totalSupply=1000.01
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=2000000
@@ -311,13 +311,13 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-Contributed 0 #50 addr=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethAmount=1e+21 1000 ETH ethRefund=0 0 ETH usdAmount=730111 USD contributedEth=1.00001e+21 1000.01 ETH contributedUsd=730118 USD
+Contributed 0 #16 addr=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 ethAmount=1e+21 1000 ETH ethRefund=0 0 ETH usdAmount=730111 USD contributedEth=1.00001e+21 1000.01 ETH contributedUsd=730118 USD
 
 Increase Cap
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       78.143696650000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149053850000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       59.143693450000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149050650000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     1000.010000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.003503550000000000        1000.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - PICOPS Certified
@@ -336,7 +336,7 @@ Increase Cap
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Increase Cap
-increaseCapTx status=0x1 Success gas=100000 gasUsed=28320 costETH=0.001416 costUSD=1.85600784 @ ETH/USD=1310.74 gasPrice=50 gwei block=53 txIx=0 txId=0x06bd7901cd8c0bb1408f9f41e20bd43de50c3cd994f096dc3b6cc29d2f25de07 @ 1516218687 Wed, 17 Jan 2018 19:51:27 UTC
+increaseCapTx status=0x1 Success gas=100000 gasUsed=28320 costETH=0.001416 costUSD=1.85600784 @ ETH/USD=1310.74 gasPrice=50 gwei block=19 txIx=0 txId=0x06bd7901cd8c0bb1408f9f41e20bd43de50c3cd994f096dc3b6cc29d2f25de07 @ 1516241688 Thu, 18 Jan 2018 02:14:48 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -347,7 +347,7 @@ token.totalSupply=1000.01
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=8000000
@@ -360,13 +360,13 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-UsdCapUpdated 0 #53 {"newUsdCap":"8000000","oldUsdCap":"2000000"}
+UsdCapUpdated 0 #19 {"newUsdCap":"8000000","oldUsdCap":"2000000"}
 
 Send Contribution #2
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       84.147231000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149053850000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       65.147227800000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149050650000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     3000.010000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.003503550000000000        1000.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -2000.003534350000000000        2000.000000000000000000 Account #4 - PICOPS Certified
@@ -385,7 +385,7 @@ Send Contribution #2
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Send Contribution #2 - ac4 2,000 ETH
-sendContribution2_1Tx status=0x1 Success gas=400000 gasUsed=70687 costETH=0.00353435 costUSD=4.632613919 @ ETH/USD=1310.74 gasPrice=50 gwei block=55 txIx=0 txId=0x7f46e1b80e0e57418cb6101ff39d458c8c2608861d4f6329f79adfe429a6dae2 @ 1516218689 Wed, 17 Jan 2018 19:51:29 UTC
+sendContribution2_1Tx status=0x1 Success gas=400000 gasUsed=70687 costETH=0.00353435 costUSD=4.632613919 @ ETH/USD=1310.74 gasPrice=50 gwei block=21 txIx=0 txId=0x7f46e1b80e0e57418cb6101ff39d458c8c2608861d4f6329f79adfe429a6dae2 @ 1516241692 Thu, 18 Jan 2018 02:14:52 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -396,7 +396,7 @@ token.totalSupply=3000.01
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=8000000
@@ -409,13 +409,13 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-Contributed 0 #55 addr=0xa44a08d3f6933c69212114bb66e2df1813651844 ethAmount=2e+21 2000 ETH ethRefund=0 0 ETH usdAmount=1460222 USD contributedEth=3.00001e+21 3000.01 ETH contributedUsd=2190340 USD
+Contributed 0 #21 addr=0xa44a08d3f6933c69212114bb66e2df1813651844 ethAmount=2e+21 2000 ETH ethRefund=0 0 ETH usdAmount=1460222 USD contributedEth=3.00001e+21 3000.01 ETH contributedUsd=2190340 USD
 
 Send Contribution #4
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       90.150734550000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149053850000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       71.150731350000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149050650000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     4561.764705882353000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.003503550000000000        1000.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -2000.003534350000000000        2000.000000000000000000 Account #4 - PICOPS Certified
@@ -434,7 +434,7 @@ Send Contribution #4
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Send Contribution #4 - ac5 1,561.754705882353 ETH
-sendContribution4_1Tx status=0x1 Success gas=400000 gasUsed=70071 costETH=0.00350355 costUSD=4.592243127 @ ETH/USD=1310.74 gasPrice=50 gwei block=57 txIx=0 txId=0x5b67f29ca062637a1120fb685e8d81f1d8aca08235e12792c14541aa2b89a42d @ 1516218698 Wed, 17 Jan 2018 19:51:38 UTC
+sendContribution4_1Tx status=0x1 Success gas=400000 gasUsed=70071 costETH=0.00350355 costUSD=4.592243127 @ ETH/USD=1310.74 gasPrice=50 gwei block=23 txIx=0 txId=0x5b67f29ca062637a1120fb685e8d81f1d8aca08235e12792c14541aa2b89a42d @ 1516241700 Thu, 18 Jan 2018 02:15:00 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -445,7 +445,7 @@ token.totalSupply=4561.764705882353
 token.transferable=false
 token.mintable=true
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=false
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=8000000
@@ -458,13 +458,13 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-Contributed 0 #57 addr=0xa55a151eb00fded1634d27d1127b4be4627079ea ethAmount=1.561754705882353e+21 1561.754705882353 ETH ethRefund=0 0 ETH usdAmount=1140254 USD contributedEth=4.561764705882353e+21 4561.764705882353 ETH contributedUsd=3330594 USD
+Contributed 0 #23 addr=0xa55a151eb00fded1634d27d1127b4be4627079ea ethAmount=1.561754705882353e+21 1561.754705882353 ETH ethRefund=0 0 ETH usdAmount=1140254 USD contributedEth=4.561764705882353e+21 4561.764705882353 ETH contributedUsd=3330594 USD
 
 Close Sale
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      102.151659400000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149978700000000000           0.010000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       77.151656200000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.149975500000000000           0.010000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     4561.764705882353000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1000.003503550000000000        1000.000000000000000000 Account #3 - Devery Whitelisted
  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -2000.003534350000000000        2000.000000000000000000 Account #4 - PICOPS Certified
@@ -483,7 +483,7 @@ Close Sale
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Close Sale
-closeTx status=0x1 Success gas=100000 gasUsed=18497 costETH=0.00092485 costUSD=1.212237889 @ ETH/USD=1310.74 gasPrice=50 gwei block=61 txIx=0 txId=0x4703abafca956fb2ffa5c4bd5611e688934644f7d03743939c34a1f84eb1e32a @ 1516218702 Wed, 17 Jan 2018 19:51:42 UTC
+closeTx status=0x1 Success gas=100000 gasUsed=18497 costETH=0.00092485 costUSD=1.212237889 @ ETH/USD=1310.74 gasPrice=50 gwei block=25 txIx=0 txId=0x4703abafca956fb2ffa5c4bd5611e688934644f7d03743939c34a1f84eb1e32a @ 1516241707 Thu, 18 Jan 2018 02:15:07 UTC
 tokenContractAddress=0xe6ada9beed6e24be4c0259383db61b52bfca85f3
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -494,7 +494,7 @@ token.totalSupply=4561.764705882353
 token.transferable=false
 token.mintable=false
 token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
-token.START_DATE=1516218678 Wed, 17 Jan 2018 19:51:18 UTC
+token.START_DATE=1516241683 Thu, 18 Jan 2018 02:14:43 UTC
 token.closed=true
 token.ethMinContribution=10000000000000000000 10 ETH
 token.usdCap=8000000
@@ -507,5 +507,5 @@ token.picopsCertifier=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
 token.addressCanContribute(0xa44a08d3f6933c69212114bb66e2df1813651844) (WL)=true
 token.addressCanContribute(0xa55a151eb00fded1634d27d1127b4be4627079ea) (PICOPS)=true
 token.addressCanContribute(0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9) (not registered)=false
-MintingDisabled 0 #61 {}
+MintingDisabled 0 #25 {}
 
