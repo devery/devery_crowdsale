@@ -478,6 +478,9 @@ function printVestingContractDetails() {
     console.log("RESULT: vesting.totalProportion=" + contract.totalProportion());
     console.log("RESULT: vesting.totalTokens=" + contract.totalTokens().shift(-18) + " EVE");
     console.log("RESULT: vesting.startDate=" + contract.startDate() + " " + new Date(contract.startDate() * 1000).toUTCString());
+    console.log("RESULT: vesting.entries(" + teamMember1Wallet + ")=" + JSON.stringify(vesting.entries(teamMember1Wallet)));
+    console.log("RESULT: vesting.entries(" + teamMember2Wallet + ")=" + JSON.stringify(vesting.entries(teamMember2Wallet)));
+    console.log("RESULT: vesting.entries(" + teamMember3Wallet + ")=" + JSON.stringify(vesting.entries(teamMember3Wallet)));
     var tokenShare1 = vesting.tokenShare(teamMember1Wallet);
     var withdrawable1 = vesting.withdrawable(teamMember1Wallet);
     var withdrawn1 = vesting.withdrawn(teamMember1Wallet);

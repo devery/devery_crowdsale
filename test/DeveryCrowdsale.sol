@@ -221,8 +221,8 @@ contract DeveryVesting {
         if (startDate > 0 && time > startDate) {
             Entry memory entry = entries[holder];
             if (entry.proportion > 0 && totalProportion > 0) {
-                uint _tokenShare = totalTokens * entry.proportion / totalProportion;
-                if (time > startDate.add(entry.periods.mul(entry.periodLength))) {
+                uint _tokenShare = totalTokens.mul(entry.proportion).div(totalProportion);
+                if (time >= startDate.add(entry.periods.mul(entry.periodLength))) {
                     result = _tokenShare;
                 } else {
                     uint periods = time.sub(startDate).div(entry.periodLength);
@@ -300,7 +300,7 @@ contract DeveryCrowdsale is Owned {
 
     // Start 18 Jan 2018 16:00 UTC => "Fri, 19 Jan 2018 03:00:00 AEDT"
     // new Date(1516291200 * 1000).toUTCString() => "Thu, 18 Jan 2018 16:00:00 UTC"
-    uint public startDate = 1516194745; // Wed 17 Jan 2018 13:12:25 UTC
+    uint public startDate = 1516205711; // Wed 17 Jan 2018 16:15:11 UTC
     uint public firstPeriodEndDate = startDate + 1 minutes;
     uint public endDate = startDate + 14 days;
 

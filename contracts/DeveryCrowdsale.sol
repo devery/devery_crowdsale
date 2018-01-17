@@ -221,8 +221,8 @@ contract DeveryVesting {
         if (startDate > 0 && time > startDate) {
             Entry memory entry = entries[holder];
             if (entry.proportion > 0 && totalProportion > 0) {
-                uint _tokenShare = totalTokens * entry.proportion / totalProportion;
-                if (time > startDate.add(entry.periods.mul(entry.periodLength))) {
+                uint _tokenShare = totalTokens.mul(entry.proportion).div(totalProportion);
+                if (time >= startDate.add(entry.periods.mul(entry.periodLength))) {
                     result = _tokenShare;
                 } else {
                     uint periods = time.sub(startDate).div(entry.periodLength);

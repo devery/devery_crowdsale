@@ -84,11 +84,11 @@ The holder will be able to call the `withdraw()` function to withdraw any vested
 ## Code Review
 
 * [ ] [code-review/DeveryCrowdsale.md](code-review/DeveryCrowdsale.md)
-  * [ ] contract ERC20Interface
-  * [ ] contract BTTSTokenInterface is ERC20Interface
-  * [ ] contract PICOPSCertifier
-  * [ ] library SafeMath
-  * [ ] contract Owned
+  * [x] contract ERC20Interface
+  * [x] contract BTTSTokenInterface is ERC20Interface
+  * [x] contract PICOPSCertifier
+  * [x] library SafeMath
+  * [x] contract Owned
   * [ ] contract DeveryVesting
   * [ ] contract DeveryCrowdsale is Owned
 
