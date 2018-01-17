@@ -79,6 +79,21 @@ The holder will be able to call the `withdraw()` function to withdraw any vested
 
 <br />
 
+<hr />
+
+## Code Review
+
+* [ ] [code-review/DeveryCrowdsale.md](code-review/DeveryCrowdsale.md)
+  * [ ] contract ERC20Interface
+  * [ ] contract BTTSTokenInterface is ERC20Interface
+  * [ ] contract PICOPSCertifier
+  * [ ] library SafeMath
+  * [ ] contract Owned
+  * [ ] contract DeveryVesting
+  * [ ] contract DeveryCrowdsale is Owned
+
+<br />
+
 <br />
 
 (c) BokkyPooBah / Bok Consulting Pty Ltd for Devery - Jan 17 2018. The MIT Licence.
