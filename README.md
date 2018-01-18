@@ -18,7 +18,7 @@
 
 ### Deploy BTTS Token Contract
 
-* Use BTTSTokenFactory deployed on Mainnet at address 0x{xxxx}
+* Use BTTSTokenFactory deployed on Mainnet at address https://etherscan.io/address/0x594dd662b580ca58b1186af45551f34312e91e88#code
 * Execute `bttsTokenFactory.deployBTTSTokenContract(symbol, name, decimals, initialSupply, mintable, transferable)` where
   * `symbol` = `EVE`
   * `name` = `Devery`
@@ -81,8 +81,11 @@ When all the presale accounts have been processed, the `DeveryCrowdsale.presaleP
 
 ### Vesting
 
-The crowdsale contract will automatically deploy a vesting contract. To verify the source on EtherScan, you will have to provide the
-additional parameter data of 0x{24 zeros}{crowdsale contract address}.
+The crowdsale contract will automatically deploy a vesting contract.
+
+To find the address of the vesting contract, search for the internal transaction generated when the crowdsale contract is deployed.
+
+To verify the source on EtherScan, enter the module name *DeveryVesting* and provide the additional parameter data of 0x{24 zeros}{crowdsale contract address}.
 
 These vesting entries are non-revocable. For revocable vesting entries, allocate the proportion to a wallet address with 1 day and after 1 day
 withdraw the tokens to the wallet address and manually process the token vesting.
@@ -99,19 +102,83 @@ The holder will be able to call the `withdraw()` function to withdraw any vested
 
 <hr />
 
+## Testing
+
+### Presale Contract Setup
+
+[test/01_test1.sh](test/01_test1.sh) deploys and sets up the DeveryPresale contract in the development blockchain, with the summary results
+saved in [test/test1results.txt](test/test1results.txt) and the detailed output saved in [test/test1output.txt](test/test1output.txt):
+
+* [x] Deploy the Devery whitelist contract
+* [x] Whitelist a few contributing addresses
+* [x] Deploy Test PICOPSCertifier contract - address 0xa44a hardcoded to return true
+* [x] Deploy the presale/token contract
+* [x] Set presale/token contract parameters
+  * [x] Set ETH min contribution amount
+  * [x] Set USD cap
+  * [x] Set USD per 1,000 ETH
+  * [x] Assign the whitelist
+  * [x] Assign the PICOPSCertifier
+* [x] Wait until start date
+* [x] Contribute from whitelisted address below cap
+* [x] Contribute from non-whitelisted address below cap, expecting failure
+* [x] Contribute above cap, excess refunded
+* [x] Increase cap
+* [x] Contribute below cap 
+* [x] Manually close sale
+
+The totalSupply has been set up to match the 4561.764705882352941176 ETH collected from the DeveryPresale contract at
+[0x8ca1d9C33c338520604044977be69a9AC19d6E54](https://etherscan.io/address/0x8ca1d9C33c338520604044977be69a9AC19d6E54#readContract). 
+
+This DeveryPresale contract is then used in the next step to generate the token balances for each presale contributor account in the
+DeveryCrowdsale contract in the next section.
+
+<br />
+
+### Crowdsale Contract Testing
+
+Note that the DeveryPresale contract in the previous section is used to set up the token balances for the presale contributor accounts.
+
+The following functions were tested using the script [test/02_test2.sh](test/02_test2.sh) with the summary results saved
+in [test/test2results.txt](test/test2results.txt) and the detailed output saved in [test/test2output.txt](test/test2output.txt):
+
+* [x] Deploy BTTSTokenFactory
+* [x] Deploy EVE token using `BTTSTokenFactory.deployBTTSTokenContract(...)`
+* [x] Deploy DeveryCrowdsale contract
+* [x] Link and set up contracts
+  * [x] `crowdsale.setBTTSToken(token)`
+  * [x] `eveToken.setMinter(crowdsale)`
+  * [x] `crowdsale.generateTokensForPresaleAccounts(...)`
+  * [x] `vesting.addEntryInDays(...)`, `vesting.addEntryInMonths(...)` and `vesting.addEntryInYears(...)`
+* [x] Send test contribution from the crowdsale contract owner account before the crowdsale starts
+* [x] Send contributions after the crowdsale starts when PICOPS registration is required and there is an individual cap
+* [x] Send contributions after the first period when PICOPS is not required and there is no account cap
+* [x] Finalise crowdsale
+* [x] Enable token transfers
+* [x] Withdraw tokens from the vesting contract
+* [x] `transfer(...)`, `approve(...)` and `transferFrom(...)` some tokens
+
+<br />
+
+Details of the testing environment can be found in [test](test).
+
+<br />
+
+<hr />
+
 ## Code Review
 
-* [ ] [code-review/DeveryCrowdsale.md](code-review/DeveryCrowdsale.md)
+* [x] [code-review/DeveryCrowdsale.md](code-review/DeveryCrowdsale.md)
   * [x] contract ERC20Interface
   * [x] contract BTTSTokenInterface is ERC20Interface
   * [x] contract PICOPSCertifier
   * [x] library SafeMath
   * [x] contract Owned
-  * [ ] contract DeveryVesting
-  * [ ] contract DeveryCrowdsale is Owned
+  * [x] contract DeveryVesting
+  * [x] contract DeveryCrowdsale is Owned
 
 <br />
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for Devery - Jan 17 2018. The MIT Licence.
+(c) BokkyPooBah / Bok Consulting Pty Ltd for Devery - Jan 18 2018. The MIT Licence.

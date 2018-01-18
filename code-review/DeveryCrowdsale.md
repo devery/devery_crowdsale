@@ -478,53 +478,91 @@ contract DeveryCrowdsale is Owned {
     event FirstPeriodCapUpdated(uint oldFirstPeriodCap, uint newFirstPeriodCap);
     event Contributed(address indexed addr, uint ethAmount, uint ethRefund, uint accountEthAmount, uint usdAmount, uint bonusPercent, uint eveAmount, uint contributedEth, uint contributedUsd, uint generatedEve);
 
+    // BK Ok - Constructor
     function DeveryCrowdsale() public {
+        // BK Ok
         vestingTeamWallet = new DeveryVesting(this);
     }
 
+    // BK Ok - Only owner can execute, before start
     function setBTTSToken(address _bttsToken) public onlyOwner {
+        // BK Ok
         require(now <= startDate);
+        // BK Ok - Log event
         BTTSTokenUpdated(address(bttsToken), _bttsToken);
+        // BK Ok
         bttsToken = BTTSTokenInterface(_bttsToken);
     }
+    // BK Ok - Only owner can execute, before start
     function setPICOPSCertifier(address _picopsCertifier) public onlyOwner {
+        // BK Ok
         require(now <= startDate);
+        // BK Ok - Log event
         PICOPSCertifierUpdated(address(picopsCertifier), _picopsCertifier);
+        // BK Ok
         picopsCertifier = PICOPSCertifier(_picopsCertifier);
     }
+    // BK Ok - Only owner can execute
     function setWallet(address _wallet) public onlyOwner {
+        // BK Ok - Log event
         WalletUpdated(wallet, _wallet);
+        // BK Ok
         wallet = _wallet;
     }
+    // BK Ok - Only owner can execute
     function setReserveWallet(address _reserveWallet) public onlyOwner {
+        // BK Ok - Log event
         ReserveWalletUpdated(reserveWallet, _reserveWallet);
+        // BK Ok
         reserveWallet = _reserveWallet;
     }
+    // BK Ok - Only owner can execute
     function setStartDate(uint _startDate) public onlyOwner {
+        // BK Ok
         require(_startDate >= now);
+        // BK Ok - Log event
         StartDateUpdated(startDate, _startDate);
+        // BK Ok
         startDate = _startDate;
     }
+    // BK Ok - Only owner can execute
     function setFirstPeriodEndDate(uint _firstPeriodEndDate) public onlyOwner {
+        // BK Ok
         require(_firstPeriodEndDate >= now);
+        // BK Ok
         require(_firstPeriodEndDate >= startDate);
+        // BK Ok - Log event
         FirstPeriodEndDateUpdated(firstPeriodEndDate, _firstPeriodEndDate);
+        // BK Ok
         firstPeriodEndDate = _firstPeriodEndDate;
     }
+    // BK Ok - Only owner can execute
     function setEndDate(uint _endDate) public onlyOwner {
+        // BK Ok
         require(_endDate >= now);
+        // BK Ok
         require(_endDate >= firstPeriodEndDate);
+        // BK Ok - Log event
         EndDateUpdated(endDate, _endDate);
+        // BK Ok
         endDate = _endDate;
     }
+    // BK Ok - Only owner can execute, before start
     function setUsdPerKEther(uint _usdPerKEther) public onlyOwner {
+        // BK Ok
         require(now <= startDate);
+        // BK Ok - Log event
         UsdPerKEtherUpdated(usdPerKEther, _usdPerKEther);
+        // BK Ok
         usdPerKEther = _usdPerKEther;
     }
+    // BK Ok - Only owner can execute
     function setFirstPeriodCap(uint _firstPeriodCap) public onlyOwner {
+        // BK Ok
         require(_firstPeriodCap >= MIN_CONTRIBUTION_ETH);
+        // BK Ok - Log event
         FirstPeriodCapUpdated(firstPeriodCap, _firstPeriodCap);
+        // BK Ok
         firstPeriodCap = _firstPeriodCap;
     }
 
@@ -542,123 +580,215 @@ contract DeveryCrowdsale is Owned {
     //           = 5,866.19890440108697
     // usdPerEve = 1,000 / 5,866.19890440108697 = 0.170468137254902 
 
+    // BK Ok - View function
     function capEth() public view returns (uint) {
+        // BK Ok
         return CAP_USD * 10**uint(3 + 18) / usdPerKEther;
     }
+    // BK Ok - View function
     function presaleEth() public view returns (uint) {
+        // BK Ok
         return presaleToken.totalSupply();
     }
+    // BK Ok - View function
     function crowdsaleEth() public view returns (uint) {
+        // BK Ok
         return capEth().sub(presaleEth());
     }
+    // BK Ok - View function
     function eveFromEth(uint ethAmount, uint bonusPercent) public view returns (uint) {
+        // BK Ok
         uint adjustedEth = presaleEth().mul(100 + PRESALE_BONUS_PERCENT).add(crowdsaleEth().mul(100)).div(100);
+        // BK Ok
         return ethAmount.mul(100 + bonusPercent).mul(PRESALEPLUSCROWDSALE_EVE).div(adjustedEth).div(100);
     }
+    // BK Ok - View function
     function evePerEth() public view returns (uint) {
+        // BK Ok
         return eveFromEth(10**18, 0);
     }
+    // BK Ok - View function
     function usdPerEve() public view returns (uint) {
+        // BK Ok
         uint evePerKEth = eveFromEth(10**(18 + 3), 0);
+        // BK Ok
         return usdPerKEther.mul(10**(18 + 18)).div(evePerKEth);
     }
 
+    // BK Ok - Only owner can execute
     function generateTokensForPresaleAccounts(address[] accounts) public onlyOwner {
+        // BK Ok
         require(bttsToken != address(0));
+        // BK Ok
         require(!presaleProcessed);
+        // BK Ok
         for (uint i = 0; i < accounts.length; i++) {
+            // BK Ok
             address account = accounts[i];
+            // BK Ok
             uint ethAmount = presaleToken.balanceOf(account);
+            // BK Ok
             uint eveAmount = bttsToken.balanceOf(account);
+            // BK Ok
             if (eveAmount == 0 && ethAmount != 0) {
+                // BK Ok
                 presaleEthAmountsProcessed = presaleEthAmountsProcessed.add(ethAmount);
+                // BK Ok
                 accountEthAmount[account] = accountEthAmount[account].add(ethAmount);
+                // BK Ok
                 eveAmount = eveFromEth(ethAmount, PRESALE_BONUS_PERCENT);
+                // BK Ok
                 eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
+                // BK Ok
                 bonusTokensAllocate[account] = true;
+                // BK Ok
                 uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
+                // BK Ok
                 contributedEth = contributedEth.add(ethAmount);
+                // BK Ok
                 contributedUsd = contributedUsd.add(usdAmount);
+                // BK Ok
                 generatedEve = generatedEve.add(eveAmount);
+                // BK Ok - Log event
                 Contributed(account, ethAmount, 0, ethAmount, usdAmount, PRESALE_BONUS_PERCENT, eveAmount,
                     contributedEth, contributedUsd, generatedEve);
+                // BK Ok
                 bttsToken.mint(account, eveAmount, false);
             }
         }
+        // BK Ok
         if (presaleEthAmountsProcessed == presaleToken.totalSupply()) {
+            // BK Ok
             presaleProcessed = true;
         }
     }
 
+    // BK Ok - Contributors send ETH here, payable
     function () public payable {
+        // BK Ok
         require(!finalised);
+        // BK Ok
         uint ethAmount = msg.value;
+        // BK Ok
         if (msg.sender == owner) {
+            // BK Ok
             require(msg.value == MIN_CONTRIBUTION_ETH);
+        // BK Ok
         } else {
+            // BK Ok
             require(now >= startDate && now <= endDate);
+            // BK Ok
             if (now <= firstPeriodEndDate) {
+                // BK Ok
                 require(accountEthAmount[msg.sender].add(ethAmount) <= firstPeriodCap);
+                // BK Ok
                 require(picopsCertifier.certified(msg.sender));
             }
         }
+        // BK Ok
         require(contributedEth < capEth());
+        // BK Ok
         require(msg.value >= MIN_CONTRIBUTION_ETH);
+        // BK Ok
         uint ethRefund = 0;
+        // BK Ok
         if (contributedEth.add(ethAmount) > capEth()) {
+            // BK Ok
             ethAmount = capEth().sub(contributedEth);
+            // BK Ok
             ethRefund = msg.value.sub(ethAmount);
         }
+        // BK Ok
         uint usdAmount = ethAmount.mul(usdPerKEther).div(10**uint(3 + 18));
+        // BK Ok
         uint eveAmount = eveFromEth(ethAmount, 0);
+        // BK Ok
         if (picopsCertifier.certified(msg.sender) && !bonusTokensAllocate[msg.sender]) {
+            // BK Ok
             eveAmount = eveAmount.add(PER_ACCOUNT_ADDITIONAL_TOKENS);
+            // BK Ok
             bonusTokensAllocate[msg.sender] = true;
         }
+        // BK Ok
         generatedEve = generatedEve.add(eveAmount);
+        // BK Ok
         contributedEth = contributedEth.add(ethAmount);
+        // BK Ok
         contributedUsd = contributedUsd.add(usdAmount);
+        // BK Ok
         accountEthAmount[msg.sender] = accountEthAmount[msg.sender].add(ethAmount);
+        // BK Ok
         bttsToken.mint(msg.sender, eveAmount, false);
+        // BK Ok
         if (ethAmount > 0) {
+            // BK Ok
             wallet.transfer(ethAmount);
         }
+        // BK Ok - Log event
         Contributed(msg.sender, ethAmount, ethRefund, accountEthAmount[msg.sender], usdAmount, 0, eveAmount,
             contributedEth, contributedUsd, generatedEve);
+        // BK Ok
         if (ethRefund > 0) {
+            // BK Ok
             msg.sender.transfer(ethRefund);
         }
     }
 
+    // BK Ok - Pure function
     function roundUp(uint a) internal pure returns (uint) {
+        // BK Ok
         uint multiple = 10**uint(TOKEN_DECIMALS);
+        // BK Ok
         uint remainder = a % multiple;
+        // BK Ok
         if (remainder > 0) {
+            // BK Ok
             return a.add(multiple).sub(remainder);
         }
     }
+    // BK Ok - Only owner can execute
     function finalise() public onlyOwner {
+        // BK Ok
         require(!finalised);
+        // BK Ok
         require(now > endDate || contributedEth >= capEth());
+        // BK Ok
         uint total = generatedEve.mul(100).div(uint(100).sub(TEAM_PERCENT_EVE).sub(RESERVE_PERCENT_EVE));
+        // BK Ok
         uint amountTeam = total.mul(TEAM_PERCENT_EVE).div(100);
+        // BK Ok
         uint amountReserve = total.mul(RESERVE_PERCENT_EVE).div(100);
+        // BK Ok
         generatedEve = generatedEve.add(amountTeam).add(amountReserve);
+        // BK Ok
         uint rounded = roundUp(generatedEve);
+        // BK Ok
         if (rounded > generatedEve) {
+            // BK Ok
             uint dust = rounded.sub(generatedEve);
+            // BK Ok
             generatedEve = generatedEve.add(dust);
+            // BK Ok
             amountReserve = amountReserve.add(dust);
         }
+        // BK Ok
         if (generatedEve > TARGET_EVE) {
+            // BK Ok
             uint diff = generatedEve.sub(TARGET_EVE);
+            // BK Ok
             generatedEve = TARGET_EVE;
+            // BK Ok
             amountReserve = amountReserve.sub(diff);
         }
+        // BK Ok
         bttsToken.mint(address(vestingTeamWallet), amountTeam, false);
+        // BK Ok
         bttsToken.mint(reserveWallet, amountReserve, false);
+        // BK Ok
         bttsToken.disableMinting();
+        // BK Ok
         vestingTeamWallet.finalise();
+        // BK Ok
         finalised = true;
     }
 }
