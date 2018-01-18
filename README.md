@@ -1,13 +1,26 @@
-# Devery Crowdsale Contract 
+# Devery Crowdsale Contract
+
+## Mainnet Deployment
+
+* Crowdsale contract [0x87766C251F604163b23802C6b30DAe398F49528C](https://etherscan.io/address/0x87766C251F604163b23802C6b30DAe398F49528C#code)
+* Token contract [0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c](https://etherscan.io/token/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c)
+* Vesting contract [0x93c625B959b55F67CDdd7bAed6eC50D1acEb3B13](https://etherscan.io/address/0x93c625B959b55F67CDdd7bAed6eC50D1acEb3B13)
+* Multisig [0x87410eE93BDa2445339c9372b20BF25e138F858C](https://etherscan.io/address/0x87410eE93BDa2445339c9372b20BF25e138F858C#internaltx)
+* Presale contract [0x8ca1d9C33c338520604044977be69a9AC19d6E54](https://etherscan.io/address/0x8ca1d9C33c338520604044977be69a9AC19d6E54)
+
+<br />
+
+<hr />
 
 ## Requirements
-* 100 Million tokens 
-* Presale 5% bonus 
+* 100 Million tokens
+
+* Presale 5% bonus
 * 20ETH max contributions for 24hrs, afterwards cap is removed - we can change this number
 * PICOPS users get a bonus of 150EVE  - we can change this number
-* The contract will open when date starts, this date can be in the past. 
+* The contract will open when date starts, this date can be in the past.
 * Rejects funding at 10 million USD cap set with USD price per ETH
-* Owner must call crowdsale contract to close. 1 week lockup from end of sale whether it fills or not.  
+* Owner must call crowdsale contract to close. 1 week lockup from end of sale whether it fills or not.
 * Unsold tokens are not generated.
 
 <br />
@@ -77,6 +90,7 @@ When all the presale accounts have been processed, the `DeveryCrowdsale.presaleP
 
 ### Finalisation
 
+* Note that the vesting entries will need to be filled before the crowdsale can be finalised
 * Execute `deveryCrowdsale.finalise()`
 
 <br />
@@ -126,11 +140,11 @@ saved in [test/test1results.txt](test/test1results.txt) and the detailed output 
 * [x] Contribute from non-whitelisted address below cap, expecting failure
 * [x] Contribute above cap, excess refunded
 * [x] Increase cap
-* [x] Contribute below cap 
+* [x] Contribute below cap
 * [x] Manually close sale
 
 The totalSupply has been set up to match the 4561.764705882352941176 ETH collected from the DeveryPresale contract at
-[0x8ca1d9C33c338520604044977be69a9AC19d6E54](https://etherscan.io/address/0x8ca1d9C33c338520604044977be69a9AC19d6E54#readContract). 
+[0x8ca1d9C33c338520604044977be69a9AC19d6E54](https://etherscan.io/address/0x8ca1d9C33c338520604044977be69a9AC19d6E54#readContract).
 
 This DeveryPresale contract is then used in the next step to generate the token balances for each presale contributor account in the
 DeveryCrowdsale contract in the next section.
