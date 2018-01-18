@@ -27,6 +27,8 @@
   * `mintable` = `true`
   * `transferable` = `false`
 
+The EVE tokens has been deployed to [0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c](https://etherscan.io/address/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c#code).
+
 <br />
 
 ### Deploy Devery Crowdsale Contract
