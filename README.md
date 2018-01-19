@@ -12,6 +12,27 @@
 
 <hr />
 
+## Crowdsale Statistics
+
+The crowdsale sold out 17 minutes after the initial 12 hour period when then was a contribution cap of 3 ETH. Following are the statistics after
+the crowdsale sold out, and before the team and reserve tokens have been allocated:
+
+Individual contribution statistics can be found at [scripts/DeveryCrowdsaleSummary.json](scripts/DeveryCrowdsaleSummary.json).
+
+From [https://etherscan.io/token/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c](https://etherscan.io/token/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c):
+
+<kbd><img src="images/EtherScan-TokenScreen-20180119-220703.png" /></kbd>
+
+<br />
+
+From [https://etherscan.io/token/tokenholderchart/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c](https://etherscan.io/token/tokenholderchart/0x923108a439C4e8C2315c4f6521E5cE95B44e9B4c):
+
+<kbd><img src="images/EtherScan-TokenHolderChart-20180119-220609.png" /></kbd>
+
+<br />
+
+<hr />
+
 ## Requirements
 * 100 Million tokens
 
